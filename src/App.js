@@ -1,24 +1,38 @@
-import logo from './logo.svg';
+
 import './App.css';
+import  Register from './pages/Register'
+import  Dashboard from './pages/Dashboard'
+import SideBar from './components/SideBar';
+import Programs from './pages/Programs';
+import Members from './pages/Members';
+import Settings from './pages/Settings';
+import  Login from './pages/Login'
+import { useState } from 'react'
+import {Routes, Route} from 'react-router-dom'
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState(false)
+
+  const handleLogin = ()=>{
+    setLoggedIn(true)
+  }
+
+  const handleLogout = ()=>{
+    setLoggedIn(false)
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+
+    <Routes> 
+      {!loggedIn ? (
+        <>
+          <Route path='register' element={<Register/>}/>
+          <Route path='/' element={<Login onLogin={handleLogin} />}/>
+        </>
+      ):(
+        <Route path='dashboard' element={<Dashboard/>}/>
+      )}   
+      
+    </Routes>
   );
 }
 
