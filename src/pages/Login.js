@@ -41,7 +41,7 @@ const Login = ({onLogin})=>{
                     contact: "",
                     password: ""
                 })
-                navigate('/dashboard')
+                navigate('/')
             }else{
                 console.log("The connection has a problem")
             }

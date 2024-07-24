@@ -8,10 +8,10 @@ import Members from './pages/Members';
 import Settings from './pages/Settings';
 import  Login from './pages/Login'
 import { useState } from 'react'
-import {Routes, Route} from 'react-router-dom'
+import {Routes, Route, Navigate} from 'react-router-dom'
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false)
+  const [loggedIn, setLoggedIn] = useState(true)
 
   const handleLogin = ()=>{
     setLoggedIn(true)
@@ -26,10 +26,18 @@ function App() {
       {!loggedIn ? (
         <>
           <Route path='register' element={<Register/>}/>
-          <Route path='/' element={<Login onLogin={handleLogin} />}/>
+          <Route path='login' element={<Login onLogin={handleLogin} />}/>
+          <Route path='*' element={<Navigate to="/login" />} /> // for redirecting any unmatched url to the login page
         </>
       ):(
-        <Route path='dashboard' element={<Dashboard/>}/>
+        <Route path='/' element={<SideBar onLogout={handleLogout} />}>
+          <Route index element={<Dashboard />} />
+          <Route path='/members' element={<Members />} />
+          <Route path='/programs' element={<Programs />} />
+          <Route path='/settings' element={<Settings />} />
+          <Route path='*' element={<Navigate to="/" />} /> // for redirecting any unmatched url to the login page
+          
+      </Route>
       )}   
       
     </Routes>

@@ -1,12 +1,14 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink , Outlet} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 
-const SideBar = ({children})=>{
-
+const SideBar = ({onLogout})=>{
+    
+    
     const menuItem = [
         {
-            "path" : "/dashboard",
+            "path" : "/",
             "name" : "Dashboard",
            
         },
@@ -26,6 +28,30 @@ const SideBar = ({children})=>{
             
         }
     ]
+
+    const handleLogout  = async() =>{
+        try {
+            
+            const res =  await fetch('http://127.0.0.1:8000/logout/', {
+                method : "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                }  
+            })
+
+            if (res.ok){
+                onLogout()
+            }else{
+                console.log("Something went wrong")
+            }
+
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+ 
     return (
         <div className='container'>
             <div className="sidebar">
@@ -42,11 +68,15 @@ const SideBar = ({children})=>{
                         </NavLink>
                     ))
                 }
-
+                <a href="#" >
+                    <div onClick={handleLogout}>logout</div>
+                </a>
                 </div>
                 
             </div>
-            <main>{children}</main>
+            <main>
+                <Outlet /> 
+            </main>
         </div>
     )
 }
