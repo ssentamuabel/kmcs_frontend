@@ -1,0 +1,79 @@
+/* Alert container styles */
+#alert-container, 
+#custom-alert,
+#alert-buttons{
+    display: flex;
+    align-items: center;
+}
+
+
+
+
+#alert-container{
+    position :fixed;
+    top:0;
+    left:0;
+    bottom: 0;
+    background: #07473453;
+    height: 100vh;
+    width:100%;
+    justify-content: center;
+    z-index:3;
+}
+
+
+#custom-alert{
+    position:absolute;
+    background: #fff;
+    padding: 10px;
+    width: 20vw;
+    height: 15vh;
+    border-radius: 5px;   
+    flex-direction: column;
+    justify-content: space-around;
+    
+    
+}
+
+#alert-buttons{
+    gap:2em;
+}
+
+#alert-buttons button{
+    padding: 0.4em;
+    gap:1em;
+    font-weight: bold;
+    width:5em;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+/* Tablet size styles  */
+@media (max-width: 768px) {
+
+    #custom-alert{
+        width: 35vw;          
+       
+    }
+   
+}
+
+
+
+
+
+/* mobile size styles  */
+@media (max-width: 480px) {
+
+    #custom-alert{
+        width: 50vw;          
+       
+    }
+
+}

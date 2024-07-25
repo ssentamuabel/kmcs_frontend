@@ -1,11 +1,12 @@
 import React from 'react'
+import '../styles/common.css'
 
 
 
 const Settings = ()=>{
     return (
-        <div>
-            <h1>Users Page</h1>
+        <div className='container'>
+            <h1>Settings  Page</h1>
             
         </div>
     )

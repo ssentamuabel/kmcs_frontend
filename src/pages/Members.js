@@ -1,10 +1,10 @@
 import React from 'react'
-
+import '../styles/common.css'
 
 
 const Members = ()=>{
     return (
-        <div>
+        <div className='container'>
             <h1>Members page</h1>
             
         </div>

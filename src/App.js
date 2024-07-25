@@ -1,5 +1,5 @@
 
-import './App.css';
+import './styles/App.css';
 import  Register from './pages/Register'
 import  Dashboard from './pages/Dashboard'
 import SideBar from './components/SideBar';

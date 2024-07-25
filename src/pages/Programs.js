@@ -1,10 +1,11 @@
 import React from 'react'
+import '../styles/common.css'
 
 
 
 const Programs = ()=>{
     return (
-        <div>
+        <div className='container'>
             <h1>Programs Page</h1>
             
         </div>

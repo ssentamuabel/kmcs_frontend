@@ -1,0 +1,232 @@
+*{
+    margin:0;
+    padding: 0;
+    border:none;
+    text-decoration: none;
+    outline:none;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* 
+colors
+#074734
+#F4F9FD
+#115BFB
+#000
+#fff
+*/
+
+
+/* common styles */
+
+
+
+/* top level styles  */
+
+.top-container{
+    display:flex;
+    background: #F4F9FD;
+}
+main{
+    width:100%;
+}
+
+#menu-bar{
+    display:none;
+}
+
+
+
+#top-header{
+    background: #f0f0f0;
+    padding: 15px;
+    display:flex;
+    justify-content:space-between;
+    align-items: center;
+    color:#000;
+    
+}
+#top-header .title{
+    letter-spacing: 1px;
+    font-size: 1.3em;
+}
+#top-header .user{
+    display: flex;
+    gap: 2em;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+#logout #logout-icon{
+    font-size: 1.5em;
+    font-weight:bolder;
+    color:red;
+}
+
+
+
+
+.user #user-name{
+    font-size:1em;
+    font-weight: bold;
+    color:#000;
+    display: flex;    
+    text-align: center;
+    text-transform: uppercase;
+    
+    
+}
+
+
+#logout,  #pen-icon{
+    cursor: pointer;
+}
+
+ #pen-icon{
+    font-size: 1.2em;
+    padding: 0 4px;
+    color: #115BFB;
+    
+}
+
+#logout p{
+    font-size: 0.8em;
+    font-weight: bold;
+    
+}
+
+
+/* side bar styles  */
+
+.sidebar{
+    display: block;
+    height:100vh;
+    background: #074734;
+    color:#fff;
+    width: 180px;
+    padding: 0  0.8em;
+    position:sticky;
+    top:0;
+    left: 0;
+    bottom: 0; 
+}
+
+.top-section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1em auto;
+}
+
+.link{
+   
+    display: flex;
+    gap:8px;
+    padding: 10px 15px;
+    margin-bottom: 0.3em;
+    color:#fff;
+    border-radius: 5px;
+    width:100%;
+}
+.nav{
+    margin-top: 2em;
+}
+
+.sidebar .logo{
+    font-size: 3em;
+}
+
+
+.link .link-text{    
+    font-weight: bold;
+    overflow: hidden;
+}
+
+
+.link:hover, .active{
+    background-color:#ffffff2d;
+    transition: all 0.5s ease-in-out;    
+    
+}
+
+
+
+
+
+
+/* Tablet View Css */
+
+@media (max-width: 768px) {
+  
+    #top-header{    
+        padding: 10px;
+    }
+    #top-header .user{   
+        width:100%;
+    }
+
+    #top-header .title{
+       display:none;
+    }
+    .sidebar{
+        display: block;
+        
+    }
+
+   
+    .user #user-name{
+        font-size:1.2em;
+        font-weight: bold;
+
+    }
+
+     #pen-icon{
+        padding: 0 8px;
+    }
+
+    /* side bar styles  */
+
+}
+
+
+
+
+
+
+
+/* mobile size styles  */
+@media (max-width: 480px) {
+
+    main{
+        position: absolute;
+    }
+    .sidebar{
+        display: none;
+        z-index:1;
+    }
+    
+    #menu-bar{
+        display:flex;        
+        align-items: center;        
+        width:65%;
+        gap:1em;        
+    }
+
+    #logout >p, #user-p{
+        display: none;
+    }
+   
+    #menu-bar > h4{
+        font-size: 1.5em;
+        letter-spacing: 2px;
+        font-weight: bold;
+    }
+    #menu-icon{
+        font-size: 2em;
+        color:#115BFB;
+    }
+   
+}

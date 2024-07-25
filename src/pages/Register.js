@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import { useState } from 'react'
-import  '../App.css'
+import '../styles/common.css'
 
 const Register = ()=>{
     const [formdata, setFormdata] = useState({

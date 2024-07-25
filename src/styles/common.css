@@ -1,0 +1,22 @@
+
+.container{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20%  auto;
+}
+
+.danger{
+    color: red;
+}
+.info{
+    color:blue
+}
+
+.go{
+    color:green;
+}
+
+.black{
+    color:#000;
+}

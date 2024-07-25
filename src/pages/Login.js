@@ -2,7 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import  '../App.css'
+import '../styles/common.css'
 
 const Login = ({onLogin})=>{
     const [formdata, setFormdata] = useState({
