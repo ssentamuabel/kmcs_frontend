@@ -17,7 +17,7 @@ import { TbRuler2 } from 'react-icons/tb'
 
 
 
-const SideBar = ({onLogout})=>{
+const SideBar = ({onLogout, username})=>{
 
     const [menuState, setMenuState] = useState(false)
     const sidebarRef = useRef(null);
@@ -102,19 +102,20 @@ const SideBar = ({onLogout})=>{
  
     return (
         <div className='top-container'>
-             { confirm && <Alert 
+             { confirm && (<Alert 
                     type='Confirm'
                     message ="Are sure you want to logout!!"
                     onCancel={()=>{setConfirm(false)}} 
                     onConfirm={handleLogout}
-                    />
+                    />)           
                 }
                 
-                { errorAlert && <Alert 
-                    type='Error'
-                    message ={error}
-                    onCancel={()=>{setErrorAlert(false)}}                     
-                    />
+                { 
+                    errorAlert && (<Alert 
+                        type='Error'
+                        message ={error}
+                        onCancel={()=>{setErrorAlert(false)}}                     
+                        />)
                 }      
             <div ref={sidebarRef} className="sidebar">
                 <div className="top-section">
@@ -131,15 +132,13 @@ const SideBar = ({onLogout})=>{
                             <div className="link-text">{item.name}</div>
                         </NavLink>
                     ))
-                }
-               
+                }               
                 </div>
-
                          
             </div>
             <main>
                 <Header 
-                    name="Kitenda" 
+                    name={username}
                     onLogout={()=>{setConfirm(true); console.log("Am pressed")}}
                     onMenuClick={handleMenuClick}
                 />

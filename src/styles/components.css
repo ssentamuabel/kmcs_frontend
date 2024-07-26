@@ -48,9 +48,55 @@
 }
 
 
+/* 
+
+InputComponet styles 
+
+*/
+#input-container, #select-container{
+    max-width: 100%;    
+    border:1px solid #000;
+    display:flex;
+    align-items: center;
+    padding: 0.3em;
+    margin-bottom: 1em;
+}
+
+#input-icon, #password-icon{
+    font-size: 0.9em;
+    margin-right: 0.2em;
+}
+#input-error{
+    color:red;
+    font-size: 0.7em;
+    font-weight: bold;
+  
+}
 
 
 
+#select-container select{
+    width:100%;
+}
+
+
+#select-container select , input{
+   color:#000;
+   background: #fff;
+   font-size: 1em;
+}
+
+
+/* 
+
+Button Component
+
+*/
+
+#submit{
+    color:#fff;
+    background: blue;
+}
 
 
 

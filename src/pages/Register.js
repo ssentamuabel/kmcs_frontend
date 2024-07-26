@@ -1,9 +1,28 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import { useState } from 'react'
 import '../styles/common.css'
+import Input from '../components/InputComponet'
+import Button from '../components/Button'
+import Select from '../components/SelectComponent'
+import Alert from '../components/Alert'
+
+import {
+    FaUser,
+    FaPhoneAlt,
+    FaEnvelope,
+    FaUserTag,
+    FaMicroscope,
+    FaHome
+
+} from 'react-icons/fa'
 
 const Register = ()=>{
+
+    const [isLoading, setIsLoading] = useState(false)
+    const [error, setError] = useState('')
+    const [errorAlert, setErrorAlert] = useState(false)
+    const navigate = useNavigate()
     const [formdata, setFormdata] = useState({
         sur_name: "",
         first_name: "",
@@ -13,8 +32,17 @@ const Register = ()=>{
         gender: "",
         member_type : ""
     });
+
+    const gender_options = [
+        {value: 'false', name :'Male'},
+        {value: 'true', name :'Female'}
+    ]
+
+    const memberType_options = [
+        {value: 'false', name :'Student'},
+        {value: 'true', name :'Alumnus'}
+    ]
    
-    const [isLoading, setIsLoading] = useState(false)
 
     const handleChange = (e)=>{
         setFormdata({
@@ -48,7 +76,9 @@ const Register = ()=>{
                 },          
                 body : JSON.stringify(data)
             })
-            
+
+            const jsondata = await response.json()
+
             if (response.ok){
                 setFormdata({
                     ...formdata,
@@ -60,18 +90,16 @@ const Register = ()=>{
                     gender: "",
                     member_type : ""
                 })
+                navigate('/login')
             }else{
-                console.log("The connection has a problem")
+                setError(` ${jsondata.detail}: try once again`)
+                setErrorAlert(true)
             }
-            
-
-            const jsondata = await response.json()
-            console.log(jsondata)
-            
-                        
+           
             
         }catch (error) {
-            console.log(error)
+            setError('Connection Problem')
+            setErrorAlert(true)
         }finally {
             setIsLoading(false); // Ensure loading state is reset
         }
@@ -80,34 +108,83 @@ const Register = ()=>{
    
     return (
         <div className='container'>
+            { 
+                errorAlert && (<Alert 
+                type='Error'
+                message ={error}
+                 onCancel={()=>{setErrorAlert(false)}}                     
+                />)
+            } 
             <form>
-                <input type="text" name="sur_name" placeholder='Sur name' value={formdata.sur_name} onChange={handleChange} /> 
-                <br/>
-                <input type="text" name="first_name" placeholder='First Name' value={formdata.first_name} onChange={handleChange}  /> 
-                <br/>
-                <input type="text" name="contact" placeholder='Contact' value={formdata.contact} onChange={handleChange} /> 
-                <br/>
-                <input type="email" name="email" placeholder='Email' value={formdata.email} onChange={handleChange} /> 
-                <br/>
-                <input type="text" name="reg_no"   placeholder='Registration No' value={formdata.reg_no} onChange={handleChange} /> 
-                <br/>
-                <select name="gender"  onChange={handleChange}>
-                    <option value={formdata.gender}>Selct the gender</option>
-                    <option value="false">Male</option>
-                    <option value="true">Female</option>                    
-                </select>
-                <br/>
-                <select name="member_type" value={formdata.member_type} onChange={handleChange} >
-                    <option value={formdata.member_type}>Student</option>
-                    <option value="false">Student</option>
-                    <option value="true">Alumnus</option>                    
-                </select>
-                <br />
+
+                <Input 
+                    icon = {<FaUser />}
+                    placeholder = "Surname"
+                    value={formdata.sur_name}
+                    onChange={handleChange}
+                    name="sur_name"
+                        
+                />
+                <Input 
+                    icon = {<FaUser />}
+                    placeholder='First Name'
+                    value={formdata.first_name}
+                    onChange={handleChange}
+                    name="first_name"
+                        
+                />
+
+                <Input 
+                    icon = {<FaPhoneAlt />}
+                    placeholder='Contact number'
+                    value={formdata.contact}
+                    onChange={handleChange}
+                    name="contact"
+                        
+                />
+                <Input 
+                    icon = {<FaEnvelope />}
+                    placeholder='Email Address'
+                    value={formdata.email}
+                    onChange={handleChange}
+                    name="email"
+                    type="email"
+                        
+                />
+                <Input 
+                    icon = {<FaUserTag  />}
+                    placeholder='Registration Number'
+                    value={formdata.reg_no}
+                    onChange={handleChange}
+                    name="reg_no"
+    
+                />
+
+                <Select 
+                    options = {gender_options}
+                    name="gender"
+                    label="gender"
+                    value={formdata.gender}
+                    icon = {<FaMicroscope />}
+                    onChange={handleChange}
+                />
+
+                <Select 
+                    options = {memberType_options}
+                    name="member_type"
+                    label="type"
+                    value={formdata.member_type}
+                    icon = {<FaHome />}
+                    onChange={handleChange}
+                />
                 
-                <button type="submit" disabled={isLoading} onClick={handleSubmit} > 
-                    {isLoading ? 'Loading...' : 'Submit'}
-                </button>
-                <br/>                
+                    
+                <Button 
+                    text={isLoading ? 'Loading...' : 'Submit'}
+                    disabled={isLoading}
+                    onClick={handleSubmit}
+                />
+                       
 
             </form>
             <Link to='/login'>Login</Link>
