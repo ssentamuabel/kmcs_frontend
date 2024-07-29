@@ -6,6 +6,15 @@
     margin: 20%  auto;
 }
 
+.page-container{
+   display:flex;
+   /* background: aqua; */
+   height:87vh;
+   padding: 1em 1.2em;
+ 
+  
+}
+
 .danger{
     color: red;
 }

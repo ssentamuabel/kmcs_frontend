@@ -14,7 +14,7 @@ import {jwtDecode} from 'jwt-decode';
 function App() {
   const [loggedIn, setLoggedIn] = useState(false)
   const [decoded, setDecoded] = useState({})
-  const [username, setUsername] = useState('')
+
 
   const handleLogin = ({jwt})=>{
 
@@ -36,7 +36,7 @@ function App() {
           <Route path='*' element={<Navigate to="/login" />} /> // for redirecting any unmatched url to the login page
         </>
       ):(
-        <Route path='/' element={<SideBar onLogout={handleLogout} username={decoded.name} />}>
+        <Route path='/' element={<SideBar onLogout={handleLogout} username={decoded.name ? decoded.name : "Unknown"} />}>
           <Route index element={<Dashboard />} />
           <Route path='/members' element={<Members />} />
           <Route path='/programs' element={<Programs />} />

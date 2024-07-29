@@ -1,0 +1,34 @@
+#profile-container{
+    /* background: green; */
+    
+    display: flex;
+    flex-wrap: wrap;    
+    gap: 1em;    
+    width:100%;
+    
+    
+}
+
+.profile-item .details h4{
+    font-size: 1em;
+    font-weight: bold;
+    padding:2px;
+
+}
+
+
+.profile-item{
+    padding: 0.5em;
+    border: 1px solid #f0f0f0;
+    min-width: 45%;
+   
+}
+#prof-svg{
+    width: 90%;
+    align-items: center;
+}
+
+#prof-svg svg{
+    font-size: 6em;
+    
+}

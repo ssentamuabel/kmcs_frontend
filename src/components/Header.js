@@ -7,8 +7,6 @@ import { CgMenuGridR } from "react-icons/cg";
 
 const Header = ({name, onLogout, onMenuClick})=>{
 
-   
-
     return (
         <div id='top-header'>
              

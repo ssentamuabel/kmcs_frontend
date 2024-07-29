@@ -100,6 +100,122 @@ Button Component
 
 
 
+
+/*
+
+TableComponent styles
+
+*/
+
+#member-click{
+    cursor: pointer;
+    color: blue;
+    text-transform: capitalize;
+}
+
+#tabular-wrapper{
+    margin-top: 0.5rem;
+    background: #fff;
+    padding:1em;
+    border-radius: 5px;
+    width:100%;
+}
+
+#table-container{
+    max-height: 75%;
+    overflow-y:scroll;
+}
+#table-container table{
+    width:100%;
+    border-collapse: collapse;
+}
+#table-container tbody{
+    background-color: #fff;
+    max-height: 200px;
+    overflow-y: auto;
+  
+
+}
+
+#table-container thead{
+    background: #074734d9;
+    color:#fff;
+}
+
+#table-container th,  #table-container td{
+    padding:0.5em;
+    text-align: left;
+}
+
+#table-container td{
+    font-size: 15px;
+    color:#000;
+}
+#table-container tr:nth-child(even){
+    background: #f0f0f0;
+
+}
+
+
+#table-container tfoot{
+    background: #074734d9;
+    font-weight:bold;
+    color:#fff;
+}
+
+#table-container tfoot td{
+    color:#fff;
+}
+
+
+
+#tabular-wrapper #filter-section{
+    padding-bottom: 0.5em;
+    
+}
+
+#filter-section{
+    width: 100%;
+}
+
+#filter-section #add-button, #filter-section #table-search{
+    text-align: end;
+}
+#filter-section tr{
+    display:flex;
+    gap:1.5em;
+    text-align: center;
+    justify-content: center;
+}
+#filter-section td{
+    display: flex;
+    gap: 0.6em;
+    align-items:center;
+    justify-content: center;
+}
+
+#filter-section #table-search{
+    display:flex;   
+    justify-content: end;
+}
+
+#filter-section #select-container,
+#filter-section #input-container{
+    padding: 0.1em;
+    margin-bottom: 0;
+   
+}
+
+
+#filter-section #select-container select, 
+#filter-section #table-search input{   
+    font-size: 15px;
+    margin-bottom: 0;    
+   
+ }
+
+   
+
 /* Tablet size styles  */
 @media (max-width: 768px) {
 

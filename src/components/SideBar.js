@@ -1,7 +1,9 @@
 import React , { useRef, useState } from 'react'
 import { NavLink , Outlet} from 'react-router-dom'
 import Alert from './Alert'
+import kmcs from '../kmcs.png'
 import Header from './Header'
+import Footer from './Footer'
 import { 
     FaTh,
     FaMoneyBillWave,
@@ -118,13 +120,14 @@ const SideBar = ({onLogout, username})=>{
                         />)
                 }      
             <div ref={sidebarRef} className="sidebar">
+              
                 <div className="top-section">
-                <div className="logo"><FaMosque/></div>
-                    <h1 className="title">KMCS</h1>
-                   
+                    <div className="logo">
+                        <img src={kmcs} alt="KMCS" />
+                    </div>
+                                    
                 </div>
-               
-                <div className='nav'>
+                 <div className='nav'>
                 {
                     menuItem.map((item, index)=>(
                         <NavLink  to={item.path} key={index} className='link' onClick={handleNavClick} >                            
@@ -135,6 +138,7 @@ const SideBar = ({onLogout, username})=>{
                 }               
                 </div>
                          
+                         
             </div>
             <main>
                 <Header 
@@ -143,6 +147,7 @@ const SideBar = ({onLogout, username})=>{
                     onMenuClick={handleMenuClick}
                 />
                 <Outlet /> 
+                <Footer />
             </main>
         </div>
     )
