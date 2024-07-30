@@ -15,17 +15,30 @@
     padding:2px;
 
 }
+.profile-item .details p{
+    padding: 1.5px;
+}
 
+.profile-item .details div{
+    margin-top: 0.8em;
+}
 
 .profile-item{
     padding: 0.5em;
     border: 1px solid #f0f0f0;
     min-width: 45%;
-   
+    position: relative  
+}
+.profile-item .edit-icon{
+    position:absolute;
+    top:0;
+    right:0;
+    color:blue;
 }
 #prof-svg{
     width: 90%;
-    align-items: center;
+    display: flex;
+    justify-content: center;
 }
 
 #prof-svg svg{

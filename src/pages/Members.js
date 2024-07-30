@@ -12,7 +12,7 @@ const Members = ()=>{
     const [errorAlert, setErrorAlert] = useState(false)
     const [error, setError] = useState('')
     const [tableData, setTableData] = useState([])
-    const [profile, setProfile] = useState(false)
+    const [profile, setProfile] = useState(true)
 
     
     const member_columns = [
