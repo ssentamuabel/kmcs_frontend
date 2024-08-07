@@ -98,7 +98,7 @@ const Register = ()=>{
            
             
         }catch (error) {
-            setError('Connection Problem')
+            setError(error.message)
             setErrorAlert(true)
         }finally {
             setIsLoading(false); // Ensure loading state is reset

@@ -12,7 +12,8 @@ const Members = ()=>{
     const [errorAlert, setErrorAlert] = useState(false)
     const [error, setError] = useState('')
     const [tableData, setTableData] = useState([])
-    const [profile, setProfile] = useState(true)
+    const [profile, setProfile] = useState(false)
+    const [userid, setUserid] = useState('')
 
     
     const member_columns = [
@@ -82,7 +83,8 @@ const Members = ()=>{
 
     }, [])
 
-    const seeProfile = ()=>{
+    const seeProfile = (id)=>{
+        setUserid(id)
         setProfile(true)
     }
     const handleReturn = () =>{
@@ -101,6 +103,7 @@ const Members = ()=>{
              {profile ? (
                 <Profile
                     onReturn ={handleReturn}
+                    user={userid}
                 />
              ) : (
                  <Table 

@@ -1,10 +1,11 @@
 #profile-container{
-    /* background: green; */
-    
+
     display: flex;
     flex-wrap: wrap;    
     gap: 1em;    
     width:100%;
+    overflow-y: scroll;
+    height:95%;
     
     
 }
@@ -16,7 +17,7 @@
 
 }
 .profile-item .details p{
-    padding: 1.5px;
+    padding: 2.2px;
 }
 
 .profile-item .details div{
@@ -44,4 +45,38 @@
 #prof-svg svg{
     font-size: 6em;
     
+}
+
+
+
+
+/* Tablet size styles  */
+@media (max-width: 768px) {
+    #profile-container{
+        justify-content: center;       
+        
+    }
+    .profile-item .details h4{
+        font-size: 1.1em;
+     
+    }
+    .profile-item{
+        width: 85%;         
+    }
+    
+   
+}
+
+
+
+
+
+/* mobile size styles  */
+@media (max-width: 480px) {
+
+    #custom-alert{
+        width: 50vw;          
+       
+    }
+
 }

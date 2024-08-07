@@ -1,14 +1,22 @@
 import React from 'react'
 
 
-const SelectComponent = ({options,label, value='', small, error, icon, ...props})=>{
+const SelectComponent = ({
+    options,
+    label,
+    defaultValue=false,
+    value='', 
+    small, 
+    error, 
+    icon, ...props})=>{
     return (
         <>
             <div id="select-container" >
                 {icon && <div id="input-icon">{icon}</div>  }
                   
                 <select     {...props}>
-                 <option value=''> {label}</option>
+                    {defaultValue ? (<option value={value}> {value}</option>): (<option value=''> {label}</option>)}
+                 
                     {
                         options && options.map((item)=>(
                             <option key = {item.value} value={item.value}>{item.name}</option>

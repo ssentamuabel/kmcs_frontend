@@ -2,7 +2,14 @@ import React, {useState, useRef, useEffect} from 'react'
 import { FaEye, FaEyeSlash, FaPlus } from 'react-icons/fa'
 
 
-const InputComponet = ({icon, password, error, addbtn, type='text', ...props})=>{
+const InputComponet = ({
+        icon, 
+        password, 
+        error, 
+        addbtn, 
+        handleAddField =()=>{}, 
+        type='text', ...props})=>{
+            
     const inputRef = useRef(null)
     
 
@@ -29,14 +36,11 @@ const InputComponet = ({icon, password, error, addbtn, type='text', ...props})=>
     return (
         <>
             <div  id="input-container">
-                <div id="input-icon">{icon}</div>
-                <div >
-                    <input ref={inputRef}
-                       
-                    {...props}  />      
-                </div>
+                <div id="input-icon">{icon}</div>                
+                <input ref={inputRef}      {...props}  />      
+                
                 {password && <span id="password-icon" onClick={handleShowPassword}>{showPassword ? <FaEye/> :<FaEyeSlash/> }</span>}
-                {addbtn && <span id="password-icon"><FaPlus /></span >}
+                {addbtn && <span id="password-icon" onClick={handleAddField}><FaPlus /></span >}
                         
             </div>
             {error && <span id="input-error">{error}</span>}

@@ -17,25 +17,28 @@ const TableComponent = ({columns, filter_data, table_data, memberClick})=>{
                          <Button text = "Add" />
                      </div>
                      <table>
-                         <tr>
-                             {
-                                 filter_data.map((item,index)=>(
-                                     <td key={index}>
-                                         <p key={index}> {item.name}:</p>
-                                         <Select
-                                         options={item.options}
-                                         label={item.label}                                   
-                                         /> 
-                                     </td>
-                                     
-                                 ))
-                             }                                                                               
-                             
-                             <td>
-                               
-                                 <Button text = "filter" />
-                             </td>
-                         </tr>
+                        <tbody>
+                            <tr>
+                                {
+                                    filter_data.map((item,index)=>(
+                                        <td key={index}>
+                                            <p key={index}> {item.name}:</p>
+                                            <Select
+                                            options={item.options}
+                                            label={item.label}                                   
+                                            /> 
+                                        </td>
+                                        
+                                    ))
+                                }                                                                               
+                                
+                                <td>
+                                
+                                    <Button text = "filter" />
+                                </td>
+                            </tr>
+
+                        </tbody>                         
                      </table>
                      <div id="table-search">
                          <Input />
@@ -59,7 +62,7 @@ const TableComponent = ({columns, filter_data, table_data, memberClick})=>{
                                 table_data.map((member, key)=>(
                                     <tr key={member.id}>
                                         <td>{key}</td>
-                                        <td onClick={memberClick} id="member-click">{member.sur_name + ' ' + member.first_name}</td>
+                                        <td onClick={()=>memberClick(member.id)} id="member-click">{member.sur_name + ' ' + member.first_name}</td>
                                         <td>{member.gender ? 'F': 'M'}</td>
                                         <td>{member.reg_no ? member.reg_no : "Unknown"}</td>
                                         <td>{member.hall_of_attachment ? member.hall_of_attachment : "Nanziri_"}</td>

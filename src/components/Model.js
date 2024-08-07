@@ -1,80 +1,82 @@
-import React from 'react'
-import '../styles/components.css'
-import '../styles/common.css'
-import Input from './InputComponet'
-import { FaUserGear } from "react-icons/fa6";
-import {
-   
-    FaPhoneAlt,    
-    FaUserTag,
-    FaUserGraduate,
-    FaBriefcase
-
-} from 'react-icons/fa'
-
+import React from 'react';
+import FaceForm from '../components/ProfileForms/FaceFormComponent'
+import BioForm from '../components/ProfileForms/BioFormComponent'
+import RelationForm from '../components/ProfileForms/RelationComponent'
+import Institution from '../components/ProfileForms/InstitutionFormComponent'
+import Hobbies from '../components/ProfileForms/HobbiesFormComponent'
+import Disability from '../components/ProfileForms/DisabilityFormComponent'
 
 const Model = ({
-    onCancel = ()=>{},  
-    onConfirm = ()=>{}
-})=>{
-    return (
-        <div id="alert-container">
-            <div id="face-form">
-                <div id="body">
-                    <h4>Face Data</h4>
-                    <div id="form-inputs">
-                        <div id="form-inputs">
-                            <Input 
-                                
-                                placeholder="Sur name"
-                                icon = {<FaUserTag />}
-                            />
-                            <Input 
-                                
-                                placeholder="First name"
-                                icon = {<FaUserTag />}
-                            />
-                             <Input 
-                                
-                                placeholder="Other names"
-                                icon = {<FaUserTag />}
-                            />
-                            
-                            <Input 
-                                addbtn
-                                placeholder="Contact"
-                                icon = {<FaPhoneAlt />}
-                    
-                            />
-                            <Input 
-                                addbtn
-                                placeholder="Occupation"
-                                icon= { <FaBriefcase />}
-                                />
-                            <Input 
-                                addbtn
-                                placeholder="Proffession"
-                                icon= { <FaUserGraduate />}
-                            />
-                            <Input 
-                                addbtn
-                                placeholder="Skills"
-                                icon= { <FaUserGear />}
-                            />
-                            
+  onCancel = () => {},
+  onConfirm = () => {},
+  inData,
+  type
+}) => {
+  
 
-                        </div>
-                                              
-                    </div>
-                </div>
-                <div id="footer">
-                    <button> </button>
-                </div>
-
-            </div>
-
-        </div>
-    )
-}
+  return (
+    <>
+        {type == "face" ? (
+            <FaceForm 
+                onCancel={onCancel}
+                onConfirm={onConfirm}
+                inData={inData}
+            />
+            ): type == "bio" ? (
+            <BioForm 
+                    onCancel={onCancel}
+                    onConfirm={onConfirm}
+                    inData={inData}
+            />
+            ) : type == "guardian" ? (
+              <RelationForm 
+                  onCancel={onCancel}
+                  onConfirm={onConfirm}
+                  inData={inData}
+                  nature="guardian"            
+              />
+            ) : type == "kin" ? (
+              (
+                <RelationForm 
+                    onCancel={onCancel}
+                    onConfirm={onConfirm}
+                    inData={inData}
+                    nature="Next of Kin"            
+                />
+              )
+            ) : type == "inst"  ?(
+              (
+                <Institution 
+                    onCancel={onCancel}
+                    onConfirm={onConfirm}
+                    inData={inData}
+                               
+                />
+              )
+            ): type === "hobby" ? (
+              <Hobbies 
+                  onCancel={onCancel}
+                  onConfirm={onConfirm}
+                  inData={inData}
+                             
+              />
+            ): type === "disability" ? (
+                <Disability
+                  onCancel={onCancel}
+                  onConfirm={onConfirm}
+                  inData={inData}
+                 />
+            ): (
+              <Disability
+                  onCancel={onCancel}
+                  onConfirm={onConfirm}
+                  inData={inData}
+                 />
+            )}
+    </>
+    
+    
+  );
+};
 
 export default Model;

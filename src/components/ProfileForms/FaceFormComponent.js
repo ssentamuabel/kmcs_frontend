@@ -1,9 +1,248 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
+import '../../styles/components.css';
+import '../../styles/common.css';
+import Input from '../InputComponet';
+import Button from '../Button';
+import { FaLocationDot } from "react-icons/fa6";
+import { FaUserGear } from "react-icons/fa6";
+import {
+  
 
-const FaceFormComponent = ()=>{
-    return (
-        <h1>Face Form Component</h1>
-    )
-}
+  FaPhoneAlt,
+  FaUserTag,
+  FaUserGraduate,
+  FaBriefcase,
+} from 'react-icons/fa';
 
-export default FaceFormComponent
+const FaceFormComponent = ({ onCancel, onConfirm, inData }) => {
+  const [formData, setFormData] = useState({
+    sur_name: "",
+    first_name: "",
+    other_name: "",
+    address: "",
+    contact: "",
+    occupation: "",
+    profession: "",
+    skills: "",
+    contacts: [],
+    skillsList: [],
+   
+  });
+
+  useEffect(() => {
+    if (inData) {
+      const { phone_numbers = [], skills = "" } = inData;
+      const skillsList = skills ? skills.split('#') : [];
+      
+
+      setFormData({
+        sur_name: inData.sur_name || "",
+        first_name: inData.first_name || "",
+        other_name: inData.other_name || "",
+        address: inData.residence_address || "",
+        contact: "",  // Set the latest contact in the input field
+        occupation: inData.occupation || "",
+        profession: inData.proffession || "",
+        skills: "",
+        contacts: phone_numbers.map((contact) => ({
+          ...contact,
+          isNew: false,  // Mark existing contacts
+        })),
+        skillsList: skillsList.map((skill, index) => ({ id: index, value: skill })),
+        
+      });
+    }
+  }, [inData]);
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleAddContact = () => {
+    if (formData.contact) {
+      setFormData({
+        ...formData,
+        contacts: [
+          ...formData.contacts,
+          {id: null,   number: formData.contact, isNew: true } // Add new contact with no ID
+        ],
+        contact: "" // Reset the input field
+      });
+    }
+  };
+
+  const handleAddField = (field, listField) => {
+    if (formData[field]) {
+      setFormData({
+        ...formData,
+        [listField]: [
+          ...formData[listField],
+          { id: formData[listField].length, value: formData[field] } // Add new field with no ID
+        ],
+        [field]: "" // Reset the input field
+      });
+    }
+  };
+
+  const handleFieldChange = (e, listField, id) => {
+    setFormData({
+      ...formData,
+      [listField]: formData[listField].map((item) =>
+        item.id === id ? { ...item, value: e.target.value } : item
+      ),
+    });
+  };
+
+  const handleChanges = () => {
+    const { contact, contacts, skills, skillsList} = formData;
+
+	 // Add new contact if there is a value
+	 const newContacts = contact ? [
+		...contacts,
+		{ id: null, number: contact , isNew:true} // Add new contact with no ID
+	  ] : contacts;
+    const newSkillsList = skills ? [...skillsList, { id: skillsList.length, value: skills }] : skillsList;
+    const skillString = newSkillsList.map(item => item.value).join('#');
+    
+
+    const updatedData = {
+      sur_name: formData.sur_name,
+      first_name: formData.first_name,
+      other_name: formData.other_name,
+      residence_address: formData.address,
+      phone_numbers: newContacts.map(contact => {
+		// Conditionally include 'id' if it's not null
+		return contact.isNew
+		  ? { number: contact.number, type: 0 } // New contact without id
+		  : { number: contact.number, id: contact.id, type: 0 }; // Existing contact with id
+	  }),
+      occupation: formData.occupation,
+      proffession: formData.profession,
+      skills: skillString,
+     
+    };
+
+    onConfirm(updatedData);
+	// console.log(updatedData)
+  };
+
+  return (
+    <div id="alert-container">
+      <div id="face-form">
+        <div>
+          <h4>Face Data</h4>
+          <div className="form-inputs">
+            <div className="form-item">
+              <Input
+                name="sur_name"
+                value={formData.sur_name}
+                onChange={handleChange}
+                placeholder="Sur name"
+                icon={<FaUserTag />}
+              />
+            </div>
+            <div className="form-item">
+              <Input
+                name="first_name"
+                value={formData.first_name}
+                onChange={handleChange}
+                placeholder="First name"
+                icon={<FaUserTag />}
+              />
+            </div>
+            <div className="form-item">
+              <Input
+                name="other_name"
+                value={formData.other_name}
+                onChange={handleChange}
+                placeholder="Other names"
+                icon={<FaUserTag />}
+              />
+            </div>
+            {formData.contacts.map((contact, index) => (
+              <div className="form-item" key={contact.id}>
+                <Input
+                  name={`contact_${contact.id}`}
+                  value={contact.number}
+                  onChange={(e) => handleFieldChange(e, 'contacts', contact.id)}
+                  placeholder={`Contact ${index + 1}`}
+                  icon={<FaPhoneAlt />}
+                />
+              </div>
+            ))}
+            <div className="form-item">
+              <Input
+                name="contact"
+                value={formData.contact}
+                onChange={handleChange}
+                addbtn
+                handleAddField={handleAddContact}
+                placeholder="Contact"
+                icon={<FaPhoneAlt />}
+              />
+            </div>
+            <div className="form-item">
+              <Input
+                name="address"
+                value={formData.address}
+                onChange={handleChange}
+                placeholder="Address"
+                icon={<FaLocationDot />}
+              />
+            </div>
+            <div className="form-item">
+              <Input
+                name="occupation"
+                value={formData.occupation}
+                onChange={handleChange}
+                placeholder="Occupation"
+                icon={<FaBriefcase />}
+              />
+            </div>
+            <div className="form-item">
+              <Input
+                name="profession"
+                value={formData.profession}
+                onChange={handleChange}
+                placeholder="Profession"
+                icon={<FaUserGraduate />}
+              />
+            </div>
+            {formData.skillsList.map((skill, index) => (
+              <div className="form-item" key={skill.id}>
+                <Input
+                  name={`skill_${skill.id}`}
+                  value={skill.value}
+                  onChange={(e) => handleFieldChange(e, 'skillsList', skill.id)}
+                  placeholder={`Skill ${index + 1}`}
+                  icon={<FaUserGear />}
+                />
+              </div>
+            ))}
+            <div className="form-item">
+              <Input
+                name="skills"
+                value={formData.skills}
+                onChange={handleChange}
+                addbtn
+                handleAddField={() => handleAddField('skills', 'skillsList')}
+                placeholder="Skills"
+                icon={<FaUserGear />}
+              />
+            </div>
+            
+          </div>
+        </div>
+        <div className="form-footer">
+          <Button text="Submit" onClick={handleChanges} />
+          <Button text="Cancel" onClick={onCancel} />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default FaceFormComponent;
