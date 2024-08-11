@@ -49,6 +49,66 @@
 
 
 
+/* seeting page styles  */
+#setting-container{
+    display:flex;
+    flex-direction: column;   
+    width: 100%;
+}
+
+#setting-container #top-section{
+    display:flex;   
+    padding: 1em;
+    border-bottom: 1px solid #fff;
+    width:100%;
+    gap:5em;
+}
+
+#setting-container #top-section button{
+    height: 30px;
+}
+
+#setting-container #top-section > div{
+    width: 15em;
+  
+
+   
+}
+
+#setting-container #top-section > div #select-container{
+    margin-bottom: 0;
+   
+}
+
+#setting-container #data-section{
+    display:flex;  
+    width:100%;
+   
+  
+    
+}
+#setting-container #data-section #users{
+    width: 60%;
+ }
+
+#setting-container #data-section #users .tabular-wrapper .filter-section{
+    display:flex;
+    justify-content: space-between;
+ }
+#setting-container #data-section #permissions{
+   width: 40%;
+}
+
+
+ #setting-container #data-section #users .tabular-wrapper{
+    margin-top:0;
+ }
+#setting-container #data-section #users .table-container,
+#setting-container  #data-section #permissions .table-container{
+    max-height: 65vh;
+    overflow-y:scroll;
+    
+}
 
 /* Tablet size styles  */
 @media (max-width: 768px) {

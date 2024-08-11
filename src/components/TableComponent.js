@@ -10,10 +10,10 @@ const TableComponent = ({columns, filter_data, table_data, memberClick})=>{
 
     return (      
             
-            <div id="tabular-wrapper">
+            <div className="tabular-wrapper">
                 {filter_data &&  (
-                     <div id="filter-section">
-                     <div id="add-button">
+                     <div className="filter-section">
+                     <div className="add-button">
                          <Button text = "Add" />
                      </div>
                      <table>
@@ -40,14 +40,14 @@ const TableComponent = ({columns, filter_data, table_data, memberClick})=>{
 
                         </tbody>                         
                      </table>
-                     <div id="table-search">
+                     <div className="table-search">
                          <Input />
                          <Button text = "Search" />
                      </div>
                  </div>
                 )}
                
-                <div id="table-container">
+                <div className="table-container">
                     <table>
                         <thead>
                             <tr>

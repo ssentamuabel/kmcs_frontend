@@ -75,10 +75,6 @@ InputComponet styles
 }
 
 
-
-
-
-
 #select-container select , input{
    color:#000;
    background: #fff;
@@ -114,107 +110,44 @@ TableComponent styles
     color: blue;
     text-transform: capitalize;
 }
-
-#tabular-wrapper{
-    margin-top: 0.5rem;
-    background: #fff;
-    padding:1em;
-    border-radius: 5px;
-    width:100%;
-}
-
-#table-container{
-    max-height: 75%;
-    overflow-y:scroll;
-}
-#table-container table{
-    width:100%;
-    border-collapse: collapse;
-}
-#table-container tbody{
-    background-color: #fff;
-    max-height: 200px;
-    overflow-y: auto;
-  
-
-}
-
-#table-container thead{
-    background: #074734d9;
-    color:#fff;
-}
-
-#table-container th,  #table-container td{
-    padding:0.5em;
-    text-align: left;
-}
-
-#table-container td{
-    font-size: 15px;
-    color:#000;
-}
-#table-container tr:nth-child(even){
-    background: #f0f0f0;
-
-}
-
-
-#table-container tfoot{
-    background: #074734d9;
-    font-weight:bold;
-    color:#fff;
-}
-
-#table-container tfoot td{
-    color:#fff;
-}
-
-
-
-#tabular-wrapper #filter-section{
-    padding-bottom: 0.5em;
-    
-}
-
-#filter-section{
+#permission-table{
     width: 100%;
 }
-
-#filter-section #add-button, #filter-section #table-search{
-    text-align: end;
-}
-#filter-section tr{
-    display:flex;
-    gap:1.5em;
-    text-align: center;
-    justify-content: center;
-}
-#filter-section td{
-    display: flex;
-    gap: 0.6em;
-    align-items:center;
-    justify-content: center;
+#permission-table .table-container {
+    overflow-y:hidden;
 }
 
-#filter-section #table-search{
-    display:flex;   
-    justify-content: end;
+
+
+#permission-table .table-container th, 
+#permission-table .table-container td{
+    text-align:left;
 }
 
-#filter-section #select-container,
-#filter-section #input-container{
-    padding: 0.1em;
+
+#permission-table,
+#permission-table .table-container tr,
+#permission-table .table-container tr:nth-child(even){
+    background: #F4F9FD;
+}
+
+#permission-table .table-container thead{
+    background: #F4F9FD;
+    color:#000;
+}
+#permission-table  #select-container{
     margin-bottom: 0;
-   
+    padding:0.1em;
+    width:120px;
 }
 
 
-#filter-section #select-container select, 
-#filter-section #table-search input{   
-    font-size: 15px;
-    margin-bottom: 0;    
+
+ #setting-container #data-section #users .filter-section  .table-search #input-container{
    
- }
+    width:70%;
+    font-size: 14px;
+}
 
 
 
