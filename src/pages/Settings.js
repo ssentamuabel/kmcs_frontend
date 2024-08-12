@@ -12,7 +12,7 @@ const Settings = ()=>{
     const [userData, setUserData] = useState([]);
     const [permissionsData, setPermissionsData] = useState([]);
     const [permissionOptions, setPermissionOptions] = useState([])
-    const [activeRole, setActiveRole] = useState({})
+    const [activeRole, setActiveRole] = useState(null)
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
@@ -81,7 +81,6 @@ const Settings = ()=>{
                     <div>                        
                         <Select 
                             options = {permissionOptions}
-                            defaultValue
                             label = "Role"
                             name="role"
                             value ="Role"

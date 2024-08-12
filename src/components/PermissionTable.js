@@ -1,18 +1,58 @@
-import React from 'react'
-import Select from '../components/SelectComponent'
+import React, { useState, useEffect } from 'react';
 import Button from '../components/Button'
-import '../styles/components.css'
-import '../styles/common.css'
+import '../styles/components.css';
+import '../styles/common.css';
 
-const PermissionTable = ({role}) =>{
-    console.log(role)
+const PermissionTable = ({ role  }) => {
+    const [permissions, setPermissions] = useState({});
+    const [changes, setChanges] = useState(false)
+
+    useEffect(() => {
+        if (role) {
+            setPermissions(role);
+        }
+    }, [role]);
+
+    const isChecked = (permissionValue, bitValue) => {
+        return (permissionValue & bitValue) === bitValue;
+    };
+
+    const handleChange = (e, permissionName, bitValue) => {
+        
+        const newPermissions = { ...permissions };
+        const currentValue = newPermissions[permissionName];
+
+        // Ensure the "view" checkbox (bit 1) is checked if any other is checked
+        if (bitValue !== 1 && !isChecked(currentValue, 1)) {
+            newPermissions[permissionName] = 1;
+        } else if (e.target.checked) {
+            newPermissions[permissionName] = currentValue | bitValue; // Set the bit
+        } else {
+            newPermissions[permissionName] = currentValue & ~bitValue; // Clear the bit
+        }
+        setChanges(true)
+        console.log(newPermissions)
+        setPermissions(newPermissions);
+    };
+
+
+    const handleConfirm = async() => {
+
+       try{
+
+       }catch(error){
+            console.log(error)
+       }
+    }
+
+    
+
     return (
-        <div id="permission-table">            
-            <div className="table-container" >
+        <div id="permission-table">
+            <div className="table-container">
                 <table>
                     <thead>
                         <tr>
-                           
                             <th>Name</th>
                             <th>View</th>
                             <th>Edit</th>
@@ -21,65 +61,48 @@ const PermissionTable = ({role}) =>{
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            
-                            <td>info_1</td>
-                            <td><input type='checkbox' /></td>
-                            <td><input type='checkbox' /></td>
-                            <td><input type='checkbox' /></td>
-                            <td><input type='checkbox' /></td>
-                        </tr>
-                        <tr>
-                            
-                            <td>info_2</td>
-                            <td><input type='checkbox' /></td>
-                            <td><input type='checkbox' /></td>
-                            <td><input type='checkbox' /></td>
-                            <td><input type='checkbox' /></td>
-                        </tr>
-                        <tr>
-  
-                            <td>Program</td>
-                            <td><input type='checkbox' /></td>
-                            <td><input type='checkbox' /></td>
-                            <td><input type='checkbox' /></td>
-                            <td><input type='checkbox' /></td>
-                        </tr>
-                        <tr>
- 
-                            <td>Activity</td>
-                            <td><input type='checkbox' /></td>
-                            <td><input type='checkbox' /></td>
-                            <td><input type='checkbox' /></td>
-                            <td><input type='checkbox' /></td>
-                        </tr>
-                        <tr> 
-                            <td>Sms</td>
-                            <td><input type='checkbox' /></td>
-                            <td><input type='checkbox' /></td>
-                            <td><input type='checkbox' /></td>
-                            <td><input type='checkbox' /></td>
-                        </tr>
-                        <tr> 
-                            <td>Settings</td>
-                            <td><input type='checkbox' /></td>
-                            <td><input type='checkbox' /></td>
-                            <td><input type='checkbox' /></td>
-                            <td><input type='checkbox' /></td>
-                        </tr>
-                        <tr> 
-                            <td>Permissions</td>
-                            <td><input type='checkbox' /></td>
-                            <td><input type='checkbox' /></td>
-                            <td><input type='checkbox' /></td>
-                            <td><input type='checkbox' /></td>
-                        </tr>
+                        {['info_1', 'info_2', 'info_3', 'program', 'activity', 'sms', 'settings', 'permission'].map(permissionName => (
+                            <tr key={permissionName}>
+                                <td>{permissionName}</td>
+                                <td>
+                                    <input
+                                        type='checkbox'
+                                        checked={isChecked(permissions[permissionName], 1)}
+                                        onChange={(e) => handleChange(e, permissionName, 1)}
+                                    />
+                                </td>
+                                <td>
+                                    <input
+                                        type='checkbox'
+                                        checked={isChecked(permissions[permissionName], 2)}
+                                        onChange={(e) => handleChange(e, permissionName, 2)}
+                                    />
+                                </td>
+                                <td>
+                                    <input
+                                        type='checkbox'
+                                        checked={isChecked(permissions[permissionName], 4)}
+                                        onChange={(e) => handleChange(e, permissionName, 4)}
+                                    />
+                                </td>
+                                <td>
+                                    <input
+                                        type='checkbox'
+                                        checked={isChecked(permissions[permissionName], 8)}
+                                        onChange={(e) => handleChange(e, permissionName, 8)}
+                                    />
+                                </td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
+                <div>
+                    {role && changes &&  <Button text="Confirm changes" onClick={handleConfirm} />}
+                    
+                </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-
-export default  PermissionTable
+export default PermissionTable;
