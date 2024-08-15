@@ -49,7 +49,7 @@
 
 
 
-/* seeting page styles  */
+/* setting page styles  */
 #setting-container{
     display:flex;
     flex-direction: column;   
@@ -64,15 +64,18 @@
     gap:5em;
 }
 
+#setting-container #top-section #add-role{
+    display: flex;
+    
+}
+
 #setting-container #top-section button{
     height: 30px;
 }
 
 #setting-container #top-section > div{
     width: 15em;
-  
-
-   
+     
 }
 
 #setting-container #top-section > div #select-container{

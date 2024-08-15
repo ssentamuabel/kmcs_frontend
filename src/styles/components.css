@@ -231,6 +231,21 @@ TableComponent styles
     
     width: 220px;
 }
+
+
+
+/* User Role Component  */
+.table-container #select-container {
+    margin-bottom: 0;
+    padding: 0;
+    max-width: 150px;
+    border:none;
+}
+
+.table-container #select-container select{
+    background: transparent;
+    font-size: 15px;
+}
    
 
 /* Tablet size styles  */

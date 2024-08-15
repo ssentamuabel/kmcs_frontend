@@ -3,7 +3,7 @@ import Button from '../components/Button'
 import '../styles/components.css';
 import '../styles/common.css';
 
-const PermissionTable = ({ role  }) => {
+const PermissionTable = ({ role , onPermissionUpdate }) => {
     const [permissions, setPermissions] = useState({});
     const [changes, setChanges] = useState(false)
 
@@ -31,7 +31,7 @@ const PermissionTable = ({ role  }) => {
             newPermissions[permissionName] = currentValue & ~bitValue; // Clear the bit
         }
         setChanges(true)
-        console.log(newPermissions)
+        // console.log(newPermissions)
         setPermissions(newPermissions);
     };
 
@@ -39,6 +39,24 @@ const PermissionTable = ({ role  }) => {
     const handleConfirm = async() => {
 
        try{
+        const response = await fetch(`http://127.0.0.1:8000/permission/${permissions.id}`, {
+            method: 'POST',
+            headers : {
+                'Content-Type' : 'application/json'
+            }, 
+            body: JSON.stringify(permissions)
+        })
+
+       
+
+        if (response.ok){
+            const jsondata = await response.json()
+            setChanges(false)
+            console.log(jsondata)
+            onPermissionUpdate()
+        }else{
+            console.log("Something went wrong")
+        }
 
        }catch(error){
             console.log(error)

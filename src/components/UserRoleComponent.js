@@ -5,8 +5,42 @@ import '../styles/components.css'
 import '../styles/common.css'
 import Input from '../components/InputComponet'
 
-const UserRoleComponent = ({data}) =>{
+const UserRoleComponent = ({data, permissionOptions}) =>{
 
+
+    console.log(data)
+
+    const handleRoleChange = async(e, id) =>{
+        const value = e.target.value
+        console.log(`permision_id : ${value}`);
+        console.log(`user_id : ${id}`);
+        console.log(permissionOptions)
+        
+
+        const newUser = data.filter((member)=>(member.id === id))
+
+        // console.log(newUser[0])
+       
+        try{
+
+            const response = await fetch(`http://127.0.0.1:8000/user/${id}`, {
+                method: 'POST',
+                headers : {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({...newUser[0], role_id : value})
+                
+            })
+            if (response.ok){
+                const res = await response.json()
+                console.log(res)
+            }else{
+                console.log("Something happened")
+            }
+        }catch(error){
+            console.log("Something went wrong")
+        }
+    }
   
     return (
         <div className="tabular-wrapper">
@@ -39,7 +73,17 @@ const UserRoleComponent = ({data}) =>{
                                     <tr key={item.id}>
                                         <td>{key}</td>
                                         <td>{item.contact ? item.contact : ""}</td>
-                                        <td>{item.permission_name ? item.permission_name: ""}</td>
+                                        <td>
+                                            <Select                                                 
+                                                options = {permissionOptions}
+                                                label = "Role"
+                                                defaultValue
+                                                name={item.id}
+                                                value ={item.permission_name ? item.permission_name: ""}
+                                                onChange = {(e)=>handleRoleChange(e, item.id)}
+                                            />
+                                        </td>
+                                        {/* <td>{item.permission_name ? item.permission_name: ""}</td> */}
                                         <td>{item.email ? item.email : ""}</td>
                                     </tr>
                                 ))
