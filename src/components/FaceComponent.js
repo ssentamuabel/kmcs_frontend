@@ -16,8 +16,9 @@ const FaceComponent = ({id})=>{
         const getData = async() =>{
             try{
                 
-                const response = await fetch(`http://127.0.0.1:8000/member/${id}`, {
+                const response = await fetch(`https://127.0.0.1:8000/member/${id}`, {
                     method : 'GET',
+                    credentials: 'include', 
                     headers: {
                         'Content-Type' :'application/json'
                     }
@@ -51,8 +52,9 @@ const FaceComponent = ({id})=>{
             
             try{
                 
-                const response = await fetch(`http://127.0.0.1:8000/member/${id}`, {
+                const response = await fetch(`https://127.0.0.1:8000/member/${id}`, {
                     method : 'POST',
+                    credentials: 'include', 
                     headers: {
                         'Content-Type' :'application/json'
                     },

@@ -15,11 +15,11 @@ import {
     FaLessThanEqual
 } from 'react-icons/fa'
 import { PiEngine } from 'react-icons/pi'
-import { TbRuler2 } from 'react-icons/tb'
 
 
 
-const SideBar = ({onLogout, username})=>{
+
+const SideBar = ({onLogout})=>{
 
     const [menuState, setMenuState] = useState(false)
     const sidebarRef = useRef(null);
@@ -41,8 +41,9 @@ const SideBar = ({onLogout, username})=>{
         
         try {
             
-            const res =  await fetch('http://127.0.0.1:8000/logout/', {
+            const res =  await fetch('https://127.0.0.1:8000/logout/', {
                 method : "POST",
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
                 }  
@@ -142,7 +143,7 @@ const SideBar = ({onLogout, username})=>{
             </div>
             <main>
                 <Header 
-                    name={username}
+                    
                     onLogout={()=>{setConfirm(true); console.log("Am pressed")}}
                     onMenuClick={handleMenuClick}
                 />

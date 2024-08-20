@@ -39,8 +39,9 @@ const PermissionTable = ({ role , onPermissionUpdate }) => {
     const handleConfirm = async() => {
 
        try{
-        const response = await fetch(`http://127.0.0.1:8000/permission/${permissions.id}`, {
+        const response = await fetch(`https://127.0.0.1:8000/permission/${permissions.id}`, {
             method: 'POST',
+            credentials: 'include',
             headers : {
                 'Content-Type' : 'application/json'
             }, 

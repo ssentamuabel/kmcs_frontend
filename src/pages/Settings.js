@@ -1,17 +1,21 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useContext} from 'react'
+import {RightsContext} from '../contexts/RightsProvider'
+import Alert from '../components/Alert'
 import Select from '../components/SelectComponent'
 import Button from '../components/Button'
 import Input from '../components/InputComponet'
 import Table from '../components/PermissionTable'
 import UserRole from '../components/UserRoleComponent'
 import '../styles/common.css'
-import { FaLessThanEqual } from 'react-icons/fa'
+
 
 
 
 
 
 const Settings = ()=>{
+    const [errorAlert, setErrorAlert] = useState(false)
+    const [error, setError] = useState('')
     const [userData, setUserData] = useState([]);
     const [filteredData, setFilteredData] = useState([])   
     const [permissionsData, setPermissionsData] = useState([]);
@@ -21,21 +25,25 @@ const Settings = ()=>{
     const [roleField, setRoleField] = useState(false)
     const [loading, setLoading] = useState(true)
     const [newRole, setNewRole] = useState('')
+    const {rights} = useContext(RightsContext)
 
     useEffect(() => {
         const getUsersAndPermissions = async () => {
             try {
                 const [usersResponse, permissionsResponse] = await Promise.all([
-                    fetch('http://127.0.0.1:8000/user/', {
+                    fetch('https://127.0.0.1:8000/user/', {
                         method: 'GET',
+                        credentials: "include",
                         headers: {
                             'Content-Type': 'application/json',
                         },
                     }),
-                    fetch('http://127.0.0.1:8000/permission/', {
+                    fetch('https://127.0.0.1:8000/permission/', {
                         method: 'GET',
+                        credentials: 'include',                        
                         headers: {
                             'Content-Type': 'application/json',
+                            
                         },
                     }),
                 ]);
@@ -59,13 +67,16 @@ const Settings = ()=>{
                     ))
                     setPermissionOptions(options)
                    
-                    console.log(permissionsData[0])
+                    // console.log(permissionsData[0])
                     
                 } else {
-                    console.log('Something went wrong');
+                    setError('Something went wrong')
+                    setErrorAlert(true)
                 }
+
             } catch (error) {
-                console.log(error.message);
+                setError(error.message)
+                setErrorAlert(true)
             } finally {
                 setLoading(false)
             }
@@ -99,16 +110,24 @@ const Settings = ()=>{
     const saveRole = async() =>{
         
         if (newRole){
-            console.log(newRole)
+            console.log(rights.perm.type)
+
+            if (rights.perm.type){
+                const role = {...newRole, type:1}
+            }
+            
+            const role = rights.perm.type ? {name: newRole, type:1} : {name: newRole, type: 0};
+
 
             try{
 
-                const response = await fetch('http://127.0.0.1:8000/permission/', {
+                const response = await fetch('https://127.0.0.1:8000/permission/', {
                     method: 'POST',
+                    credentials: 'include',  
                     headers : {
                         'Content-Type' : 'application/json'
                     }, 
-                    body: JSON.stringify({name: newRole})
+                    body: JSON.stringify(role)
                 })
 
                 if (response.ok){
@@ -117,11 +136,13 @@ const Settings = ()=>{
                     setRoleField(false)
                     setLoadPermissions(!loadPermissions)
                 }else{
-                    console.log("Something went wrong")
+                    setError("Something went wrong")
+                    setErrorAlert(true)
                 }
 
             }catch(error){
-                console.log(error)
+                setError(error.message)
+                setErrorAlert(true)
             }
 
         }
@@ -136,6 +157,13 @@ const Settings = ()=>{
    
     return (
         <div className='page-container' >
+            { 
+                errorAlert && (<Alert 
+                type='Error'
+                message ={error}
+                 onCancel={()=>{setErrorAlert(false)}}                     
+                />)
+             } 
             <div id="setting-container">
                 <div id="top-section">
                     <div>                        

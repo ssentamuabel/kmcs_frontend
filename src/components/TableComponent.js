@@ -1,12 +1,14 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import '../styles/components.css'
 import '../styles/common.css'
 import Select from './SelectComponent'
+import { RightsContext } from '../contexts/RightsProvider'
 import Input from './InputComponet'
 import Button from './Button'
 
 const TableComponent = ({columns, filter_data, table_data, memberClick})=>{
 
+    const {rights} = useContext(RightsContext)
 
     return (      
             
@@ -60,15 +62,28 @@ const TableComponent = ({columns, filter_data, table_data, memberClick})=>{
                         <tbody>
                             {table_data ? (
                                 table_data.map((member, key)=>(
-                                    <tr key={member.id}>
-                                        <td>{key}</td>
-                                        <td onClick={()=>memberClick(member.id)} id="member-click">{member.sur_name + ' ' + member.first_name}</td>
-                                        <td>{member.gender ? 'F': 'M'}</td>
-                                        <td>{member.reg_no ? member.reg_no : "Unknown"}</td>
-                                        <td>{member.hall_of_attachment ? member.hall_of_attachment : "Nanziri_"}</td>
-                                        <td>{member.user.contact}</td>                               
-                                        <td>{member.user.email}</td>
-                                    </tr>
+                                    rights.perm.type ? (                                       
+                                        <tr key={member.id}>
+                                            <td>{key}</td>
+                                            <td onClick={()=>memberClick(member.id)} id="member-click">{member.sur_name + ' ' + member.first_name}</td>
+                                            <td>{member.gender ? 'F': 'M'}</td>
+                                            <td>{member.residence_address ? member.residence_address  : "Unknown"}</td>
+                                            <td>{member.occupation ? member.occupation : member.proffession ? member.proffession : "Unknown"}</td>
+                                            <td>{member.proffession ? member.proffession : member.occupation ? member.occupation : "Unknown"}</td>                                                                       
+                                            <td>{member.user.email}</td>
+                                        </tr>
+                                    ):(
+                                        <tr key={member.id}>
+                                            <td>{key}</td>
+                                            <td onClick={()=>memberClick(member.id)} id="member-click">{member.sur_name + ' ' + member.first_name}</td>
+                                            <td>{member.gender ? 'F': 'M'}</td>
+                                            <td>{member.reg_no ? member.reg_no : "Unknown"}</td>
+                                            <td>{member.residence_address ? member.residence_address : member.hall_of_attachment ? member.hall_of_attachment : "Unknown"}</td>
+                                            <td>{member.hall_of_attachment ? member.hall_of_attachment : "Unknown"}</td>                                                                         
+                                            <td>{member.user.email}</td>
+                                        </tr>
+                                    )
+                                    
                                 ))
                             ): (
                                 <tr>
