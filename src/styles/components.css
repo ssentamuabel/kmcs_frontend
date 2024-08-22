@@ -54,13 +54,17 @@ InputComponet styles
 
 */
 #input-container, #select-container{
-    width: 100%;    
-    border:1px solid #000;
-    display:flex;
-    align-items: center;
-    padding: 0.3em;
     margin-bottom: 1em;
     /* min-width: 120px; */
+}
+
+#input-container .wrapper, #select-container .wrapper{
+    width: 100%;   
+    display:flex;
+    align-items: center;
+    padding: 0.3em;   
+    border:1px solid #000;
+    border-radius: 2px;
 }
 
 #input-icon, #password-icon{
@@ -246,6 +250,40 @@ TableComponent styles
     background: transparent;
     font-size: 15px;
 }
+
+
+
+
+/*  Course auto complete field  */
+
+#course-input {
+    position:relative;
+}
+
+#course-input #suggestion-list{
+    position:absolute;
+    top:100%;
+    left:0;
+    right:0;
+    /* border: 1px solid #F4F9FD; */
+    list-style: none;
+    background: #fff;
+    max-height: 20vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+#course-input #suggestion-list li {
+    padding:5px;
+    cursor: pointer;
+    border: 1px solid #F4F9FD;
+
+}
+
+#course-input #suggestion-list li:hover{
+    border: 1px solid #f666f6;
+}
+
    
 
 /* Tablet size styles  */

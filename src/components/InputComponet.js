@@ -36,14 +36,17 @@ const InputComponet = ({
     return (
         <>
             <div  id="input-container">
-                <div id="input-icon">{icon}</div>                
-                <input ref={inputRef}      {...props}  />      
-                
-                {password && <span id="password-icon" onClick={handleShowPassword}>{showPassword ? <FaEye/> :<FaEyeSlash/> }</span>}
-                {addbtn && <span id="password-icon" onClick={handleAddField}><FaPlus /></span >}
-                        
+                <div className="wrapper">
+                    <div id="input-icon">{icon}</div>                
+                    <input ref={inputRef}      {...props}  />      
+                    
+                    {password && <span id="password-icon" onClick={handleShowPassword}>{showPassword ? <FaEye/> :<FaEyeSlash/> }</span>}
+                    {addbtn && <span id="password-icon" onClick={handleAddField}><FaPlus /></span >}
+
+                </div>
+                {error && <span id="input-error">{error}</span>}                        
             </div>
-            {error && <span id="input-error">{error}</span>}
+           
             
         </>
        

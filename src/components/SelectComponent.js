@@ -12,20 +12,24 @@ const SelectComponent = ({
     return (
         <>
             <div id="select-container" >
-                {icon && <div id="input-icon">{icon}</div>  }
-                  
-                <select     {...props}>
-                    {defaultValue ? (<option value={value}> {value}</option>): (<option value=''> {label}</option>)}
-                 
-                    {
-                        options && options.map((item)=>(
-                            <option key = {item.value} value={item.value}>{item.name}</option>
-                        ))
-                    }
-                                    
-                </select>           
+                <div className="wrapper">
+                    {icon && <div id="input-icon">{icon}</div>  }
+                    
+                    <select     {...props}>
+                        {defaultValue ? (<option value={value}> {value}</option>): (<option value=''> {label}</option>)}
+                    
+                        {
+                            options && options.map((item)=>(
+                                <option key = {item.value} value={item.value}>{item.name}</option>
+                            ))
+                        }
+                                        
+                    </select> 
+                </div>
+                {error && <span id="input-error">{error}</span>}
+                          
             </div>
-            {error && <span id="input-error">{error}</span>}
+            
         
         </>
     )
