@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, {useContext, useEffect} from 'react'
 import '../styles/components.css'
 import '../styles/common.css'
 import Select from './SelectComponent'
@@ -10,13 +10,19 @@ const TableComponent = ({columns, filter_data, table_data, memberClick})=>{
 
     const {rights} = useContext(RightsContext)
 
+    useEffect(()=>{
+        console.log(table_data)
+        console.log(rights.perm.type)
+    }, [])
+    
+
     return (      
             
             <div className="tabular-wrapper">
                 {filter_data &&  (
                      <div className="filter-section">
                      <div className="add-button">
-                         <Button text = "Add" />
+                         <Button text = "Send Message" />
                      </div>
                      <table>
                         <tbody>
@@ -64,7 +70,7 @@ const TableComponent = ({columns, filter_data, table_data, memberClick})=>{
                                 table_data.map((member, key)=>(
                                     rights.perm.type ? (                                       
                                         <tr key={member.id}>
-                                            <td>{key}</td>
+                                            <td>{key +1}</td>
                                             <td onClick={()=>memberClick(member.id)} id="member-click">{member.sur_name + ' ' + member.first_name}</td>
                                             <td>{member.gender ? 'F': 'M'}</td>
                                             <td>{member.residence_address ? member.residence_address  : "Unknown"}</td>
