@@ -1,5 +1,6 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useContext} from 'react'
 import { LuPenSquare } from 'react-icons/lu'
+import { RightsContext } from '../contexts/RightsProvider'
 import FaceForm from '../components/ProfileForms/FaceFormComponent'
 
 const FaceComponent = ({id})=>{
@@ -7,7 +8,7 @@ const FaceComponent = ({id})=>{
     const [register, setRegister] = useState(false)
     const [loading, setLoading] = useState(true)
     
-   
+    const {rights} = useContext(RightsContext)
 
 
     useEffect(()=>{
@@ -28,6 +29,16 @@ const FaceComponent = ({id})=>{
 
                 if (response.ok){
                     setFace(data)
+                    if (rights.perm.type){
+                        if (!data.occupation || !data.proffession || !data.residence_address){
+                            setRegister(true)
+                        } 
+                    }else{
+                        if (!data.hall_of_attachment || !data.residence_address){
+                            setRegister(true)
+                        }  
+                    }
+                   
                     
                 }
 
@@ -100,9 +111,15 @@ const FaceComponent = ({id})=>{
                 <div className="edit-icon" onClick={openForm} ><LuPenSquare /></div>                 
                 <div className = "details">
                     <h4>{`${face.sur_name} ${face.first_name} ${face.other_name ? face.other_name : ""}`}</h4>
-                    <h4>{face.residence_address ? face.residence_address : "NOT KNOWN"}</h4>
+                    
+                    <h4>{face.residence_address ? face.residence_address : "Residence Address"}</h4>
                     <h4>{face.phone_numbers?.length > 0 ? face.phone_numbers.map(item=>item.number).join(', ') : 'No Contacts Available'}</h4>
-                    <h4>{face.proffession?face.proffession : "Proffession Missing"} | {face.occupation?face.occupation : "Occupation Missing"}  </h4>
+                    {rights.perm.type ? (
+                        <h4>{face.proffession?face.proffession : "Profession Missing"} | {face.occupation?face.occupation : "Occupation Missing"}  </h4>
+                    ):(
+                        <h4>{face.hall_of_attachment?face.hall_of_attachment : "Hall of Attachment"}   </h4>
+                    )}
+                   
                     <h4>{face.skills ? face.skills.split('#').join(' | '): "No skills Found"}</h4>
                 </div>      
 

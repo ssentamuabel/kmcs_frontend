@@ -9,7 +9,7 @@ import {
     FaMoneyBillWave,
     FaMailBulk,
     FaUsers,
-    FaBars,
+    FaUser,
     FaMosque,
     FaRegListAlt,
     FaLessThanEqual
@@ -90,6 +90,12 @@ const SideBar = ({onLogout})=>{
             path : "/programs",
             name : "Programs",
             icon : <FaRegListAlt />
+           
+        },
+        {
+            path : "/profile",
+            name : "Profile",
+            icon : <FaUser />
            
         },
         

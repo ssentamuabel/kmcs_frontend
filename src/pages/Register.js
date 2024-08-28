@@ -22,12 +22,12 @@ import {
 import { TbRuler } from 'react-icons/tb'
 
 const Register = ()=>{
-
+    const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState('')  
     const [isStudent, setIsStudent] = useState(true)
     const [errorAlert, setErrorAlert] = useState(false)
-    const navigate = useNavigate()
+   
     const [validationErrors, setValidationErrors] = useState({})
     const [formdata, setFormdata] = useState({
         sur_name: "",
@@ -38,7 +38,8 @@ const Register = ()=>{
         gender: "",
         member_type : "",
         course_code: "",
-        entry: ""
+        entry: "",
+        hall: ""
     });
 
     const gender_options = [
@@ -49,6 +50,13 @@ const Register = ()=>{
     const memberType_options = [
         {value: 'false', name :'Student'},
         {value: 'true', name :'Alumnus'}
+    ]
+    const hall_options = [
+        {value: 'Kulubya', name :'Kulubya'},
+        {value: 'Pearl', name :'Pearl'},
+        {value: 'Mandella', name :'Mandella'},
+        {value: 'North Hall', name :'North Hall'},
+        {value: 'Nanziri', name :'Nanziri'}
     ]
 
     const getCourseCode = (item) =>{
@@ -64,7 +72,8 @@ const Register = ()=>{
             ...formdata,
             [e.target.name]:e.target.value
         })
-        setValidationErrors({...validationErrors, [e.target.name]:''})
+       
+        removeValidationError([e.target.name]);
     }
 
     const handleMemberChange = (e) =>{
@@ -77,12 +86,15 @@ const Register = ()=>{
             ...formdata,
             member_type: e.target.value
         })
-        setValidationErrors({...validationErrors, member_type:''})
+        removeValidationError('member_type');
     }
 
     const handleSubmit = async(e)=>{
         e.preventDefault();
-        if (validateForm()) return
+        console.log(validateForm())
+        console.log(validationErrors)
+
+        if (!validateForm()) return;
         setIsLoading(true)
 
         formdata.gender = (formdata.gender) === "false" ? false : true;
@@ -102,12 +114,14 @@ const Register = ()=>{
             sur_name: formdata.sur_name[0].toUpperCase() + formdata.sur_name.slice(1).toLowerCase(),
             first_name: formdata.first_name[0].toUpperCase() + formdata.first_name.slice(1).toLowerCase(),           
             reg_no: formdata.reg_no,
+            hall_of_attachment : formdata.hall,
             gender: formdata.gender,
             member_type : formdata.member_type,
             user : { email: formdata.email, contact: contact}
         }
 
         // console.log(JSON.stringify(data))
+        console.log(data)
         
 
         try {
@@ -135,7 +149,8 @@ const Register = ()=>{
                     gender: "",
                     member_type : "",
                     course_code: "",
-                    entry: ""
+                    entry: "",
+                    hall: ""
                 })
                 navigate('/login')
             }else{
@@ -191,33 +206,38 @@ const Register = ()=>{
             errors.gender = "Select your gender"
         }
 
-        if (!formdata.member_type){
-           
+        if (formdata.member_type === 'true'){
+
+            if (!formdata.course_code.trim()){
+                errors.coursecode = "Type search your course"            
+            }
+
+            if (!formdata.entry.trim()){
+                errors.entry = "Which entry were you admitted ie 19, 12 ...."
+            }
+        }else if (formdata.member_type === 'false'){
+            if (!formdata.reg_no.trim()){
+                errors.reg_no = "Registration number is required"
+            }
+
+            if (!formdata.hall.trim()){
+                 errors.hall = "Hall of Attachment"
+            }
+        }else{
             errors.member_type = "Select either Student or Alumnus"
         }
-
-        if (formdata.member_type == 'false' && !formdata.reg_no.trim() ){
-            errors.reg_no = "Registration number is required"
-        }else if (!reg_regex.test(formdata.reg_no.trim())){
-            errors.reg_no = "Registration  number is wrong"
-        }
-
-        if (formdata.member_type == 'true' && !formdata.course_code.trim() ){
-            errors.coursecode = "Type search your course"
-        } 
-        
-        if (formdata.member_type == 'true' && !formdata.entry.trim()){
-            errors.entry = "Which entry were you admitted ie 19, 12 ...."
-        }else if (Number(formdata.entry) < 1 || Number(formdata.entry) > 200){
-            errors.entry = "Entry enterd is incorrect"
-        }
-
         
 
 
         setValidationErrors(errors)
         return Object.keys(errors).length === 0;
     }
+
+    const removeValidationError = (key) => {
+        const { [key]: _, ...rest } = validationErrors;
+        setValidationErrors(rest);
+    };
+    
    
     return (
         <div className='container'>
@@ -282,15 +302,27 @@ const Register = ()=>{
                     error={validationErrors.member_type}
                 />
                 {isStudent ? (
-                    <Input 
-                    icon = {<FaUserTag  />}
-                    placeholder='Registration Number'
-                    value={formdata.reg_no}
-                    onChange={handleChange}
-                    name="reg_no"
-                    error={validationErrors.reg_no}
-    
-                />
+                    <>
+                        <Input 
+                            icon = {<FaUserTag  />}
+                            placeholder='Registration Number'
+                            value={formdata.reg_no}
+                            onChange={handleChange}
+                            name="reg_no"
+                            error={validationErrors.reg_no}
+        
+                        />
+                        <Select 
+                            options = {hall_options}
+                            name="hall"
+                            label="Hall of Attachment"
+                            value={formdata.hall}
+                            icon = {<FaHome />}
+                            onChange={handleChange}
+                            error={validationErrors.hall}
+                         />
+                    </>
+                    
                 ): (
                     <>
                         <AutoComplete 

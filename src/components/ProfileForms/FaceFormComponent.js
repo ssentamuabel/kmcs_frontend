@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { RightsContext } from '../../contexts/RightsProvider';
 import '../../styles/components.css';
 import '../../styles/common.css';
 import Input from '../InputComponet';
+import Select from '../SelectComponent'
 import Button from '../Button';
 import { FaLocationDot } from "react-icons/fa6";
 import { FaUserGear } from "react-icons/fa6";
@@ -15,6 +17,8 @@ import {
 } from 'react-icons/fa';
 
 const FaceFormComponent = ({ onCancel, onConfirm, inData }) => {
+
+  const {rights} = useContext(RightsContext)
   const [formData, setFormData] = useState({
     sur_name: "",
     first_name: "",
@@ -23,22 +27,34 @@ const FaceFormComponent = ({ onCancel, onConfirm, inData }) => {
     contact: "",
     occupation: "",
     profession: "",
+    hall:"",
     skills: "",
     contacts: [],
     skillsList: [],
    
   });
 
+  const hall_options = [
+	{value: 'Kulubya', name :'Kulubya'},
+	{value: 'Pearl', name :'Pearl'},
+	{value: 'Mandella', name :'Mandella'},
+	{value: 'North Hall', name :'North Hall'},
+	{value: 'Nanziri', name :'Nanziri'}
+]
+
   useEffect(() => {
     if (inData) {
       const { phone_numbers = [], skills = "" } = inData;
       const skillsList = skills ? skills.split('#') : [];
+
+	//   console.log(inData)
       
 
       setFormData({
         sur_name: inData.sur_name || "",
         first_name: inData.first_name || "",
         other_name: inData.other_name || "",
+		hall: inData.hall_of_attachment || "",
         address: inData.residence_address || "",
         contact: "",  // Set the latest contact in the input field
         occupation: inData.occupation || "",
@@ -112,6 +128,7 @@ const FaceFormComponent = ({ onCancel, onConfirm, inData }) => {
       sur_name: formData.sur_name,
       first_name: formData.first_name,
       other_name: formData.other_name,
+      hall_of_attachment: formData.hall,
       residence_address: formData.address,
       phone_numbers: newContacts.map(contact => {
 		// Conditionally include 'id' if it's not null
@@ -128,6 +145,8 @@ const FaceFormComponent = ({ onCancel, onConfirm, inData }) => {
     onConfirm(updatedData);
 	// console.log(updatedData)
   };
+
+
 
   return (
     <div id="alert-container">
@@ -189,28 +208,46 @@ const FaceFormComponent = ({ onCancel, onConfirm, inData }) => {
                 name="address"
                 value={formData.address}
                 onChange={handleChange}
-                placeholder="Address"
+                placeholder="Hostel | village, District, Country"
                 icon={<FaLocationDot />}
               />
             </div>
-            <div className="form-item">
-              <Input
-                name="occupation"
-                value={formData.occupation}
-                onChange={handleChange}
-                placeholder="Occupation"
-                icon={<FaBriefcase />}
-              />
-            </div>
-            <div className="form-item">
-              <Input
-                name="profession"
-                value={formData.profession}
-                onChange={handleChange}
-                placeholder="Profession"
-                icon={<FaUserGraduate />}
-              />
-            </div>
+            {rights.perm.type ? (
+              <>
+                <div className="form-item">
+					<Input
+						name="occupation"
+						value={formData.occupation}
+						onChange={handleChange}
+						placeholder="Occupation"
+						icon={<FaBriefcase />}
+					/>
+                </div>
+				<div className="form-item">
+					<Input
+						name="profession"
+						value={formData.profession}
+						onChange={handleChange}
+						placeholder="Profession"
+						icon={<FaUserGraduate />}
+					/>
+				</div>
+            	</>): (
+					<div className="form-item">
+						<Select 
+                            options = {hall_options}
+                            name="hall"
+                            label="Hall of Attachment"
+							defaultValue
+                            value={formData.hall}
+                            icon = {<FaBriefcase />}
+                            onChange={handleChange}
+                           
+                         />
+                	</div>
+				)}
+           
+            
             {formData.skillsList.map((skill, index) => (
               <div className="form-item" key={skill.id}>
                 <Input

@@ -1,11 +1,13 @@
 import { useState,useContext } from 'react'
 import './styles/App.css';
+import {Link, useNavigate} from 'react-router-dom'
 import { RightsProvider, RightsContext } from './contexts/RightsProvider';
 import  Register from './pages/Register'
 import  Dashboard from './pages/Dashboard'
 import SideBar from './components/SideBar';
 import Programs from './pages/Programs';
 import Members from './pages/Members';
+import Profile from ',/pages/Profile';
 import Settings from './pages/Settings';
 import  Login from './pages/Login'
 
@@ -22,6 +24,7 @@ function App() {
   }
   
   function AppContent() {
+	const navigate = useNavigate()
 	const [loggedIn, setLoggedIn] = useState(false);
 	const { setRights } = useContext(RightsContext);
   
@@ -29,6 +32,10 @@ function App() {
 	  const decodedRights = jwtDecode(jwt);
 	  setRights(decodedRights);
 	  setLoggedIn(true);
+
+	  if (decodedRights.perm.name === 'student' || decodedRights.perm.name === 'alumnus'){
+			navigate('members')
+	}
 	};
   
 	const handleLogout = () => {
@@ -50,6 +57,7 @@ function App() {
 			<Route path="members" element={<Members />} />
 			<Route path="programs" element={<Programs />} />
 			<Route path="settings" element={<Settings />} />
+			<Route path="profile" element={<Profile />} />
 			<Route path="*" element={<Navigate to="/" />} />
 		  </Route>
 		)}

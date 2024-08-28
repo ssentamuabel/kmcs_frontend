@@ -1,6 +1,7 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useContext} from 'react'
 import Alert from '../components/Alert'
 import { LuPenSquare } from 'react-icons/lu'
+import { RightsContext } from '../contexts/RightsProvider'
 import '../styles/pages.css'
 import Button from '../components/Button'
 import {FaRegUser} from 'react-icons/fa'
@@ -17,6 +18,8 @@ const Profile = ({onReturn, user}) =>{
     const [infoMsg, setInfoMsg] = useState('')
     const [info, setInfo] = useState(false)
 
+    const {rights} = useContext(RightsContext)
+
     const handleClick = (id) =>{
         setInfoMsg(`You can add or edit in ${id}`)
         setInfo(true)
@@ -24,7 +27,7 @@ const Profile = ({onReturn, user}) =>{
 
     const getHobbyHealth = ({hobby, health}) =>{
         setHobby(hobby)
-         setHealthIssue(health)
+        setHealthIssue(health)
     }
      
 
@@ -36,11 +39,16 @@ const Profile = ({onReturn, user}) =>{
                     onCancel={()=>{setInfo(false)}}                     
                 />)
             } 
-            <Button 
-                text ="back"
-                onClick={onReturn}
-                style={{ marginBottom : 10 }}
-            />
+           {
+
+            !(rights.perm.name == 'student' || rights.perm.name == 'alumnus') && (
+                <Button 
+                    text ="back"
+                    onClick={onReturn}
+                    style={{ marginBottom : 10 }}
+                />)           
+           }
+            
             <div id="profile-container">
                 <div  id="prof-svg">
                     <FaRegUser />                   

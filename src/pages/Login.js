@@ -34,7 +34,7 @@ const Login = ({onLogin})=>{
     }
 
     const handleSubmit = async(e)=>{
-       e.preventDefault()
+       
 
        if (!validateForm()) return
 
@@ -56,7 +56,7 @@ const Login = ({onLogin})=>{
                     'Content-Type': 'application/json',
                 },          
                 body : JSON.stringify({contact:cleaned_contact, password:formdata.password}),
-                credentials: "include"
+                credentials: "include",
             })
 
             const jsondata = await response.json()

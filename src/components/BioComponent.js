@@ -37,6 +37,7 @@ const BioComponent = ({id, handleHobbyHealth}) =>{
                     setGender(data.gender ? 'Female' : 'Male');
                     handleHobbyHealth({hobby: data.hobbies, health: data.disability})
                     // console.log(data)
+                   
                     
                 }else{
                     setError(` ${data.detail}: try once again`)
@@ -77,10 +78,12 @@ const BioComponent = ({id, handleHobbyHealth}) =>{
 
                 if (response.ok){
                     setBio(res)
+                                      
                     setMarital(res.married ? 'Married' : 'Single');
                     setGender(res.gender ? 'Female' : 'Male');
-                    handleHobbyHealth({hobby: data.hobbies, health: data.disability})
+                    handleHobbyHealth({hobby: res.hobbies, health: res.disability})
                     console.log(res)
+                    
                     
                 }else{
                     console.log(res)

@@ -1,19 +1,36 @@
-import React, {useContext, useEffect} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import '../styles/components.css'
 import '../styles/common.css'
 import Select from './SelectComponent'
 import { RightsContext } from '../contexts/RightsProvider'
 import Input from './InputComponet'
 import Button from './Button'
+import { courses } from '../courses'
 
 const TableComponent = ({columns, filter_data, table_data, memberClick})=>{
 
     const {rights} = useContext(RightsContext)
+    const [studentsData, setStudentsData] = useState([])
 
-    useEffect(()=>{
-        console.log(table_data)
-        console.log(rights.perm.type)
-    }, [])
+    useEffect(() => {
+        if (!rights.perm.type) {
+          // Create a new array with the updated data
+          const updatedStudentsData = table_data.map((item) => {
+            const course = courses.find(
+              (course) =>
+                course.day === item.reg_no.split('_')[2] ||
+                course.eve === item.reg_no.split('_')[2]
+            );
+      
+            // Return the new item with the course name added
+            return { ...item, course: course ? course.name : '' };
+          });
+      
+          // Update the state with the new data
+          setStudentsData(updatedStudentsData);
+        }
+      }, [table_data, rights.perm.type, courses]);
+      
     
 
     return (      
@@ -66,9 +83,9 @@ const TableComponent = ({columns, filter_data, table_data, memberClick})=>{
                             </tr>
                         </thead>
                         <tbody>
-                            {table_data ? (
-                                table_data.map((member, key)=>(
-                                    rights.perm.type ? (                                       
+                            {rights.perm.type ? (
+                                table_data ? (
+                                    table_data.map((member, key) =>(
                                         <tr key={member.id}>
                                             <td>{key +1}</td>
                                             <td onClick={()=>memberClick(member.id)} id="member-click">{member.sur_name + ' ' + member.first_name}</td>
@@ -78,29 +95,25 @@ const TableComponent = ({columns, filter_data, table_data, memberClick})=>{
                                             <td>{member.proffession ? member.proffession : member.occupation ? member.occupation : "Unknown"}</td>                                                                       
                                             <td>{member.user.email}</td>
                                         </tr>
-                                    ):(
+                                    ))
+                                ) : (<tr > <td colSpan={7}></td> </tr>)
+                            ): (
+                                studentsData ? (
+                                    studentsData.map((member, key) =>(
                                         <tr key={member.id}>
                                             <td>{key}</td>
                                             <td onClick={()=>memberClick(member.id)} id="member-click">{member.sur_name + ' ' + member.first_name}</td>
                                             <td>{member.gender ? 'F': 'M'}</td>
-                                            <td>{member.reg_no ? member.reg_no : "Unknown"}</td>
+                                            <td>{member.course ? member.course : "Unknown"}</td>
                                             <td>{member.residence_address ? member.residence_address : member.hall_of_attachment ? member.hall_of_attachment : "Unknown"}</td>
                                             <td>{member.hall_of_attachment ? member.hall_of_attachment : "Unknown"}</td>                                                                         
                                             <td>{member.user.email}</td>
                                         </tr>
-                                    )
+                                    )) 
                                     
-                                ))
-                            ): (
-                                <tr>
-                                    <td colspan="7">No data Found </td>
-                                </tr>
+                                ):(<tr > <td colSpan={7}>No data Found</td> </tr>)
                             )}
-                            
-                            
 
-                           
-                        
                         </tbody>
                         {/* <tfoot>
                             <tr>

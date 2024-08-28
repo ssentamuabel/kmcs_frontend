@@ -66,35 +66,46 @@ const Members = ()=>{
 
     useEffect(()=>{
 
-        const getData = async() =>{
 
-            try {
-                const response = await fetch('https://127.0.0.1:8000/member/level_1/', {
-                    method: 'GET',
-                    credentials: 'include',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                })
-                
+        if (rights.perm.name  == 'student' || rights.perm.name  == 'alumnus'){
 
-                if (response.ok){
-                    const jsondata = await response.json()
+            setProfile(true)
+            setUserid(rights.member_id)
 
-                    setTableData(jsondata)
-                    console.log(jsondata)
-                }else{
-                    setError(`Something went wrong`)
+        }else{
+
+            const getData = async() =>{
+
+                try {
+                    const response = await fetch('https://127.0.0.1:8000/member/level_1/', {
+                        method: 'GET',
+                        credentials: 'include',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    })
+                    
+    
+                    if (response.ok){
+                        const jsondata = await response.json()
+    
+                        setTableData(jsondata)
+                        console.log(jsondata)
+                    }else{
+                        setError(`Something went wrong`)
+                        setErrorAlert(true)
+                    }
+    
+                } catch (error) {
+                    setError('Connection Problem')
                     setErrorAlert(true)
                 }
-
-            } catch (error) {
-                setError('Connection Problem')
-                setErrorAlert(true)
             }
+    
+            getData()
         }
 
-        getData()
+        
             
 
     }, [])
