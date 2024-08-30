@@ -51,7 +51,7 @@ const PreviousInst = ({id}) => {
         setRegister(false)
     }
     const onConfirm = (data) => {
-
+        setInst([])
         const updateData = async () => {
             try {
                 for (const item of data) {
@@ -107,7 +107,8 @@ const PreviousInst = ({id}) => {
                         <div>
                             {inst.length > 0 ? (
                                 inst.map((item)=>(
-                                    <p key={item.id}>{`${item.award} : ${item.name} : ${item.since}-${item.to}`}</p>
+                                    
+                                    <p key={item.id}>{` ${item.since}: ${item.name} : ${item.award} : ${item.to} `}</p>
                                 ))
                             ): (
                                 <p>No   data found</p>

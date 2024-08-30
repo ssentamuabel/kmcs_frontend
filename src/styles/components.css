@@ -216,6 +216,11 @@ TableComponent styles
 #inst-form .form-item{
     position:relative;
 }
+
+#inst-form .form-inputs{
+    overflow-x: scroll;
+    max-height: 35vh;
+}
 #relation-form .form-item span,
 #inst-form .form-item span{
     position:absolute;

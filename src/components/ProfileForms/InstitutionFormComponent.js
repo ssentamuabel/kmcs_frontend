@@ -12,12 +12,14 @@ const RelationComponent = ({ onCancel, onConfirm, inData }) => {
 
     // Populate the form data
     useEffect(() => {
-        if (inData.length === 0) {
+        if (Array.isArray(inData) && inData.length === 0) {
             setFormData([
                 { id: 0, award: '', name: '', since: '', to: '', isNew: true }
             ]);
-        } else {
+        } else if (Array.isArray(inData)) {
             setFormData(inData);
+        }else {
+            setFormData([]); // Fallback to an empty array if inData is not an array
         }
     }, [inData]);
 
@@ -28,28 +30,39 @@ const RelationComponent = ({ onCancel, onConfirm, inData }) => {
     }
 
     const handleAddField = () => {
-        setFormData([...formData, { id: formData.length, name: '', award: '', since: '', to: '', isNew: true }]);
+        setFormData([...formData, { id: formData.length + '#', name: '', award: '', since: '', to: '', isNew: true }]);
     }
-
     const handleSubmit = () => {
         const cleanedData = formData.map((inst) => {
-            const { id, isNew, since, to, ...rest } = inst;
+            const { isNew, since, to, ...rest } = inst;
     
             // Convert the since and to fields to Date objects and format as YYYY-MM-DD
             const sinceDate = new Date(since).toISOString().split('T')[0];
             const toDate = new Date(to).toISOString().split('T')[0];
     
-            return {
-                ...rest,
-                since: sinceDate,
-                to: toDate,
-            };
+            if (isNew) {
+                // Remove the id for new entries
+                const { id, ...newInst } = rest;
+                return {
+                    ...newInst,
+                    since: sinceDate,
+                    to: toDate,
+                };
+            } else {
+                // Keep the id for existing entries
+                return {
+                    ...rest,
+                    since: sinceDate,
+                    to: toDate,
+                };
+            }
         });
     
         console.log(cleanedData);
     
-        // onConfirm(cleanedData);
+        onConfirm(cleanedData);
     }
+    
     
 
     return (
