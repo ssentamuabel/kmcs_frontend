@@ -29,11 +29,11 @@ const FaceComponent = ({id})=>{
 
                 if (response.ok){
                     setFace(data)
-                    if (rights.perm.type){
+                    if (rights.perm.type && rights.member_id === id){
                         if (!data.occupation || !data.proffession || !data.residence_address){
                             setRegister(true)
                         } 
-                    }else{
+                    }else if (!rights.perm.type && rights.member_id === id){
                         if (!data.hall_of_attachment || !data.residence_address){
                             setRegister(true)
                         }  
@@ -108,7 +108,11 @@ const FaceComponent = ({id})=>{
                 />
             }
             <div className="profile-item" id="first-item">  
-                <div className="edit-icon" onClick={openForm} ><LuPenSquare /></div>                 
+                {((rights.member_id == id) || rights.perm.info_2 >= 2) && (
+                    <div className="edit-icon" onClick={openForm} ><LuPenSquare /></div> 
+                )}
+                
+                             
                 <div className = "details">
                     <h4>{`${face.sur_name} ${face.first_name} ${face.other_name ? face.other_name : ""}`}</h4>
                     

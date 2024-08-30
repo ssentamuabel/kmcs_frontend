@@ -1,33 +1,26 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../styles/components.css';
 import '../../styles/common.css';
 import Button from '../Button';
 import Select from '../SelectComponent';
-import Input from '../InputComponet'
+import Input from '../InputComponet';
 import awards from '../../awards';
-import {FaPlus} from 'react-icons/fa';
+import { FaPlus } from 'react-icons/fa';
 
-
-const RelationComponent = ({onCancel, onConfirm, inData}) => {
+const RelationComponent = ({ onCancel, onConfirm, inData }) => {
     const [formData, setFormData] = useState([]);
 
-
-    // POPULATE THE FORM DATA 
-    useEffect(()=>{
-        if (inData.length === 0){
+    // Populate the form data
+    useEffect(() => {
+        if (inData.length === 0) {
             setFormData([
-                    { id: 1, award: '', name: '', duration: '' }
-                ]
-            )
-        }else{
-            
+                { id: 0, award: '', name: '', since: '', to: '', isNew: true }
+            ]);
+        } else {
             setFormData(inData);
-            // console.log(newFormData)
-
         }
+    }, [inData]);
 
-    }, [inData])
-    
     const handleFieldChange = (e, index, field) => {
         const newFormData = [...formData];
         newFormData[index][field] = e.target.value;
@@ -35,15 +28,29 @@ const RelationComponent = ({onCancel, onConfirm, inData}) => {
     }
 
     const handleAddField = () => {
-        setFormData([...formData, {id: formData.length, name: '', award: '', duration: '', isNew:true }]);
+        setFormData([...formData, { id: formData.length, name: '', award: '', since: '', to: '', isNew: true }]);
     }
 
     const handleSubmit = () => {
-       
-        
-
-        console.log(formData)
+        const cleanedData = formData.map((inst) => {
+            const { id, isNew, since, to, ...rest } = inst;
+    
+            // Convert the since and to fields to Date objects and format as YYYY-MM-DD
+            const sinceDate = new Date(since).toISOString().split('T')[0];
+            const toDate = new Date(to).toISOString().split('T')[0];
+    
+            return {
+                ...rest,
+                since: sinceDate,
+                to: toDate,
+            };
+        });
+    
+        console.log(cleanedData);
+    
+        // onConfirm(cleanedData);
     }
+    
 
     return (
         <div id="alert-container">
@@ -52,35 +59,40 @@ const RelationComponent = ({onCancel, onConfirm, inData}) => {
                     <h4>Previous Institution</h4>
                     <div className="form-inputs">
                         {
-                            formData.map((inst, index) =>(
-                                <div className="form-item" key={inst.award}>
-                                    <Input 
+                            formData.map((inst, index) => (
+                                <div className="form-item" key={index}>
+                                    <Input
                                         value={inst.name}
-                                        name={`row_${inst.award}`}
-                                        onChange={(e)=>handleFieldChange(e, index, 'name')}
+                                        name={`row_${index}`}
+                                        onChange={(e) => handleFieldChange(e, index, 'name')}
                                         placeholder="Institution Name"
-                                        defaultValue
-                                        
                                     />
-                                    <Select 
+                                    <Select
                                         options={awards}
                                         value={inst.award}
                                         name="award"
-                                        defaultValue
-                                        onChange={(e)=>handleFieldChange(e, index, 'award')}
-                                        label="Choose  the Award"
+                                        onChange={(e) => handleFieldChange(e, index, 'award')}
+                                        label="Choose the Award"
                                     />
-                                    <Input 
-                                        value={inst.duration}
-                                        name="duration"
-                                        onChange={(e)=>handleFieldChange(e, index, 'duration')}
-                                        placeholder="Time Period"
-                                    />                          
+                                    <Input
+                                        value={inst.since}
+                                        name="since"
+                                        type='date'
+                                        onChange={(e) => handleFieldChange(e, index, 'since')}
+                                        placeholder="Start Date"
+                                    />
+                                    <Input
+                                        value={inst.to}
+                                        name="to"
+                                        type='date'
+                                        onChange={(e) => handleFieldChange(e, index, 'to')}
+                                        placeholder="End Date"
+                                    />
                                 </div>
                             ))
                         }
                         <div className="form-item">
-                            <span onClick={handleAddField}><FaPlus /></span>                         
+                            <span onClick={handleAddField}><FaPlus /></span>
                         </div>
                     </div>
                 </div>

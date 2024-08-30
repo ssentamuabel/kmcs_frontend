@@ -1,8 +1,9 @@
-import {useEffect, useState} from 'react'
+import {useEffect, useState, useContext} from 'react'
 import Alert from '../components/Alert'
 import BioForm from '../components/ProfileForms/BioFormComponent'
 import '../styles/pages.css'
 import { LuPenSquare } from 'react-icons/lu'
+import { RightsContext } from '../contexts/RightsProvider'
 
 const BioComponent = ({id, handleHobbyHealth}) =>{
     const [error, setError] = useState('')
@@ -12,6 +13,8 @@ const BioComponent = ({id, handleHobbyHealth}) =>{
     const [loading, setLoading] = useState(true)
     const [gender, setGender] = useState('Gender')
     const [marital, setMarital] = useState("Single")
+
+    const {rights} = useContext(RightsContext)
 
 
     useEffect(()=>{
@@ -128,7 +131,10 @@ const BioComponent = ({id, handleHobbyHealth}) =>{
                 />)
             } 
             <div className="profile-item" id="second-item">
-            <div className="edit-icon" onClick={openForm} ><LuPenSquare /></div>   
+            {((rights.member_id == id) || rights.perm.info_3 >= 2) && (
+                 <div className="edit-icon" onClick={openForm} ><LuPenSquare /></div>  
+            )}
+            
             <div className="details">
                 
                 <h4>{`${gender},  ${marital}` }</h4>

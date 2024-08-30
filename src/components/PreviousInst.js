@@ -1,4 +1,5 @@
-import {useEffect, useState} from 'react'
+import {useEffect, useState, useContext} from 'react'
+import { RightsContext } from '../contexts/RightsProvider'
 import PreviousInstForm from '../components/ProfileForms/InstitutionFormComponent'
 import { LuPenSquare } from 'react-icons/lu'
 
@@ -7,6 +8,9 @@ const PreviousInst = ({id}) => {
     const [inst, setInst] = useState([])
     const [loading, setLoading] = useState(true)
     const [register, setRegister] = useState(false)
+
+
+    const {rights} = useContext(RightsContext)
 
 
     useEffect(() => {
@@ -46,9 +50,38 @@ const PreviousInst = ({id}) => {
     const onCancel = () =>{
         setRegister(false)
     }
-    const onConfirm = () =>{
-        setRegister(false)
-    }
+    const onConfirm = (data) => {
+
+        const updateData = async () => {
+            try {
+                for (const item of data) {
+                    const response = await fetch(`https://127.0.0.1:8000/member_inst/${id}`, {
+                        method: 'POST',
+                        credentials: 'include',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(item),
+                    });
+    
+                    if (response.ok) {
+                        const res = await response.json();
+                        console.log(res);
+                        setInst((prevInst) => [...prevInst, res]); // Append the new institution data to the list
+                    } else {
+                        console.log(response);
+                    }
+                }
+            } catch (error) {
+                console.log(error.message);
+            } finally {
+                setRegister(false);
+            }
+        };
+    
+        updateData();
+    };
+    
 
     if (loading) {
         return <div>Loading...</div>;
@@ -64,14 +97,17 @@ const PreviousInst = ({id}) => {
                 />
             }
             <div className="profile-item">
-                <div className="edit-icon" onClick={openForm} ><LuPenSquare /></div>   
+                {((rights.member_id == id) || rights.perm.info_2 >= 2) && (
+                    <div className="edit-icon" onClick={openForm} ><LuPenSquare /></div>   
+                )} 
+               
                 <div className="details">
                     <h4>Previous Inst </h4>
                     
                         <div>
                             {inst.length > 0 ? (
                                 inst.map((item)=>(
-                                    <p key={item.id}>{`${item.award} : ${item.name} : ${item.duration}`}</p>
+                                    <p key={item.id}>{`${item.award} : ${item.name} : ${item.since}-${item.to}`}</p>
                                 ))
                             ): (
                                 <p>No   data found</p>

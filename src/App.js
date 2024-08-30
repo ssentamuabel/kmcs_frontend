@@ -7,7 +7,7 @@ import  Dashboard from './pages/Dashboard'
 import SideBar from './components/SideBar';
 import Programs from './pages/Programs';
 import Members from './pages/Members';
-import Profile from ',/pages/Profile';
+import Profile from './pages/Profile';
 import Settings from './pages/Settings';
 import  Login from './pages/Login'
 
@@ -26,7 +26,7 @@ function App() {
   function AppContent() {
 	const navigate = useNavigate()
 	const [loggedIn, setLoggedIn] = useState(false);
-	const { setRights } = useContext(RightsContext);
+	const { setRights, rights } = useContext(RightsContext);
   
 	const handleLogin = ({ jwt }) => {
 	  const decodedRights = jwtDecode(jwt);
@@ -57,7 +57,7 @@ function App() {
 			<Route path="members" element={<Members />} />
 			<Route path="programs" element={<Programs />} />
 			<Route path="settings" element={<Settings />} />
-			<Route path="profile" element={<Profile />} />
+			<Route path="profile" element={<Profile user={rights.member_id} />} />
 			<Route path="*" element={<Navigate to="/" />} />
 		  </Route>
 		)}

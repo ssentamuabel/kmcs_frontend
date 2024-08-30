@@ -1,8 +1,10 @@
-import {useEffect, useState} from 'react'
+import {useEffect, useState, useContext} from 'react'
+import { RightsContext } from '../contexts/RightsProvider'
 import { LuPenSquare } from 'react-icons/lu'
 
 const RelationComponent = ({id}) =>{
     const [relation, setRelation] = useState([])
+    const {rights} = useContext(RightsContext)
 
     useEffect(() =>{
         setRelation([
@@ -15,7 +17,9 @@ const RelationComponent = ({id}) =>{
     return (
         <>
             <div className="profile-item">
-                <div className="edit-icon"  ><LuPenSquare /></div>   
+                {((rights.member_id == id) || rights.perm.info_3 >= 2) && (
+                    <div className="edit-icon"  ><LuPenSquare /></div>   
+                )}                    
                 <div className="details">
                     <h4>Parents | Guardian</h4>
                     <div>
@@ -32,7 +36,9 @@ const RelationComponent = ({id}) =>{
                 </div>
             </div>
             <div className="profile-item">
-                <div className="edit-icon" ><LuPenSquare /></div>   
+                {((rights.member_id == id) || rights.perm.info_3 >= 2) && (
+                    <div className="edit-icon"  ><LuPenSquare /></div>   
+                )}    
                 <div className="details">
                     <h4>Parents | Guardian</h4>
                     <div>

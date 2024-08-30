@@ -34,7 +34,7 @@ const TableComponent = ({columns, filter_data, table_data, memberClick})=>{
     
 
     return (      
-            
+        <div className="page-container">
             <div className="tabular-wrapper">
                 {filter_data &&  (
                      <div className="filter-section">
@@ -46,7 +46,7 @@ const TableComponent = ({columns, filter_data, table_data, memberClick})=>{
                             <tr>
                                 {
                                     filter_data.map((item,index)=>(
-                                        <td key={index}>
+                                        <td key={index+1}>
                                             <p key={index}> {item.name}:</p>
                                             <Select
                                             options={item.options}
@@ -86,29 +86,35 @@ const TableComponent = ({columns, filter_data, table_data, memberClick})=>{
                             {rights.perm.type ? (
                                 table_data ? (
                                     table_data.map((member, key) =>(
-                                        <tr key={member.id}>
-                                            <td>{key +1}</td>
-                                            <td onClick={()=>memberClick(member.id)} id="member-click">{member.sur_name + ' ' + member.first_name}</td>
-                                            <td>{member.gender ? 'F': 'M'}</td>
-                                            <td>{member.residence_address ? member.residence_address  : "Unknown"}</td>
-                                            <td>{member.occupation ? member.occupation : member.proffession ? member.proffession : "Unknown"}</td>
-                                            <td>{member.proffession ? member.proffession : member.occupation ? member.occupation : "Unknown"}</td>                                                                       
-                                            <td>{member.user.email}</td>
-                                        </tr>
+                                        !(member.id === rights.member_id) && (
+                                            <tr key={member.id}>
+                                                <td>{key +1}</td>
+                                                <td onClick={()=>memberClick(member.id)} id="member-click">{member.sur_name + ' ' + member.first_name}</td>
+                                                <td>{member.gender ? 'F': 'M'}</td>
+                                                <td>{member.residence_address ? member.residence_address  : "Unknown"}</td>
+                                                <td>{member.occupation ? member.occupation : member.proffession ? member.proffession : "Unknown"}</td>
+                                                <td>{member.proffession ? member.proffession : member.occupation ? member.occupation : "Unknown"}</td>                                                                       
+                                                <td>{member.user.email}</td>
+                                            </tr>
+                                        )
+                                        
                                     ))
                                 ) : (<tr > <td colSpan={7}></td> </tr>)
                             ): (
                                 studentsData ? (
                                     studentsData.map((member, key) =>(
-                                        <tr key={member.id}>
-                                            <td>{key}</td>
-                                            <td onClick={()=>memberClick(member.id)} id="member-click">{member.sur_name + ' ' + member.first_name}</td>
-                                            <td>{member.gender ? 'F': 'M'}</td>
-                                            <td>{member.course ? member.course : "Unknown"}</td>
-                                            <td>{member.residence_address ? member.residence_address : member.hall_of_attachment ? member.hall_of_attachment : "Unknown"}</td>
-                                            <td>{member.hall_of_attachment ? member.hall_of_attachment : "Unknown"}</td>                                                                         
-                                            <td>{member.user.email}</td>
-                                        </tr>
+                                        !(member.id === rights.member_id) && (
+                                            <tr key={member.id}>
+                                                <td>{key}</td>
+                                                <td onClick={()=>memberClick(member.id)} id="member-click">{member.sur_name + ' ' + member.first_name}</td>
+                                                <td>{member.gender ? 'F': 'M'}</td>
+                                                <td>{member.course ? member.course : "Unknown"}</td>
+                                                <td>{member.residence_address ? member.residence_address : member.hall_of_attachment ? member.hall_of_attachment : "Unknown"}</td>
+                                                <td>{member.hall_of_attachment ? member.hall_of_attachment : "Unknown"}</td>                                                                         
+                                                <td>{member.user.email}</td>
+                                            </tr>
+                                        )
+                                        
                                     )) 
                                     
                                 ):(<tr > <td colSpan={7}>No data Found</td> </tr>)
@@ -122,7 +128,9 @@ const TableComponent = ({columns, filter_data, table_data, memberClick})=>{
                         </tfoot> */}
                     </table>
                 </div>
-            </div>               
+            </div>      
+
+        </div>                    
               
     )
 }

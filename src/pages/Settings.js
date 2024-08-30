@@ -119,6 +119,8 @@ const Settings = ()=>{
             const role = rights.perm.type ? {name: newRole, type:1} : {name: newRole, type: 0};
 
 
+            console.log(role)
+
             try{
 
                 const response = await fetch('https://127.0.0.1:8000/permission/', {

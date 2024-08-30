@@ -31,8 +31,9 @@ const Profile = ({onReturn, user}) =>{
     }
      
 
-    return (       
-        <div style={{width: '100%', position: 'relative'}} >
+    return ( 
+        <div className="page-container">
+            <div style={{width: '100%', position: 'relative'}} >
             { 
                 info && (<Alert                 
                     message ={infoMsg}
@@ -41,7 +42,7 @@ const Profile = ({onReturn, user}) =>{
             } 
            {
 
-            !(rights.perm.name == 'student' || rights.perm.name == 'alumnus') && (
+            !(rights.member_id === user) && (
                 <Button 
                     text ="back"
                     onClick={onReturn}
@@ -54,11 +55,18 @@ const Profile = ({onReturn, user}) =>{
                     <FaRegUser />                   
                 </div>
                 <Face  id={user} />
-                <Bio id={user} handleHobbyHealth = {getHobbyHealth} />
-                <Relation  id={user} />
+                {((rights.member_id == user) || rights.perm.info_3 > 0) && (
+                <>
+                    <Bio id={user} handleHobbyHealth = {getHobbyHealth} />
+                    <Relation  id={user} />
+                </>)}
+               
                 <Inst id={user} />
                 <div className="profile-item">
-                    <div className="edit-icon"  onClick={()=>handleClick("First Section")} ><LuPenSquare /></div>   
+                    {((rights.member_id == user) || rights.perm.info_2 >= 2) && (
+                        <div className="edit-icon"  onClick={()=>handleClick("First Section")} ><LuPenSquare /></div>   
+                    )}
+                    
                     <div className="details">
                         <h4>Hobbies </h4>
                         <div>
@@ -71,24 +79,32 @@ const Profile = ({onReturn, user}) =>{
                         
                     </div>
                 </div>
-                <div className="profile-item">
-                    <div className="edit-icon"  ><LuPenSquare /></div>   
-                    <div className="details">
-                        <h4>Any Health Conditions </h4>
-                        <div>
-                            {healthIssue ? (
-                                    <p>{healthIssue.split('#').join(' | ')}</p>
-                                ): (
-                                    <p>No  data found</p>
-                                )}
+                {((rights.member_id == user) || rights.perm.info_3 > 0) && (
+                
+                    <div className="profile-item">
+                        {((rights.member_id == user) || rights.perm.info_3 >= 2) && (
+                            <div className="edit-icon"  ><LuPenSquare /></div> 
+                        )}
+              
+                        <div className="details">
+                            <h4>Any Health Conditions </h4>
+                            <div>
+                                {healthIssue ? (
+                                        <p>{healthIssue.split('#').join(' | ')}</p>
+                                    ): (
+                                        <p>No  data found</p>
+                                    )}
+                            </div>
+                            
                         </div>
-                        
-                    </div>
                     
-                </div>
+                    </div>
+                )}
+               
             </div>
         </div>
-        
+
+        </div>         
     )
 }
 

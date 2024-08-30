@@ -67,59 +67,53 @@ const Members = ()=>{
     useEffect(()=>{
 
 
-        if (rights.perm.name  == 'student' || rights.perm.name  == 'alumnus'){
+        const getData = async() =>{
 
-            setProfile(true)
-            setUserid(rights.member_id)
+            try {
+                const response = await fetch('https://127.0.0.1:8000/member/level_1/', {
+                    method: 'GET',
+                    credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+                
 
-        }else{
+                if (response.ok){
+                    const jsondata = await response.json()
 
-            const getData = async() =>{
-
-                try {
-                    const response = await fetch('https://127.0.0.1:8000/member/level_1/', {
-                        method: 'GET',
-                        credentials: 'include',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                    })
-                    
-    
-                    if (response.ok){
-                        const jsondata = await response.json()
-    
-                        setTableData(jsondata)
-                        console.log(jsondata)
-                    }else{
-                        setError(`Something went wrong`)
-                        setErrorAlert(true)
-                    }
-    
-                } catch (error) {
-                    setError('Connection Problem')
+                    setTableData(jsondata)
+                    console.log(jsondata)
+                }else{
+                    setError(`Something went wrong`)
                     setErrorAlert(true)
                 }
+
+            } catch (error) {
+                setError('Connection Problem')
+                setErrorAlert(true)
             }
-    
-            getData()
         }
 
-        
+        getData()        
             
 
     }, [])
 
     const seeProfile = (id)=>{
-        setUserid(id)
-        setProfile(true)
+        
+        if (rights.perm.info_2 > 0){
+            setUserid(id)
+            setProfile(true)
+        }
+       
     }
     const handleReturn = () =>{
         setProfile(false)
     }
 
     return (
-        <div className="page-container">
+        <>
               { 
                 errorAlert && (<Alert 
                 type='Error'
@@ -142,7 +136,7 @@ const Members = ()=>{
                 />
              )} 
           
-        </div>
+        </>
     )
 }
 
