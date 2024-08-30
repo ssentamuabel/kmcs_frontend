@@ -89,7 +89,7 @@ const PreviousInst = ({id}) => {
 
     return (
         <>
-             {register && 
+            {register && 
                 <PreviousInstForm
                     onCancel={onCancel}
                     onConfirm={onConfirm}

@@ -9,28 +9,23 @@ import humanRelations from '../../relations';
 import {FaPlus} from 'react-icons/fa';
 
 
-const RelationComponent = ({onCancel, onConfirm, inData, nature}) => {
+const RelationComponentForm = ({onCancel, onConfirm, inData, nature, state}) => {
     const [formData, setFormData] = useState([]);
 
 
     // POPULATE THE FORM DATA 
     useEffect(()=>{
-        if (inData.length === 0){
+        if (Array.isArray(inData) && inData.length === 0){
             setFormData([
-                    { id: 1, name: '', relation: '', contact: '' }
+                    { id: '0#', name: '', relation: '', contact: '' , isNew: true }
                 ]
             )
-        }else{
-            const newFormData = inData.map((item, index) => ({
-                id: index + 1,
-                name: SplitString(item.name, ':')[1].value,
-                relation: SplitString(item.name, ':')[0].value,
-                contact: SplitString(item.name, ':')[2].value,
-                db_id: item.id
-            }));
-            setFormData(newFormData);
+        }else if (Array.isArray(inData)) {
+           
+            setFormData(inData);
             // console.log(newFormData)
-
+        }else {
+            setFormData([])
         }
 
     }, [inData])
@@ -42,25 +37,26 @@ const RelationComponent = ({onCancel, onConfirm, inData, nature}) => {
     }
 
     const handleAddField = () => {
-        setFormData([...formData, { id: formData.length + 1, name: '', relation: '', contact: '' }]);
+        setFormData([...formData, { id: formData.length + '#', name: '', relation: '', contact: '', isNew: true }]);
     }
 
     const handleSubmit = () => {
-       
-        // CONSTRUCT STRINGS FOR THE DATA       
-        const updatedData = [];
-
-        formData.map((item) =>(
-            updatedData.push({id: item.db_id? item.db_id: '',  name: ` ${item.relation}: ${item.name}:  ${item.contact}` })
-            
-        ))
-
-        // SUBMIT THE DATA TO THE PROFILE PAGE
-        const id = nature == 'guardian' ? 'guardian' : 'kin'
-
-        onConfirm({data:updatedData, id:id})
-
+        const cleanedData = formData.map((relation) => {
+            const { isNew, ...rest } = relation;
+    
+            if (isNew) {
+                const { id, ...newRelation } = rest;
+                
+                return state? {...newRelation, type: 1}: newRelation; // Return newRelation for new items
+            }
+    
+            return state? {...rest, type: 1}: rest; // Return the original object if isNew is false
+        });
+    
+        console.log(cleanedData);
+        onConfirm(cleanedData)
     }
+    
 
     return (
         <div id="alert-container">
@@ -110,4 +106,4 @@ const RelationComponent = ({onCancel, onConfirm, inData, nature}) => {
     )
 }
 
-export default RelationComponent;
+export default RelationComponentForm;

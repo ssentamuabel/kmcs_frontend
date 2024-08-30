@@ -14,7 +14,7 @@ const RelationComponent = ({ onCancel, onConfirm, inData }) => {
     useEffect(() => {
         if (Array.isArray(inData) && inData.length === 0) {
             setFormData([
-                { id: 0, award: '', name: '', since: '', to: '', isNew: true }
+                { id: '0#', award: '', name: '', since: '', to: '', isNew: true }
             ]);
         } else if (Array.isArray(inData)) {
             setFormData(inData);
