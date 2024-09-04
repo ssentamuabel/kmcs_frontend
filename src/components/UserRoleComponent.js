@@ -19,7 +19,8 @@ const UserRoleComponent = ({data, permissionOptions}) =>{
 
         const newUser = data.filter((member)=>(member.id === id))
 
-        // console.log(newUser[0])
+        
+        console.log({...newUser[0], role_id: value})
        
         try{
 

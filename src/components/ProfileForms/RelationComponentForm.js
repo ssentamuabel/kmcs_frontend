@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import '../../styles/components.css';
-import SplitString from '../splitStringToObjects '
 import '../../styles/common.css';
 import Button from '../Button';
 import Select from '../SelectComponent';
@@ -56,6 +55,9 @@ const RelationComponentForm = ({onCancel, onConfirm, inData, nature, state}) => 
         console.log(cleanedData);
         onConfirm(cleanedData)
     }
+
+
+ 
     
 
     return (
@@ -97,7 +99,7 @@ const RelationComponentForm = ({onCancel, onConfirm, inData, nature, state}) => 
                         </div>
                     </div>
                 </div>
-                <div id="model-footer">
+                <div className="model-footer">
                     <Button text="Submit" onClick={handleSubmit} />
                     <Button text="Cancel" onClick={onCancel} />
                 </div>

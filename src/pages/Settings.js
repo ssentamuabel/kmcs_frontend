@@ -112,10 +112,7 @@ const Settings = ()=>{
         if (newRole){
             console.log(rights.perm.type)
 
-            if (rights.perm.type){
-                const role = {...newRole, type:1}
-            }
-            
+           
             const role = rights.perm.type ? {name: newRole, type:1} : {name: newRole, type: 0};
 
 

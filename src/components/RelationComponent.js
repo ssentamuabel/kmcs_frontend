@@ -105,6 +105,7 @@ const RelationComponent = ({id}) =>{
                     onCancel={onCancel}
                     onConfirm={onConfirm}
                     inData={relation}
+                    nature ="Parent | Guardian"
                 />
             }
              {registerFriend && 
@@ -113,6 +114,7 @@ const RelationComponent = ({id}) =>{
                     onConfirm={onConfirm}
                     inData={friend}
                     state= {true}
+                     nature ="Next of Kin | Friend"
                 />
             }
             <div className="profile-item">

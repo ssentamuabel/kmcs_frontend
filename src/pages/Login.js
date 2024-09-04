@@ -6,6 +6,7 @@ import '../styles/common.css'
 import Input from '../components/InputComponet'
 import Button from '../components/Button'
 import Alert from '../components/Alert'
+import kmcs from '../kmcs.png'
 import {
     FaPhoneAlt,
     FaUserLock
@@ -110,45 +111,62 @@ const Login = ({onLogin})=>{
     }
 
     return (
-        <div className='container'>
+        <div  id="login-page">
             { 
                 errorAlert && (<Alert 
                 type='Error'
                 message ={error}
                  onCancel={()=>{setErrorAlert(false)}}                     
                 />)
-             }   
-            <form autoComplete='off'>              
+             }
+             <div className="right">
+                <div id="right-wrapper">
+                    <h4>Login</h4>
+                    <div>
+                        <Input 
+                            icon = {<FaPhoneAlt />}
+                            placeholder = "Contact"
+                            value={formdata.contact}
+                            onChange={handleChange}
+                            name="contact"
+                            error={validationErrors.contact}
+                                    
+                        />
+                        <Input 
+                            icon = {<FaUserLock />}
+                            placeholder = "**********"                  
+                            password
+                            name="password"
+                            onChange={handleChange}
+                            value={formdata.password}
+                            error={validationErrors.password}
+                         /> 
+
+                        <Button 
+                            text={isLoading ? 'Loading...' : 'Submit'}
+                            disabled={isLoading}
+                            onClick={handleSubmit}
+
+                        />
+                    </div>
+                        
+                   <p>To create an  Account: <Link to='/register'>Register</Link> </p> 
+
+                </div>
+               
+            </div>
+            <div className="left">
+               <div id="left-wrapper">
+                   
+                <center> <img src={kmcs} alt="KMCS" /></center>
+                
+                <h3>Kyambogo University Muslim Centralised System</h3>
+                <p>You are most welcome, lets explore the diversity of the Muslim Fraternity in Kyambogo</p>
+                
+               </div>            
+
+            </div>
             
-                <Input 
-                    icon = {<FaPhoneAlt />}
-                    placeholder = "Contact"
-                    value={formdata.contact}
-                    onChange={handleChange}
-                    name="contact"
-                    error={validationErrors.contact}
-                    
-                />
-
-                <Input 
-                    icon = {<FaUserLock />}
-                    placeholder = "**********"                  
-                    password
-                    name="password"
-                    onChange={handleChange}
-                    value={formdata.password}
-                    error={validationErrors.password}
-                /> 
-
-                <Button 
-                    text={isLoading ? 'Loading...' : 'Submit'}
-                    disabled={isLoading}
-                    onClick={handleSubmit}
-
-                />
-
-            </form>
-            <Link to='/register'>Register</Link>
         </div>        
     )
 }

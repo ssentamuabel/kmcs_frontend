@@ -64,7 +64,7 @@ const Profile = ({onReturn, user}) =>{
                 <Inst id={user} />
                 <div className="profile-item">
                     {((rights.member_id == user) || rights.perm.info_2 >= 2) && (
-                        <div className="edit-icon"  onClick={()=>handleClick("First Section")} ><LuPenSquare /></div>   
+                        <div className="edit-icon"  onClick={()=>handleClick("Bio Section")} ><LuPenSquare /></div>   
                     )}
                     
                     <div className="details">
@@ -83,7 +83,7 @@ const Profile = ({onReturn, user}) =>{
                 
                     <div className="profile-item">
                         {((rights.member_id == user) || rights.perm.info_3 >= 2) && (
-                            <div className="edit-icon"  ><LuPenSquare /></div> 
+                            <div className="edit-icon" onClick={()=>handleClick("Bio Section")} ><LuPenSquare /></div> 
                         )}
               
                         <div className="details">

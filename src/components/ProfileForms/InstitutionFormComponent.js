@@ -7,7 +7,7 @@ import Input from '../InputComponet';
 import awards from '../../awards';
 import { FaPlus } from 'react-icons/fa';
 
-const RelationComponent = ({ onCancel, onConfirm, inData }) => {
+const InstitutionFormComponent = ({ onCancel, onConfirm, inData }) => {
     const [formData, setFormData] = useState([]);
 
     // Populate the form data
@@ -91,6 +91,7 @@ const RelationComponent = ({ onCancel, onConfirm, inData }) => {
                                         value={inst.since}
                                         name="since"
                                         type='date'
+                                        aria-label="Date"
                                         onChange={(e) => handleFieldChange(e, index, 'since')}
                                         placeholder="Start Date"
                                     />
@@ -98,6 +99,7 @@ const RelationComponent = ({ onCancel, onConfirm, inData }) => {
                                         value={inst.to}
                                         name="to"
                                         type='date'
+                                        aria-label="Date"
                                         onChange={(e) => handleFieldChange(e, index, 'to')}
                                         placeholder="End Date"
                                     />
@@ -109,7 +111,7 @@ const RelationComponent = ({ onCancel, onConfirm, inData }) => {
                         </div>
                     </div>
                 </div>
-                <div id="model-footer">
+                <div className="model-footer">
                     <Button text="Submit" onClick={handleSubmit} />
                     <Button text="Cancel" onClick={onCancel} />
                 </div>
@@ -118,4 +120,4 @@ const RelationComponent = ({ onCancel, onConfirm, inData }) => {
     )
 }
 
-export default RelationComponent;
+export default InstitutionFormComponent;

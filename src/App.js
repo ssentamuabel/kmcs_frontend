@@ -34,7 +34,7 @@ function App() {
 	  setLoggedIn(true);
 
 	  if (decodedRights.perm.name === 'student' || decodedRights.perm.name === 'alumnus'){
-			navigate('members')
+			navigate('profile')
 	}
 	};
   

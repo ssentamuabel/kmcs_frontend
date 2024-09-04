@@ -70,7 +70,7 @@
 }
 
 .table-container th,  .table-container td{
-    padding:0.5em;
+    padding:0.5em 0.3em;
     text-align: left;
 }
 

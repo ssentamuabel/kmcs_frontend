@@ -19,6 +19,7 @@ import {
 const FaceFormComponent = ({ onCancel, onConfirm, inData }) => {
 
   const {rights} = useContext(RightsContext)
+  const [error, setError] = useState('')
   const [formData, setFormData] = useState({
     sur_name: "",
     first_name: "",
@@ -123,6 +124,9 @@ const FaceFormComponent = ({ onCancel, onConfirm, inData }) => {
     const newSkillsList = skills ? [...skillsList, { id: skillsList.length, value: skills }] : skillsList;
     const skillString = newSkillsList.map(item => item.value).join('#');
     
+	if (!validateAddress(formData.address)) {
+		return;
+	  }
 
     const updatedData = {
       sur_name: formData.sur_name,
@@ -145,6 +149,22 @@ const FaceFormComponent = ({ onCancel, onConfirm, inData }) => {
     onConfirm(updatedData);
 	// console.log(updatedData)
   };
+
+
+  const validateAddress = (address) =>{
+
+	const reg = /^\s*[^,]+(\s+[^,]+)*(\s*,\s*[^,]+(\s+[^,]+)*){0,2}\s*$/
+
+	if (reg.test(address)){
+		setError('')
+		return true;
+	}
+
+	setError('"village, district, Country" is the desired address')
+
+	return false;
+
+  }
 
 
 
@@ -208,8 +228,9 @@ const FaceFormComponent = ({ onCancel, onConfirm, inData }) => {
                 name="address"
                 value={formData.address}
                 onChange={handleChange}
-                placeholder="Hostel | village, District, Country"
+                placeholder=" village, District, Country"
                 icon={<FaLocationDot />}
+				error={error}
               />
             </div>
             {rights.perm.type ? (
@@ -273,7 +294,7 @@ const FaceFormComponent = ({ onCancel, onConfirm, inData }) => {
             
           </div>
         </div>
-        <div className="form-footer">
+        <div className="model-footer">
           <Button text="Submit" onClick={handleChanges} />
           <Button text="Cancel" onClick={onCancel} />
         </div>

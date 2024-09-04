@@ -38,7 +38,7 @@ const InputComponet = ({
             <div  id="input-container">
                 <div className="wrapper">
                     <div id="input-icon">{icon}</div>                
-                    <input ref={inputRef}      {...props}  />      
+                    <input ref={inputRef}   type={type}   {...props}  />      
                     
                     {password && <span id="password-icon" onClick={handleShowPassword}>{showPassword ? <FaEye/> :<FaEyeSlash/> }</span>}
                     {addbtn && <span id="password-icon" onClick={handleAddField}><FaPlus /></span >}

@@ -10,6 +10,93 @@
     
 }
 
+
+
+
+/* Login Page  and Register Page */
+#register-page,
+#login-page{
+    display: flex;
+    justify-content: space-around;
+    height: 100vh;
+}
+
+#register-page .right,
+#login-page .left{
+    width:50%;
+    
+}
+#register-page .left,
+#login-page .right{
+    width:50%;
+    background: #074734;
+    
+}
+
+#register-page .left  #left-wrapper{
+    overflow-y: scroll;
+}
+
+#register-page .left  #left-wrapper,
+#login-page .right #right-wrapper{
+    display:flex;
+    flex-direction: column;
+    justify-content:space-evenly;
+    background: #fff;   
+    align-items: left;
+    border-radius: 5px;
+    margin: 15%  auto;
+    padding: 0 3em;
+    width:320px;
+    height:70%;
+    
+    
+}
+
+
+
+#register-page .right,
+#login-page .left{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20%  auto;
+    padding:0 3em;
+}
+#left-wrapper h4,
+#right-wrapper h4{
+    font-size: 1.5em;
+}
+
+
+
+#register-page .right #right-wrapper h3,
+#login-page .left #left-wrapper h3{
+    font-size: 2em;
+    color:#074734;
+}
+
+#register-page .right #right-wrapper p,
+#login-page .left #left-wrapper p{
+    padding:1em 0;
+}
+
+#register-page .right #right-wrapper img,
+#login-page .left #left-wrapper img{
+    width:300px;
+    height:250px;
+
+}
+
+
+
+
+
+
+
+
+
+/* Profile Page */
 .profile-item .details h4{
     font-size: 1em;
     font-weight: bold;
@@ -141,5 +228,44 @@
         width: 50vw;          
        
     }
+
+
+
+    /* Login Page  and Register Page */
+  
+    #register-page .left,
+    #login-page .right{
+        width:100%;
+        background: #074734;
+        
+    }
+
+    #register-page,
+    #login-page{
+        background: #074734;
+    }
+
+
+    #register-page .right,
+    #login-page .left{
+        display:none;
+        padding: 1em;
+        
+    }
+
+    #register-page .left,
+    #login-page .right{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 10% auto;
+        
+    }
+    
+    
+    
+
+
+
 
 }

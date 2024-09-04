@@ -7,6 +7,7 @@ import Button from '../components/Button'
 import Select from '../components/SelectComponent'
 import Alert from '../components/Alert'
 import AutoComplete from '../components/AutoCompleteInputComponent'
+import kmcs from '../kmcs.png'
 
 import {
     FaUser,
@@ -43,13 +44,13 @@ const Register = ()=>{
     });
 
     const gender_options = [
-        {value: 'false', name :'Male'},
-        {value: 'true', name :'Female'}
+        {value: 'Male', name :'Male'},
+        {value: 'Female', name :'Female'}
     ]
 
     const memberType_options = [
-        {value: 'false', name :'Student'},
-        {value: 'true', name :'Alumnus'}
+        {value: 'Student', name :'Student'},
+        {value: 'Alumnus', name :'Alumnus'}
     ]
     const hall_options = [
         {value: 'Kulubya', name :'Kulubya'},
@@ -77,7 +78,7 @@ const Register = ()=>{
     }
 
     const handleMemberChange = (e) =>{
-        if (e.target.value == 'true'){
+        if (e.target.value == 'Alumnus'){
             setIsStudent(false)
         }else{
             setIsStudent(true)
@@ -95,12 +96,9 @@ const Register = ()=>{
         console.log(validationErrors)
 
         if (!validateForm()) return;
-        setIsLoading(true)
+        setIsLoading(true)        
 
-        formdata.gender = (formdata.gender) === "false" ? false : true;
-        formdata.member_type = (formdata.member_type) === "false" ? false : true;
-
-        if (formdata.member_type){
+        if (formdata.member_type === "Alumnus"){
             formdata.reg_no = `${formdata.entry}_N_${formdata.course_code}_000_N`
         }
         const contact = formdata.contact.startsWith('0')
@@ -109,20 +107,21 @@ const Register = ()=>{
                         ? formdata.contact.slice(1)
                         : formdata.contact;
 
+        // const role_id  = member_type? 2:1 ;
 
         let data = {
             sur_name: formdata.sur_name[0].toUpperCase() + formdata.sur_name.slice(1).toLowerCase(),
             first_name: formdata.first_name[0].toUpperCase() + formdata.first_name.slice(1).toLowerCase(),           
-            reg_no: formdata.reg_no,
+            reg_no: formdata.reg_no.replace(/[\/\-_]/g, '_').toUpperCase(),
             hall_of_attachment : formdata.hall,
-            gender: formdata.gender,
-            member_type : formdata.member_type,
+            gender: formdata.gender === "Female" ? true : false,
+            member_type : formdata.member_type === "Alumnus" ? true: false,
             user : { email: formdata.email, contact: contact}
         }
 
         // console.log(JSON.stringify(data))
         console.log(data)
-        
+        // setIsLoading(false)
 
         try {
 
@@ -155,7 +154,7 @@ const Register = ()=>{
                 navigate('/login')
             }else{
                 console.log(response)
-                setError(` ${jsondata.detail}: try once again`)
+                setError(`Check your number, Its seems to be used already`)
                 setErrorAlert(true)
             }
            
@@ -206,18 +205,20 @@ const Register = ()=>{
             errors.gender = "Select your gender"
         }
 
-        if (formdata.member_type === 'true'){
+        if (formdata.member_type === 'Alumnus'){
 
             if (!formdata.course_code.trim()){
-                errors.coursecode = "Type search your course"            
+                errors.coursecode = "Type search your course or choose one related "            
             }
 
             if (!formdata.entry.trim()){
                 errors.entry = "Which entry were you admitted ie 19, 12 ...."
             }
-        }else if (formdata.member_type === 'false'){
+        }else if (formdata.member_type === 'Student'){
             if (!formdata.reg_no.trim()){
                 errors.reg_no = "Registration number is required"
+            }else if (!reg_regex.test(formdata.reg_no.trim())){
+                errors.reg_no = "Invalid registration Number"
             }
 
             if (!formdata.hall.trim()){
@@ -240,136 +241,144 @@ const Register = ()=>{
     
    
     return (
-        <div className='container'>
+        <div id='register-page'>
             { 
                 errorAlert && (<Alert 
                 type='Error'
                 message ={error}
                  onCancel={()=>{setErrorAlert(false)}}                     
                 />)
-            } 
-            <form>
+            }
+             
+             <div className="right">
+               <div id="right-wrapper">
+                   
+                <center> <img src={kmcs} alt="KMCS" /></center>
+                
+                <h3>Kyambogo University Muslim Centralised System</h3>
+                <p>You are most welcome, lets explore the diversity of the Muslim Fraternity in Kyambogo</p>
+                
+               </div>            
 
-                <Input 
-                    icon = {<FaUser />}
-                    placeholder = "Surname"
-                    value={formdata.sur_name}
-                    onChange={handleChange}
-                    name="sur_name"
-                    error={validationErrors.sur_name}
-                        
-                />
+            </div>
+            <div className="left">
                
-                <Input 
-                    icon = {<FaUser />}
-                    placeholder='First Name'
-                    value={formdata.first_name}
-                    onChange={handleChange}
-                    name="first_name"
-                    error={validationErrors.first_name}
-                        
-                />
-                
-
-                <Input 
-                    icon = {<FaPhoneAlt />}
-                    placeholder='Contact number'
-                    value={formdata.contact}
-                    onChange={handleChange}
-                    name="contact"
-                    error={validationErrors.contact}
-                        
-                />
-                
-                
-
-                <Select 
-                    options = {gender_options}
-                    name="gender"
-                    label="gender"
-                    value={formdata.gender}
-                    icon = {<FaMicroscope />}
-                    onChange={handleChange}
-                    error={validationErrors.gender}
-                />
-                <Select 
-                    options = {memberType_options}
-                    name="member_type"
-                    label="type"
-                    value={formdata.member_type}
-                    icon = {<FaHome />}
-                    onChange={handleMemberChange}
-                    error={validationErrors.member_type}
-                />
-                {isStudent ? (
-                    <>
+                <div id="left-wrapper">
+                    <h4>Register</h4>
+                    <div>
                         <Input 
-                            icon = {<FaUserTag  />}
-                            placeholder='Registration Number'
-                            value={formdata.reg_no}
+                            icon = {<FaUser />}
+                            placeholder = "Surname"
+                            value={formdata.sur_name}
                             onChange={handleChange}
-                            name="reg_no"
-                            error={validationErrors.reg_no}
-        
+                            name="sur_name"
+                            error={validationErrors.sur_name}
+                            
+                        />
+                
+                        <Input 
+                            icon = {<FaUser />}
+                            placeholder='First Name'
+                            value={formdata.first_name}
+                            onChange={handleChange}
+                            name="first_name"
+                            error={validationErrors.first_name}
+                                
+                        />
+                        <Input 
+                            icon = {<FaPhoneAlt />}
+                            placeholder='Contact number'
+                            value={formdata.contact}
+                            onChange={handleChange}
+                            name="contact"
+                            error={validationErrors.contact}
+                            
+                        />               
+                        
+
+                        <Select 
+                            options = {gender_options}
+                            name="gender"
+                            label="gender"
+                            value={formdata.gender}
+                            icon = {<FaMicroscope />}
+                            onChange={handleChange}
+                            error={validationErrors.gender}
                         />
                         <Select 
-                            options = {hall_options}
-                            name="hall"
-                            label="Hall of Attachment"
-                            value={formdata.hall}
+                            options = {memberType_options}
+                            name="member_type"
+                            label="type"
+                            value={formdata.member_type}
                             icon = {<FaHome />}
-                            onChange={handleChange}
-                            error={validationErrors.hall}
-                         />
-                    </>
+                            onChange={handleMemberChange}
+                            error={validationErrors.member_type}
+                        />
+                        {isStudent ? (
+                            <>
+                                <Input 
+                                    icon = {<FaUserTag  />}
+                                    placeholder='Registration Number'
+                                    value={formdata.reg_no}
+                                    onChange={handleChange}
+                                    name="reg_no"
+                                    error={validationErrors.reg_no}
+                
+                                />
+                                <Select 
+                                    options = {hall_options}
+                                    name="hall"
+                                    label="Hall of Attachment"
+                                    value={formdata.hall}
+                                    icon = {<FaHome />}
+                                    onChange={handleChange}
+                                    error={validationErrors.hall}
+                                />
+                            </>
+                            
+                        ): (
+                            <>
+                                <AutoComplete 
+                                    icon={<FaBook />}
+                                    setValue={getCourseCode}
+                                    error={validationErrors.coursecode}
+                                />
+                                <Input 
+                                    icon = {<FaGraduationCap  />}
+                                    placeholder=' ie 19 for 19th graduation'
+                                    type='number'
+                                    value={formdata.entry}
+                                    onChange={handleChange}
+                                    name="entry"
+                                    error={validationErrors.entry}
                     
-                ): (
-                    <>
-                        <AutoComplete 
-                            icon={<FaBook />}
-                            setValue={getCourseCode}
-                            error={validationErrors.coursecode}
-                        />
-                        <Input 
-                            icon = {<FaGraduationCap  />}
-                            placeholder=' ie 19 for 19th graduation'
-                            type='number'
-                            value={formdata.entry}
-                            onChange={handleChange}
-                            name="entry"
-                            error={validationErrors.entry}
-            
-                        />
-                    </>
-                  
-                )}
-
-                <Input 
-                    icon = {<FaEnvelope />}
-                    placeholder='Email Address'
-                    value={formdata.email}
-                    onChange={handleChange}
-                    name="email"
-                    type="email"
-                    error={validationErrors.email}
+                                />
+                            </>
                         
-                />
-                
+                        )}
+                        <Input 
+                            icon = {<FaEnvelope />}
+                            placeholder='Email Address'
+                            value={formdata.email}
+                            onChange={handleChange}
+                            name="email"
+                            type="email"
+                            error={validationErrors.email}
+                                
+                        />
+                        <Button 
+                            text={isLoading ? 'Loading...' : 'Submit'}
+                            disabled={isLoading}
+                            onClick={handleSubmit}
+                        />
 
-                
-                
-                    
-                <Button 
-                    text={isLoading ? 'Loading...' : 'Submit'}
-                    disabled={isLoading}
-                    onClick={handleSubmit}
-                />
-
+                </div>
+                <p>Have an  Account: <Link to='/login'>Login</Link> </p> 
                
-                       
 
-            </form>
-            <Link to='/login'>Login</Link>
+                </div>
+            </div>        
+           
         </div>   
     )
        

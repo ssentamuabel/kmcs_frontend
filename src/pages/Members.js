@@ -39,31 +39,6 @@ const Members = ()=>{
         {id:7, name: "Email"}
     ]
 
-
-
-    const filter_data = [
-        {
-            name : "Entry",
-            options: [
-                {value: '1', name: '10'},
-                {value: '2', name: '11'},
-                {value: '3', name: '12'}
-            ],
-            label: 'Filter Entry'
-        },
-        {
-            name : "Hall",
-            options: [
-                {value: '1', name: 'Kulubya'},
-                {value: '2', name: 'Pearl'},
-                {value: '3', name: 'Nanziri'},
-                {value: '4', name: 'North Hall'}
-            ],
-            label: 'Filter Hall'
-        }
-    ]
-   
-
     useEffect(()=>{
 
 
@@ -128,8 +103,7 @@ const Members = ()=>{
                 />
              ) : (
                  <Table 
-                    columns = {rights.perm.type ? alumnus_columns : student_columns}
-                    filter_data = {filter_data}
+                    columns = {rights.perm.type ? alumnus_columns : student_columns}                    
                     table_data = {tableData}
                     memberClick={seeProfile}
  

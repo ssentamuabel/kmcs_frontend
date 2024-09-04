@@ -92,12 +92,13 @@ const BioFormComponent = ({onCancel, onConfirm, inData})=>{
         const updatedData ={
             gender: formData.gender == "Female" ? true : false,
             married: formData.maritialStatus === "Married" ? true: false,
-            dob: formData.dob,
+            dob: new Date(formData.dob).toISOString().split('T')[0],
             home_address : formData.home,
             tribe: formData.tribe,
             languages: langstring,
             hobbies: hobbyString,
             disability : issueString
+            
         }
 
         onConfirm(updatedData)
@@ -146,6 +147,7 @@ const BioFormComponent = ({onCancel, onConfirm, inData})=>{
                             <Input
                                 type = 'date'
                                 name="dob"
+                                aria-label="Date"
                                 placeholder="Date of birth"
                                 icon={<FaClock />}
                                 value={formData.dob}
@@ -245,7 +247,7 @@ const BioFormComponent = ({onCancel, onConfirm, inData})=>{
                     </div>
 
                 </div>
-                <div className="form-footer">
+                <div className="model-footer">
                     <Button text="Submit" onClick={handleChanges} />
                     <Button text="Cancel"   onClick={onCancel} />
                 </div>

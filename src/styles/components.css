@@ -126,6 +126,7 @@ TableComponent styles
 #permission-table .table-container th, 
 #permission-table .table-container td{
     text-align:left;
+    padding:0.5em;
 }
 
 
@@ -161,79 +162,81 @@ TableComponent styles
  
  */
 
-
-
-#face-form, #inst-form, 
-#hobbies-form, #disability-form,
-#bio-form, #relation-form{
+#relation-form, #face-form, #bio-form, #inst-form{
     position:absolute;
-    background: #fff;
-    padding: 1em;
-    width: 500px;
-    max-height: 60%;
-    border-radius: 5px; 
-    display: flex;  
-    flex-direction: column;
-    justify-content: space-between;
+    background-color: #fff;
+    padding:1em;
+    width: 550px;
+    border-radius: 5px;
+
+}
+
+#relation-form .form-inputs,
+#inst-form .form-inputs,
+#bio-form .form-inputs,
+#face-form .form-inputs{
+    max-height: 40vh;
+    overflow-y: scroll;
+}
+
+#inst-form .form-inputs .form-item,
+#relation-form .form-inputs .form-item{
+    display: flex;    
+    gap: 1em;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 0.5em;    
+    border: 1px solid #ebe2ea;
+    margin:0.2em;
     
 }
-#face-form > div, 
-#bio-form > div{
-    overflow-y:scroll;
+
+#relation-form .form-inputs .form-item #select-container,
+#relation-form .form-inputs .form-item #input-container,
+#inst-form .form-inputs .form-item #select-container,
+#inst-form .form-inputs .form-item #input-container{
+    width:45%;
+    margin-bottom: 0;
 }
 
+
+#face-form .form-inputs .form-item #select-container,
+#bio-form .form-inputs .form-item #select-container,
+#bio-form .form-inputs .form-item #input-container,
+#face-form .form-inputs .form-item #input-container{
+    margin-bottom: 0;
+}
+
+
+.model-footer{
+    padding:1em;
+    display: flex;
+    gap:4em;
+}
+
+.model-footer button{
+    min-width: 100px;
+}
+
+
+#relation-form > div > h4,
+#inst-form > div > h4,
 #face-form > div > h4,
 #bio-form > div > h4{
-    margin-bottom: 0.6em;
+    padding:0.5em;
+    /* margin-bottom: 0.6em; */
     font-size: larger;
 }
 
-.form-footer{
-    display: flex;
-    justify-content: center;
-    gap: 4em;
-    
-}
 
-.form-footer button{
-    margin: 1em;
-    
-}
-
-
-
-#relation-form, #inst-form, 
-#hobbies-form, #disability-form{
-    width: 350px;
-}
-/* 
-#relation-form .form-item{
-    display: flex;
-    flex-wrap: wrap;
-} */
-#relation-form .form-item,
-
-#inst-form .form-item{
-    position:relative;
-}
-
-#inst-form .form-inputs{
-    overflow-x: scroll;
-    max-height: 35vh;
-}
-#relation-form .form-item span,
-#inst-form .form-item span{
-    position:absolute;
-    bottom:-1;
-    right: 0;
-}
 
 .form-inputs{
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     align-items: center;
-    flex-wrap: wrap;   
-    /* gap:0.4em; */
+    flex-wrap: wrap;
+    gap:1em;
+   
     
 }
 .form-item{
@@ -244,14 +247,17 @@ TableComponent styles
 
 
 /* User Role Component  */
-.table-container #select-container {
+.table-container #select-container{
     margin-bottom: 0;
     padding: 0;
     max-width: 150px;
+}
+.table-container #select-container .wrapper{
+    
     border:none;
 }
 
-.table-container #select-container select{
+.table-container #select-container  .wrapper select{
     background: transparent;
     font-size: 15px;
 }
@@ -298,26 +304,7 @@ TableComponent styles
         width: 35vw;          
        
     }
-    #face-form, #inst-form, 
-    #hobbies-form
-    #bio-form, #relation-form{        
-        padding: 1em;
-        width: 380px;
-        height: 75%;        
-        flex-direction: column;
-        justify-content: center;
-        
-    }
-    .form-item{
-    
-        width: 300px;
-    }
-    .form-footer{
-        display: flex;
-        justify-content: start;
-        gap: 4em;
-        
-    }
+   
    
 }
 
@@ -332,5 +319,32 @@ TableComponent styles
         width: 50vw;          
        
     }
+
+    #face-form, #relation-form, 
+    #bio-form, #inst-form{
+        width:400px;
+    }
+   
+
+    #relation-form .form-inputs {
+        max-height: 55%;
+        overflow-y: scroll;
+    }
+
+    #bio-form .form-inputs,
+    #face-form .form-inputs{
+        display: flex;
+        flex-wrap: wrap;
+        max-height: 55%;
+        overflow-y: scroll;
+    }
+
+    #bio-form .form-inputs .form-item,
+    #face-form .form-inputs .form-item{
+        width:45%;
+    }
+   
+
+    
 
 }
