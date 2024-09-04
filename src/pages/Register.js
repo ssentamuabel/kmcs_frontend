@@ -27,7 +27,9 @@ const Register = ()=>{
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState('')  
     const [isStudent, setIsStudent] = useState(true)
+    const [done, setDone] = useState(false)
     const [errorAlert, setErrorAlert] = useState(false)
+    
    
     const [validationErrors, setValidationErrors] = useState({})
     const [formdata, setFormdata] = useState({
@@ -151,16 +153,17 @@ const Register = ()=>{
                     entry: "",
                     hall: ""
                 })
-                navigate('/login')
+                setDone(true)
+               
             }else{
                 console.log(response)
-                setError(`Check your number, Its seems to be used already`)
+                setError(`Check your number   or email, Its seems to be used already`)
                 setErrorAlert(true)
             }
            
             
         }catch (error) {
-            setError(error.message)
+            setError("Something went wrong")
             setErrorAlert(true)
         }finally {
             setIsLoading(false); // Ensure loading state is reset
@@ -248,6 +251,14 @@ const Register = ()=>{
                 message ={error}
                  onCancel={()=>{setErrorAlert(false)}}                     
                 />)
+            }
+
+            { done && (<Alert 
+                
+                message ="Check your email for the password "
+                onCancel={()=>{setDone(false); navigate('/login')}} 
+                
+                />)           
             }
              
              <div className="right">

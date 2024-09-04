@@ -13,7 +13,7 @@ import '../styles/common.css'
 
 
 
-const Settings = ()=>{
+const Permissions = ()=>{
     const [errorAlert, setErrorAlert] = useState(false)
     const [error, setError] = useState('')
     const [userData, setUserData] = useState([]);
@@ -113,7 +113,7 @@ const Settings = ()=>{
             console.log(rights.perm.type)
 
            
-            const role = rights.perm.type ? {name: newRole, type:1} : {name: newRole, type: 0};
+            const role = rights.perm.type ? {name: newRole + '_', type:1} : {name: newRole, type: 0};
 
 
             console.log(role)
@@ -213,4 +213,4 @@ const Settings = ()=>{
 }
 
 
-export default Settings
+export default Permissions

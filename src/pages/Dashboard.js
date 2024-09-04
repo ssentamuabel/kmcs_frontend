@@ -24,12 +24,8 @@ const Dashboard = ()=>{
     return (
         <div className='container'>
            
-            <h1>This is the Dashboard</h1>
-            <div>
-                <input aria-label="Date" type="date" />
-               
-            </div>
-            <p>{startDate.toLocaleDateString()}</p>
+            <h1>Dashboard coming soon!</h1>
+           
            
         </div>
     )

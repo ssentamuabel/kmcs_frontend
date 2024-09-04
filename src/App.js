@@ -8,7 +8,7 @@ import SideBar from './components/SideBar';
 import Programs from './pages/Programs';
 import Members from './pages/Members';
 import Profile from './pages/Profile';
-import Settings from './pages/Settings';
+import Permissions from './pages/Permissions';
 import  Login from './pages/Login'
 
 import {Routes, Route, Navigate} from 'react-router-dom'
@@ -56,7 +56,7 @@ function App() {
 			<Route index element={<Dashboard />} />
 			<Route path="members" element={<Members />} />
 			<Route path="programs" element={<Programs />} />
-			<Route path="settings" element={<Settings />} />
+			<Route path="permissions" element={<Permissions />} />
 			<Route path="profile" element={<Profile user={rights.member_id} />} />
 			<Route path="*" element={<Navigate to="/" />} />
 		  </Route>

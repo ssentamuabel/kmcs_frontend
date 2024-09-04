@@ -21,7 +21,7 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
     
 
     useEffect(() => {
-        console.log(table_data)
+        // console.log(table_data)
         if (!rights.perm.type) {
           // Create a new array with the updated data
           const updatedStudentsData = table_data.map((item) => {
@@ -52,8 +52,8 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
 
 
     const handleFilter = () =>{
-        console.log(courseCode)
-        console.log(entry)
+        // console.log(courseCode)
+        // console.log(entry)
 
         if (rights.perm.type){
             const filteredData = table_data.filter((item) =>{
@@ -110,17 +110,19 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
         // Convert the keyword to lowercase for case-insensitive search
         const lowerKeyword = keyword.toLowerCase();
     
-        return data.filter(student => {
+        return data.filter(item => {
             // Combine all searchable fields into a single string
             const combinedString = `
-                ${student.sur_name} 
-                ${student.first_name} 
-                ${student.other_name} 
-                ${student.reg_no} 
-                ${student.hall_of_attachment || ''} 
-                ${student.residence_address || ''}                 
-                ${student.user.contact} 
-                ${student.user.email} 
+                ${item.sur_name} 
+                ${item.first_name} 
+                ${item.other_name} 
+                ${item.reg_no} 
+                ${item.occupation || ''} 
+                ${item.proffession || ''} 
+                ${item.hall_of_attachment || ''} 
+                ${item.residence_address || ''}                 
+                ${item.user.contact} 
+                ${item.user.email} 
                 
             `.toLowerCase();
     
@@ -181,7 +183,7 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
                      </table>
                      <div className="table-search">
                         <Input  
-                            placeholder=" Search by key words"
+                            placeholder=" Search by key word"
                             onChange = {handleSearch}
                         />
                          

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import Button from '../components/Button'
 import Select from '../components/SelectComponent'
 import '../styles/components.css'
@@ -7,8 +7,15 @@ import Input from '../components/InputComponet'
 
 const UserRoleComponent = ({data, permissionOptions}) =>{
 
+    const [users, setUsers] = useState([])
 
-    console.log(data)
+    useEffect(() =>{
+        setUsers(data)
+    }, [data])
+
+
+
+    // console.log(data)
 
     const handleRoleChange = async(e, id) =>{
         const value = e.target.value
@@ -43,6 +50,34 @@ const UserRoleComponent = ({data, permissionOptions}) =>{
             console.log("Something went wrong")
         }
     }
+
+    const handleSearch = (e) =>{
+        const value = e.target.value;        
+
+        setUsers(filterByKeyword(data, value))
+
+     }
+
+
+    const  filterByKeyword =(data, keyword)  =>{
+
+        if (!keyword.trim()) {
+            return data; // Return the original array if no keyword is provided
+        }
+        // Convert the keyword to lowercase for case-insensitive search
+        const lowerKeyword = keyword.toLowerCase();
+    
+        return data.filter(item => {
+            // Combine all searchable fields into a single string
+            const combinedString = `
+                ${item.contact} 
+                ${item.email}          
+            `.toLowerCase();
+    
+            // Check if the keyword is found within the combined string
+            return combinedString.includes(lowerKeyword);
+        });
+    }
   
     return (
         <div className="tabular-wrapper">
@@ -53,8 +88,11 @@ const UserRoleComponent = ({data, permissionOptions}) =>{
                     </div>
                     
                     <div className="table-search">
-                        <Input />
-                        <Button text = "Search" />
+                        <Input 
+                            placeholder="Search by key word"
+                            onChange = {handleSearch}
+                         />
+                       
                     </div>
                 </div>
                 
@@ -71,9 +109,9 @@ const UserRoleComponent = ({data, permissionOptions}) =>{
                         </thead>
                         <tbody>
                             {data ? (
-                                data.map((item, key) =>(
-                                    <tr key={item.id}>
-                                        <td>{key}</td>
+                                users.map((item ,index) =>(
+                                    <tr key={item.id }>
+                                        <td>{index +1 }</td>
                                         <td>{item.contact ? item.contact : ""}</td>
                                         <td>
                                             <Select                                                 

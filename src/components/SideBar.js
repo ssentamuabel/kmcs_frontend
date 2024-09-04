@@ -1,4 +1,5 @@
-import React , { useRef, useState } from 'react'
+import React , { useRef, useState, useContext } from 'react'
+import { RightsContext } from '../contexts/RightsProvider'
 import { NavLink , Outlet} from 'react-router-dom'
 import Alert from './Alert'
 import kmcs from '../kmcs.png'
@@ -15,7 +16,7 @@ import {
     FaLessThanEqual
 } from 'react-icons/fa'
 import { PiEngine } from 'react-icons/pi'
-
+ 
 
 
 
@@ -26,6 +27,9 @@ const SideBar = ({onLogout})=>{
     const [confirm, setConfirm] = useState(false)
     const [errorAlert, setErrorAlert] = useState(false)
     const [error, setError] = useState('')
+
+
+    const {rights}  = useContext(RightsContext)
 
 
     const handleMenuClick = ()=>{
@@ -99,13 +103,18 @@ const SideBar = ({onLogout})=>{
            
         },
         
-        {
-            path : "/settings",
-            name : "Settings",
-            icon : <PiEngine />
-            
-        }
-    ]
+
+        rights.perm.permission > 0 && (
+            {
+                path : "/permissions",
+                name : "Permissions",
+                icon : <PiEngine />
+                
+            }
+        )
+        
+        
+    ].filter(Boolean)
 
    
  
