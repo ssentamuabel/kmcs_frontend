@@ -8,7 +8,7 @@ import Button from "../components/Button";
 import Alert from "../components/Alert";
 import kmcs from "../kmcs.png";
 import { FaPhoneAlt, FaUserLock } from "react-icons/fa";
-import { REACT_APP_BACKEND_URL } from "../config.js";
+import { REACT_APP_BACKEND_URL } from "../config";
 
 const Login = ({ onLogin }) => {
   const [errorAlert, setErrorAlert] = useState(false);
