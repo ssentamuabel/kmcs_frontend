@@ -1,127 +1,125 @@
-import {useEffect, useState, useContext} from 'react'
-import { RightsContext } from '../contexts/RightsProvider'
-import PreviousInstForm from '../components/ProfileForms/InstitutionFormComponent'
-import { LuPenSquare } from 'react-icons/lu'
+import { useEffect, useState, useContext } from "react";
+import { RightsContext } from "../contexts/RightsProvider";
+import PreviousInstForm from "../components/ProfileForms/InstitutionFormComponent";
+import { LuPenSquare } from "react-icons/lu";
+import { REACT_APP_BACKEND_URL } from "../config";
 
+const PreviousInst = ({ id }) => {
+  const [inst, setInst] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [register, setRegister] = useState(false);
 
-const PreviousInst = ({id}) => {
-    const [inst, setInst] = useState([])
-    const [loading, setLoading] = useState(true)
-    const [register, setRegister] = useState(false)
+  const { rights } = useContext(RightsContext);
 
-
-    const {rights} = useContext(RightsContext)
-
-
-    useEffect(() => {
-
-        const getData = async()=>{
-            try{
-
-                const response = await fetch(`https://127.0.0.1:8000/member_inst/${id}`, {
-                    method: 'GET',
-                    credentials: 'include', 
-                    headers : {
-                        'Content-Type': 'application/json'
-                    }
-                })
-                const data = await response.json()
-                if (response.ok){
-                    // console.log(data)
-                    setInst(data)
-                }else{
-                    console.log("Something happened")
-                }
-            }catch(error){
-                console.log(error.message)
-            }finally{
-               setLoading(false)
-            }
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await fetch(
+          `${REACT_APP_BACKEND_URL}/member_inst/${id}`,
+          {
+            method: "GET",
+            credentials: "include",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        const data = await response.json();
+        if (response.ok) {
+          // console.log(data)
+          setInst(data);
+        } else {
+          console.log("Something happened");
         }
-
-        getData()
-        
-        
-    }, [])
-
-    const openForm =()=>{
-        setRegister(true)
-    }
-    const onCancel = () =>{
-        setRegister(false)
-    }
-    const onConfirm = (data) => {
-        setInst([])
-        const updateData = async () => {
-            try {
-                for (const item of data) {
-                    const response = await fetch(`https://127.0.0.1:8000/member_inst/${id}`, {
-                        method: 'POST',
-                        credentials: 'include',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(item),
-                    });
-    
-                    if (response.ok) {
-                        const res = await response.json();
-                        console.log(res);
-                        setInst((prevInst) => [...prevInst, res]); // Append the new institution data to the list
-                    } else {
-                        console.log(response);
-                    }
-                }
-            } catch (error) {
-                console.log(error.message);
-            } finally {
-                setRegister(false);
-            }
-        };
-    
-        updateData();
+      } catch (error) {
+        console.log(error.message);
+      } finally {
+        setLoading(false);
+      }
     };
-    
 
-    if (loading) {
-        return <div>Loading...</div>;
-    }
+    getData();
+  }, []);
 
-    return (
-        <>
-            {register && 
-                <PreviousInstForm
-                    onCancel={onCancel}
-                    onConfirm={onConfirm}
-                    inData={inst}
-                />
+  const openForm = () => {
+    setRegister(true);
+  };
+  const onCancel = () => {
+    setRegister(false);
+  };
+  const onConfirm = (data) => {
+    setInst([]);
+    const updateData = async () => {
+      try {
+        for (const item of data) {
+          const response = await fetch(
+            `https://127.0.0.1:8000/member_inst/${id}`,
+            {
+              method: "POST",
+              credentials: "include",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(item),
             }
-            <div className="profile-item">
-                {((rights.member_id == id) || rights.perm.info_2 >= 2) && (
-                    <div className="edit-icon" onClick={openForm} ><LuPenSquare /></div>   
-                )} 
-               
-                <div className="details">
-                    <h4>Previous Inst </h4>
-                    
-                        <div>
-                            {inst.length > 0 ? (
-                                inst.map((item)=>(
-                                    
-                                    <p key={item.id}>{` ${item.since}: ${item.name} : ${item.award} : ${item.to} `}</p>
-                                ))
-                            ): (
-                                <p>No   data found</p>
-                            )}
-                        </div>
+          );
 
-            
-                    
-                </div>
-            </div>
-        </>
-        
-    )
-}
+          if (response.ok) {
+            const res = await response.json();
+            console.log(res);
+            setInst((prevInst) => [...prevInst, res]); // Append the new institution data to the list
+          } else {
+            console.log(response);
+          }
+        }
+      } catch (error) {
+        console.log(error.message);
+      } finally {
+        setRegister(false);
+      }
+    };
 
-export default PreviousInst
+    updateData();
+  };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <>
+      {register && (
+        <PreviousInstForm
+          onCancel={onCancel}
+          onConfirm={onConfirm}
+          inData={inst}
+        />
+      )}
+      <div className="profile-item">
+        {(rights.member_id == id || rights.perm.info_2 >= 2) && (
+          <div className="edit-icon" onClick={openForm}>
+            <LuPenSquare />
+          </div>
+        )}
+
+        <div className="details">
+          <h4>Previous Inst </h4>
+
+          <div>
+            {inst.length > 0 ? (
+              inst.map((item) => (
+                <p
+                  key={item.id}
+                >{` ${item.since}: ${item.name} : ${item.award} : ${item.to} `}</p>
+              ))
+            ) : (
+              <p>No data found</p>
+            )}
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default PreviousInst;
