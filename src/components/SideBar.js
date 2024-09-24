@@ -6,16 +6,15 @@ import kmcs from '../kmcs.png'
 import Header from './Header'
 import Footer from './Footer'
 import { 
-    FaTh,
-    FaMoneyBillWave,
-    FaMailBulk,
+    FaTh,   
     FaUsers,
     FaUser,
-    FaMosque,
+    FaUserLock,
     FaRegListAlt,
     FaLessThanEqual
 } from 'react-icons/fa'
-import { PiEngine } from 'react-icons/pi'
+import { FaMessage } from "react-icons/fa6";
+
  
 
 
@@ -96,6 +95,15 @@ const SideBar = ({onLogout})=>{
             icon : <FaRegListAlt />
            
         },
+      
+        rights.perm.messages > 0 && (
+            {
+                path : "/messages",
+                name : "Messages",
+                icon : <FaMessage />
+                
+            }
+        ),
         {
             path : "/profile",
             name : "Profile",
@@ -108,7 +116,7 @@ const SideBar = ({onLogout})=>{
             {
                 path : "/permissions",
                 name : "Permissions",
-                icon : <PiEngine />
+                icon : <FaUserLock />
                 
             }
         )

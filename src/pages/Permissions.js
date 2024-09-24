@@ -176,7 +176,7 @@ const Permissions = ()=>{
                         />
                     </div>
                     
-                    <Button text="Add" onClick={()=> setRoleField(true)} />
+                    <Button text="Add" id="info" onClick={()=> setRoleField(true)} />
                     {roleField && <div id="add-role">
                         <Input 
                             placeholder="New Role"
@@ -184,7 +184,7 @@ const Permissions = ()=>{
                             onChange ={(e) => setNewRole(e.target.value)}                         
                         
                         />
-                        <Button text="Save" onClick={saveRole} />
+                        <Button text="Save" id="info" onClick={saveRole} />
                     </div>}
                     
 
