@@ -22,11 +22,24 @@
 }
 
 
+.dialogue-container{
+    position :fixed;
+    top:0;
+    left:0;
+    bottom: 0;
+    background: #07473453;
+    height: 100vh;
+    width:100%;
+    justify-content: center;
+    z-index:3;
+}
+
+
 #custom-alert{
     position:absolute;
     background: #fff;
     padding: 10px;
-    width: 20vw;
+    width: 300px;
     height: 15vh;
     border-radius: 5px;   
     flex-direction: column;
@@ -97,7 +110,12 @@ Button Component
 
 #submit{
     color:#fff;
-    background: blue;
+    background: #15814cfb;
+}
+
+#info{
+    color:#fff;
+    background: #0f4fd8;
 }
 
 
@@ -154,7 +172,45 @@ TableComponent styles
     font-size: 14px;
 }
 
+/*
+SMS dialogue
+*/
 
+#sms-dialogue{
+    position: absolute;
+    top: 15%;
+    right:20px;
+    background: #F4F9FD;
+    padding:1em;    
+    width:410px;
+    border-radius: 5px;
+    
+
+}
+#sms-dialogue h3{
+    color:#074734;
+}
+#sms-dialogue #message-box{
+    padding: 0.5em 0;
+}
+
+#sms-dialogue .email-inputs #input-container .wrapper{
+    border:none;
+}
+
+#sms-dialogue .email-inputs #input-container .wrapper input,
+#sms-dialogue #message-box textarea{
+    background-color: #FFF;
+    padding:0.3em;
+    font-size: 15px;
+}
+#sms-dialogue #message-box p{
+    text-align: end;
+    font-size: .8em;
+}
+#sms-dialogue #msg-buttons button{
+    margin-right: 3em;
+}
 
  /*
  
@@ -209,9 +265,10 @@ TableComponent styles
 
 
 .model-footer{
-    padding:1em;
+    /* padding-left:1em; */
+    margin-top:1em;
     display: flex;
-    gap:4em;
+    gap:2em;
 }
 
 .model-footer button{
@@ -295,6 +352,174 @@ TableComponent styles
     border: 1px solid #f666f6;
 }
 
+
+
+
+/*
+
+Dashboard styles
+*/
+#dashboard-wrapper{
+    width: 100%;
+}
+
+ #events-section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40%;   
+    width:100%;
+}
+
+
+#events-section .carousel-container {
+    display: flex;
+    align-items: left;
+    justify-content: center;
+    gap: 10px;
+}
+
+#events-section .carousel-item {
+    width: 100px;
+    height: 100px;
+    background-color: #ddd;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    position:relative;
+    color:#fff;
+    opacity: 0.6;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+#events-section .carousel-item.large {
+    transform: scale(1.5);
+    opacity: 1;
+    width: 250px;
+    height: 150px;
+}
+
+#events-section .carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+#events-section .carousel-text {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    text-align: center;
+    background: #074734a4; /* Semi-transparent background for better text readability */
+    padding: 5px;
+    border-radius: 5px;
+}
+
+
+
+#events-section  .carousel-item.large .carousel-text h2 {   
+    font-size: 14px;
+}
+
+#events-section   .carousel-text h2 {   
+    font-size: 10px;
+}
+
+
+#events-section  .carousel-item.large .carousel-text .description {
+    margin: 5px 0;
+    font-size: 8px;
+    color:#F4F9FD;
+    display: block;
+}
+
+#events-section .carousel-text .description {
+   display: none;
+}
+
+#events-section .carousel-item.large .carousel-text .footer p{
+    font-size: 10px;
+    display: block;
+}
+
+#events-section .carousel-text .footer p{
+    display: none;
+}
+
+#events-section .carousel-text .footer{
+    
+    margin-top: 5px;
+    font-weight: bold;
+
+}
+#dashboard-wrapper #bottom-section{
+    margin-top: 1em;
+    display: flex;
+    height: 50%;
+    width:100%;
+   
+}
+
+/* Container for the entire list and details */
+#daily-activities .day-container {
+    display: flex;
+    height: 300px; /* You can adjust this height */
+    border: 1px solid #ccc;
+}
+  
+  /* Day list on the left */
+#daily-activities .day-list {
+    width: 30%;
+    background-color: #f4f4f4;
+    border-right: 1px solid #ccc;
+}
+  
+#daily-activities .day-item {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+}
+  
+#daily-activities .day-item:hover {
+    background-color: #e0e0e0;
+}
+  
+#daily-activities .active {
+    background-color: #d4d4d4;
+}
+  
+  /* Details section on the right */
+  #daily-activities .day-details-container {
+    flex-grow: 1;
+    background-color: #e9e9e9;
+    padding: 20px;
+    width:300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+  /* Styles for the details of the selected day */
+  #daily-activities .day-details {
+    
+    font-size: 18px;
+    color: #333;
+    width:100%;
+  }
+  
+  #daily-activities .day-details-placeholder {
+    font-size: 16px;
+    color: #888;
+  }
+  
+
+
    
 
 /* Tablet size styles  */
@@ -307,6 +532,8 @@ TableComponent styles
    
    
 }
+
+
 
 
 

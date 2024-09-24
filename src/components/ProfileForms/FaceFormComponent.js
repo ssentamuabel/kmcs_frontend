@@ -126,7 +126,7 @@ const FaceFormComponent = ({ onCancel, onConfirm, inData }) => {
     
 	if (!validateAddress(formData.address)) {
 		return;
-	  }
+	}
 
     const updatedData = {
       sur_name: formData.sur_name,
@@ -219,7 +219,7 @@ const FaceFormComponent = ({ onCancel, onConfirm, inData }) => {
                 onChange={handleChange}
                 addbtn
                 handleAddField={handleAddContact}
-                placeholder="Contact"
+                placeholder="Other Contact"
                 icon={<FaPhoneAlt />}
               />
             </div>
@@ -287,7 +287,7 @@ const FaceFormComponent = ({ onCancel, onConfirm, inData }) => {
                 onChange={handleChange}
                 addbtn
                 handleAddField={() => handleAddField('skills', 'skillsList')}
-                placeholder="Skills"
+                placeholder="Other Skill"
                 icon={<FaUserGear />}
               />
             </div>
@@ -295,8 +295,9 @@ const FaceFormComponent = ({ onCancel, onConfirm, inData }) => {
           </div>
         </div>
         <div className="model-footer">
+			<Button text="Cancel" id="info" onClick={onCancel} />
           <Button text="Submit" onClick={handleChanges} />
-          <Button text="Cancel" onClick={onCancel} />
+         
         </div>
       </div>
     </div>

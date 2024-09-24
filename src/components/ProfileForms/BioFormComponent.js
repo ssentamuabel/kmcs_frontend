@@ -145,7 +145,9 @@ const BioFormComponent = ({onCancel, onConfirm, inData})=>{
                         </div>
                         <div className="form-item">
                             <Input
-                                type = 'date'
+                                type="date" 
+                               
+                                // type = 'date'
                                 name="dob"
                                 aria-label="Date"
                                 placeholder="Date of birth"
@@ -187,7 +189,7 @@ const BioFormComponent = ({onCancel, onConfirm, inData})=>{
                         }
                         <div className="form-item">
                             <Input                               
-                                placeholder="Language"
+                                placeholder="Other Language"
                                 name="language"
                                 onChange={handleChange}
                                 handleAddField={()=>{handleAddField('language', 'languageList')}}
@@ -211,7 +213,7 @@ const BioFormComponent = ({onCancel, onConfirm, inData})=>{
                         }
                         <div className="form-item">
                             <Input                               
-                                placeholder="Hobby"
+                                placeholder="Other Hobby"
                                 name="hobby"
                                 onChange={handleChange}
                                 handleAddField={()=>{handleAddField('hobby', 'hobbies')}}
@@ -235,7 +237,7 @@ const BioFormComponent = ({onCancel, onConfirm, inData})=>{
                         }
                         <div className="form-item">
                             <Input                               
-                                placeholder="Health Issue"
+                                placeholder="Other Health Issue"
                                 name="healthIssue"
                                 onChange={handleChange}
                                 handleAddField={()=>{handleAddField('healthIssue', 'healthIssueList')}}
@@ -248,8 +250,9 @@ const BioFormComponent = ({onCancel, onConfirm, inData})=>{
 
                 </div>
                 <div className="model-footer">
+                    <Button text="Cancel" id="info"  onClick={onCancel} />
                     <Button text="Submit" onClick={handleChanges} />
-                    <Button text="Cancel"   onClick={onCancel} />
+                    
                 </div>
             </div>
 

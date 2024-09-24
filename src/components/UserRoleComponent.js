@@ -84,7 +84,7 @@ const UserRoleComponent = ({data, permissionOptions}) =>{
                 
                 <div className="filter-section">
                     <div className="add-button">
-                        <Button text = "Add User" />
+                        <Button id="info" text = "Add User" />
                     </div>
                     
                     <div className="table-search">
