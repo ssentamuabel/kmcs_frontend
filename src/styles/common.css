@@ -110,6 +110,9 @@
     padding-bottom: 0.5em;
     
 }
+.tabular-wrapper .filter-section button{
+    margin-left: 1em;
+}
 
 .filter-section{
     width: 100%;

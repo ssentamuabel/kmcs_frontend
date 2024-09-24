@@ -20,7 +20,7 @@ import {
     FaEnvelope,
 
 } from 'react-icons/fa'
-import { TbRuler } from 'react-icons/tb'
+
 
 const Register = ()=>{
     const navigate = useNavigate()
@@ -80,7 +80,7 @@ const Register = ()=>{
     }
 
     const handleMemberChange = (e) =>{
-        if (e.target.value == 'Alumnus'){
+        if (e.target.value === 'Alumnus'){
             setIsStudent(false)
         }else{
             setIsStudent(true)
@@ -137,7 +137,7 @@ const Register = ()=>{
                 
             })
 
-            const jsondata = await response.json()
+            // const jsondata = await response.json()
 
             if (response.ok){
                 setFormdata({
@@ -175,7 +175,7 @@ const Register = ()=>{
     const validateForm = () =>{
         const errors = {}
         const name_regex  = /^[A-Za-z]+$/;
-        const reg_regex = /^(0?[1-9]?[0-9]|100)[\/\-_]([a-zA-Z])[\/\-_]([a-zA-Z]+)[\/\-_](\d{2,})[\/\-_]([a-zA-Z]+)$/;
+        const reg_regex = /^(0?[1-9]?[0-9]|100)[\/\-_][a-zA-Z][\/\-_]([a-zA-Z]{3})[\/\-_](\d{2,})[\/\-_]([a-zA-Z]{2})$/;
         const email_regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         const mobile_regex = /^(?:\+256|256|0)(7[0-9]|75|76|77|78|79)\d{7}$/;
 
@@ -255,7 +255,7 @@ const Register = ()=>{
 
             { done && (<Alert 
                 
-                message ="Check your email for the password "
+                message ="Password is sent on your email"
                 onCancel={()=>{setDone(false); navigate('/login')}} 
                 
                 />)           
@@ -356,7 +356,7 @@ const Register = ()=>{
                                 />
                                 <Input 
                                     icon = {<FaGraduationCap  />}
-                                    placeholder=' ie 19 for 19th graduation'
+                                    placeholder='Turn of entry ie 09, 11, 12 ....'
                                     type='number'
                                     value={formdata.entry}
                                     onChange={handleChange}
@@ -378,6 +378,7 @@ const Register = ()=>{
                                 
                         />
                         <Button 
+                            id="info"
                             text={isLoading ? 'Loading...' : 'Submit'}
                             disabled={isLoading}
                             onClick={handleSubmit}
