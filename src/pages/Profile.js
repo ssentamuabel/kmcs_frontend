@@ -45,7 +45,6 @@ const Profile = ({onReturn, user}) =>{
             !(rights.member_id === user) && (
                 <Button 
                     text ="back"
-                    id="info"
                     onClick={onReturn}
                     style={{ marginBottom : 10 }}
                 />)           

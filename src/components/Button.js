@@ -1,11 +1,8 @@
 import React from 'react'
 
-const Button = ({text, id="submit", ...props})=>{
+const Button = ({text, ...props})=>{
     return (
-        <button 
-            id={id} 
-            className="button" {...props}>
-                
+        <button id="submit" className="button" {...props}>
             {text}
         </button>
     )

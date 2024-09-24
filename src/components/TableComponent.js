@@ -1,11 +1,10 @@
 import React, {useContext, useEffect, useState} from 'react'
 import '../styles/components.css'
-import Alert from './Alert'
+import '../styles/common.css'
+import Select from './SelectComponent'
 import { RightsContext } from '../contexts/RightsProvider'
 import AutoComplete from './AutoCompleteInputComponent'
 import Input from './InputComponet'
-import SendSms from './SendSmsComponent'
-import BulkEmails from './BulkEmailsComponent'
 import Button from './Button'
 import { courses } from '../courses'
 
@@ -13,12 +12,8 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
 
     const {rights} = useContext(RightsContext)
     const [studentsData, setStudentsData] = useState([])
-    const [smsDialogue, setSmsDialogue] = useState(false)
-    const [emailDialogue, setEmailDialogue] = useState(false)
     const [courseCode, setCourseCode] = useState('')
-    const [info, setInfo]= useState(false)
-    const [smsRes, setSmsRes] = useState('')
-    const [load, setLoad] = useState(false)
+    const [load, setLoad] = useState('false')
     const [entry, setEntry] = useState('')
     const [alumniFilter, setAlumniFilter] = useState([])
  
@@ -48,12 +43,12 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
     }, [table_data, rights.perm.type, load]);
     
 
-    // const hall_options = [
-    //     {value: '1', name: 'Kulubya'},
-    //     {value: '2', name: 'Pearl'},
-    //     {value: '3', name: 'Nanziri'},
-    //     {value: '4', name: 'North Hall'}
-    // ]
+    const hall_options = [
+        {value: '1', name: 'Kulubya'},
+        {value: '2', name: 'Pearl'},
+        {value: '3', name: 'Nanziri'},
+        {value: '4', name: 'North Hall'}
+    ]
 
 
     const handleFilter = () =>{
@@ -112,7 +107,6 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
         if (!keyword.trim()) {
             return data; // Return the original array if no keyword is provided
         }
-        
         // Convert the keyword to lowercase for case-insensitive search
         const lowerKeyword = keyword.toLowerCase();
     
@@ -137,84 +131,16 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
         });
     }
 
-
-
-    const openMessage = () =>{
-        
-        setSmsDialogue(true)
-    }
-    const onSmsCancel = ()=>{
-        setSmsDialogue(false)
-    }
-
-    const onSmsSend = (message) =>{
-        setSmsRes(message)
-        setSmsDialogue(false)
-        setInfo(true)
-        
-    }
-
-    const onEmailSend = (message) =>{
-        setSmsRes(message)
-        setEmailDialogue(false)
-        setInfo(true)
-    }
-
    
     
 
     return (      
         <div className="page-container">
-            {
-                smsDialogue && (
-                <SendSms 
-                    onSend ={onSmsSend}
-                    onCancel = {onSmsCancel}
-                    recipients = {rights.perm.type? alumniFilter: studentsData}
-                 />
-                )
-
-            }
-             {
-                emailDialogue && (
-                <BulkEmails 
-                    onSend ={onEmailSend}
-                    onCancel = {()=>setEmailDialogue(false)}
-                    recipients = {rights.perm.type? alumniFilter: studentsData}
-                 />
-                )
-
-            }
-            {
-                info && (
-                    <Alert 
-                        message = {smsRes}
-                        onCancel = {()=>{setSmsRes('');setInfo(false)}}
-                    />
-                )
-            }
             <div className="tabular-wrapper">
                   
                      <div className="filter-section">
                      <div className="add-button">
-                        {
-                            rights.perm.messages >= 4 && (
-                                <>
-                                    <Button 
-                                        id="info"
-                                        text = "Send Emails"  
-                                        onClick={()=>setEmailDialogue(true)}                             
-                                    />
-                                    <Button 
-                                        id="info"
-                                        text = "Send Sms"
-                                        onClick={openMessage}
-                                    />
-                                </>
-                                
-                            )
-                        }
-                        
+                         <Button text = "Send Message" />
                      </div>
                      <table>
                         <tbody>
@@ -248,7 +174,6 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
                                 <td>
                                 
                                     <Button 
-                                        id="info"
                                         text = "filter"
                                         onClick={handleFilter} />
                                 </td>

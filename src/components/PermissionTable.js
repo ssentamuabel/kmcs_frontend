@@ -80,7 +80,7 @@ const PermissionTable = ({ role , onPermissionUpdate }) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {['info_1', 'info_2', 'info_3', 'program', 'activity', 'messages', 'settings', 'permission'].map(permissionName => (
+                        {['info_1', 'info_2', 'info_3', 'program', 'activity', 'sms', 'settings', 'permission'].map(permissionName => (
                             <tr key={permissionName}>
                                 <td>{permissionName}</td>
                                 <td>
@@ -116,7 +116,7 @@ const PermissionTable = ({ role , onPermissionUpdate }) => {
                     </tbody>
                 </table>
                 <div>
-                    {role && changes &&  <Button id="info" text="Confirm changes" onClick={handleConfirm} />}
+                    {role && changes &&  <Button text="Confirm changes" onClick={handleConfirm} />}
                     
                 </div>
             </div>

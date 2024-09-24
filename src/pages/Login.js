@@ -97,7 +97,7 @@ const Login = ({onLogin})=>{
         const mobile_regex = /^(?:\+256|256|0)(7[0-9]|75|76|77|78|79)\d{7}$/;
 
         if (!formdata.password){
-            errors.password = "Password is required"
+            errors.password = "First name is required"
         }
 
         if (!formdata.contact){
@@ -143,7 +143,6 @@ const Login = ({onLogin})=>{
                          /> 
 
                         <Button 
-                            id="info"
                             text={isLoading ? 'Loading...' : 'Submit'}
                             disabled={isLoading}
                             onClick={handleSubmit}

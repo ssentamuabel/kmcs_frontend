@@ -73,7 +73,7 @@ const RelationComponentForm = ({onCancel, onConfirm, inData, nature, state}) => 
                                         value={guardian.name}
                                         name={`row_${guardian.id}`}
                                         onChange={(e)=>handleFieldChange(e, index, 'name')}
-                                        placeholder="Name "
+                                        placeholder="Parent Name"
                                         defaultValue
                                         
                                     />
@@ -100,9 +100,8 @@ const RelationComponentForm = ({onCancel, onConfirm, inData, nature, state}) => 
                     </div>
                 </div>
                 <div className="model-footer">
-                    <Button text="Cancel" id="info" onClick={onCancel} />
                     <Button text="Submit" onClick={handleSubmit} />
-                    
+                    <Button text="Cancel" onClick={onCancel} />
                 </div>
             </div>
         </div>
