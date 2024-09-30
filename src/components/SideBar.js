@@ -14,6 +14,7 @@ import {
     FaLessThanEqual
 } from 'react-icons/fa'
 import { FaMessage } from "react-icons/fa6";
+import { CONFIG } from '../config'
 
  
 
@@ -44,8 +45,8 @@ const SideBar = ({onLogout})=>{
         
         try {
             
-            const res =  await fetch('https://127.0.0.1:8000/logout/', {
-                method : "POST",
+            const res =  await fetch(`${CONFIG.backend_url}/logout/`, {
+                method: 'POST',
                 credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',

@@ -1,6 +1,7 @@
 import {useEffect, useState, useContext} from 'react'
 import Alert from '../components/Alert'
 import BioForm from '../components/ProfileForms/BioFormComponent'
+import { CONFIG } from '../config'
 import '../styles/pages.css'
 import { LuPenSquare } from 'react-icons/lu'
 import { RightsContext } from '../contexts/RightsProvider'
@@ -23,7 +24,7 @@ const BioComponent = ({id, handleHobbyHealth}) =>{
         const getData = async() =>{
             try{
                 
-                const response = await fetch(`https://127.0.0.1:8000/member/${id}`, {
+                const response = await fetch(`${CONFIG.backend_url}/member/${id}`, {
                     method : 'GET',
                     credentials: 'include', 
                     headers: {
@@ -68,7 +69,7 @@ const BioComponent = ({id, handleHobbyHealth}) =>{
 
             try{
                 
-                const response = await fetch(`https://127.0.0.1:8000/member/${id}`, {
+                const response = await fetch(`${CONFIG.backend_url}/member/${id}`, {
                     method : 'POST',
                     credentials: 'include', 
                     headers: {

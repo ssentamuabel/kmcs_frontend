@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react'
 import Button from './Button'
 import Input from '../components/InputComponet'
+import { CONFIG } from '../config'
 const BulkEmailComponent = ({onSend, onCancel, recipients }) =>{
     const [message, setMessage] = useState('')
     const [subject, setSubject] = useState('')
     const [error, setError] = useState('')
-    const [emails, setEmails] = useState([])
+    const [emails, setEmails] = useState('')
     const [isLoading, setIsLoading] = useState(false)
 
 
@@ -15,7 +16,7 @@ const BulkEmailComponent = ({onSend, onCancel, recipients }) =>{
         }
         const rec = recipients.map((item)=>item.user.email);
 
-        setEmails(rec)
+        setEmails(rec.toString())
     }, [recipients])
 
 
@@ -31,12 +32,17 @@ const BulkEmailComponent = ({onSend, onCancel, recipients }) =>{
 
         try{
 
-            const response = await fetch('https://127.0.0.1:8000/messages/email', {
+            const response = await fetch(`${CONFIG.backend_url}/messages/email/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body : JSON.stringify({emails:emails, subject:subject, message:message}),
+                body : JSON.stringify({
+                    recievers:emails, 
+                    subject:subject, 
+                    message:message,
+                    type: 0
+                }),
                 credentials: "include",
             })
 

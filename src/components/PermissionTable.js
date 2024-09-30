@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Button from '../components/Button'
 import '../styles/components.css';
 import '../styles/common.css';
+import { CONFIG } from '../config';
 
 const PermissionTable = ({ role , onPermissionUpdate }) => {
     const [permissions, setPermissions] = useState({});
@@ -39,7 +40,7 @@ const PermissionTable = ({ role , onPermissionUpdate }) => {
     const handleConfirm = async() => {
 
        try{
-        const response = await fetch(`https://127.0.0.1:8000/permission/${permissions.id}`, {
+        const response = await fetch(`${CONFIG.backend_url}/permission/${permissions.id}`, {
             method: 'POST',
             credentials: 'include',
             headers : {

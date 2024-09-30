@@ -222,9 +222,9 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
                                <td>
                                     Entry: 
                                     <Input 
-                                        text ="Entry ie 11, 12, 13..."
+                                     
                                         onChange = {(e)=>{setEntry(e.target.value); setLoad(!load)}}
-                                        placeholder ="Entry turn"
+                                        placeholder ="Entry ie 11, 12, 13...n"
                                      />
                                </td>                                                                          
                                 

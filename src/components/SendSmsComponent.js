@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useContext} from 'react'
 import { RightsContext } from '../contexts/RightsProvider'
 import Button from './Button'
+import { CONFIG } from '../config'
 
 
 const SendSmsComponent  = ({onSend, onCancel, recipients }) =>{
@@ -31,14 +32,36 @@ const SendSmsComponent  = ({onSend, onCancel, recipients }) =>{
             setMessage(value);
         }
     }
-    const sendMessage = () =>{
+    const sendMessage = async() =>{
         // console.log(numbers)
         if (message.length < 15){
             onSend("Failed: Message can't be less than 15 characters")
         }else{
             const msg = rights.perm.type? `KYUMA:${message}` : `KYUMSA:${message}`
-            console.log(msg)
-            onSend("Messages sent, for details check SMS module")
+            try{
+
+                const response = await fetch(`${CONFIG.message_url}`, {
+                    method: 'POST',                     
+                    headers : {
+                        'Content-Type' : 'application/json'
+                    }, 
+                    body: JSON.stringify({phone: numbers, message:msg, api_key: CONFIG.message_key})
+                })
+
+                if (response.ok){
+                    const res = await response.json()
+                    if (res.status === "success"){
+                        onSend("Messages Sent successfully")
+                    }
+                }else{
+                    onSend("Something went wrong")
+                }
+
+            }catch(error){
+                onSend("Connection Error")
+            }
+            
+           
         }
         
     }

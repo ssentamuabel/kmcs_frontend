@@ -3,6 +3,7 @@ import { RightsContext } from '../contexts/RightsProvider'
 import RelationForm from '../components/ProfileForms/RelationComponentForm'
 import { LuPenSquare } from 'react-icons/lu'
 import { FaBedPulse } from 'react-icons/fa6'
+import { CONFIG } from '../config'
 
 const RelationComponent = ({id}) =>{
     const [relation, setRelation] = useState([])
@@ -21,7 +22,7 @@ const RelationComponent = ({id}) =>{
         const getData = async() =>{
             try {
                 
-                const response = await fetch(`https://127.0.0.1:8000/member/relation/${id}`, {
+                const response = await fetch(`${CONFIG.backend_url}/member/relation/${id}`, {
                     method: 'GET',
                     credentials: 'include', 
                     headers : {
@@ -62,7 +63,7 @@ const RelationComponent = ({id}) =>{
             try {
                 for (const item of data) {
                    
-                    const response = await fetch(`https://127.0.0.1:8000/member/relation/${id}`, {
+                    const response = await fetch(`${CONFIG.backend_url}/member/relation/${id}`, {
                         method: 'POST',
                         credentials: 'include',
                         headers: {

@@ -4,6 +4,7 @@ import Select from '../components/SelectComponent'
 import '../styles/components.css'
 import '../styles/common.css'
 import Input from '../components/InputComponet'
+import { CONFIG } from '../config'
 
 const UserRoleComponent = ({data, permissionOptions}) =>{
 
@@ -31,7 +32,7 @@ const UserRoleComponent = ({data, permissionOptions}) =>{
        
         try{
 
-            const response = await fetch(`https://127.0.0.1:8000/user/${id}`, {
+            const response = await fetch(`${CONFIG.backend_url}/user/${id}`, {
                 method: 'POST',
                 credentials: 'include',
                 headers : {

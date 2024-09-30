@@ -1,12 +1,13 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
-import '../styles/common.css'
 import Input from '../components/InputComponet'
 import Button from '../components/Button'
 import Alert from '../components/Alert'
 import kmcs from '../kmcs.png'
+import { CONFIG } from '../config'
+
+import '../styles/common.css'
 import {
     FaPhoneAlt,
     FaUserLock
@@ -48,10 +49,9 @@ const Login = ({onLogin})=>{
                         : formdata.contact;
         
         
-
         try {
 
-            const response = await fetch('https://127.0.0.1:8000/login/', {
+            const response = await fetch(`${CONFIG.backend_url}/login/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -74,13 +74,14 @@ const Login = ({onLogin})=>{
                 
             }else{
                 
-                setError(`${jsondata.detail}: try once again`)
+                setError(jsondata.detail)
                 setErrorAlert(true)
             }
         
             
         }catch (error) {
-            setError('Connection Problem')
+            setError("Connection Problem")
+            console.log(error)
             setErrorAlert(true)
         }finally {
             setIsLoading(false); // Ensure loading state is reset
