@@ -256,7 +256,7 @@ const Register = ()=>{
 
             { done && (<Alert 
                 
-                message ="Password is sent on your email"
+                message ="Check your email (spam) for your password"
                 onCancel={()=>{setDone(false); navigate('/login')}} 
                 
                 />)           
