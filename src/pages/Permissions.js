@@ -7,6 +7,7 @@ import Input from '../components/InputComponet'
 import Table from '../components/PermissionTable'
 import UserRole from '../components/UserRoleComponent'
 import '../styles/common.css'
+import { CONFIG } from '../config'
 
 
 
@@ -31,14 +32,14 @@ const Permissions = ()=>{
         const getUsersAndPermissions = async () => {
             try {
                 const [usersResponse, permissionsResponse] = await Promise.all([
-                    fetch('https://127.0.0.1:8000/user/', {
+                    fetch(`${CONFIG}/user/`, {
                         method: 'GET',
                         credentials: "include",
                         headers: {
                             'Content-Type': 'application/json',
                         },
                     }),
-                    fetch('https://127.0.0.1:8000/permission/', {
+                    fetch(`${CONFIG}/permission/`, {
                         method: 'GET',
                         credentials: 'include',                        
                         headers: {
@@ -110,17 +111,12 @@ const Permissions = ()=>{
     const saveRole = async() =>{
         
         if (newRole){
-            console.log(rights.perm.type)
 
-           
             const role = rights.perm.type ? {name: newRole + '_', type:1} : {name: newRole, type: 0};
-
-
-            console.log(role)
 
             try{
 
-                const response = await fetch('https://127.0.0.1:8000/permission/', {
+                const response = await fetch(`${CONFIG.backend_url}/permission/`, {
                     method: 'POST',
                     credentials: 'include',  
                     headers : {

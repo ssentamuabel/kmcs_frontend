@@ -6,6 +6,7 @@ import Alert from '../components/Alert'
 import '../styles/common.css'
 import { FaBedPulse } from 'react-icons/fa6'
 import Profile from './Profile'
+import { CONFIG } from '../config'
 
 
 
@@ -45,7 +46,7 @@ const Members = ()=>{
         const getData = async() =>{
 
             try {
-                const response = await fetch('https://127.0.0.1:8000/member/level_1/', {
+                const response = await fetch(`${CONFIG.backend_url}/member/level_1/`, {
                     method: 'GET',
                     credentials: 'include',
                     headers: {

@@ -6,6 +6,7 @@ import Input from '../components/InputComponet'
 import Button from '../components/Button'
 import Select from '../components/SelectComponent'
 import Alert from '../components/Alert'
+import { CONFIG } from '../config'
 import AutoComplete from '../components/AutoCompleteInputComponent'
 import kmcs from '../kmcs.png'
 
@@ -127,7 +128,7 @@ const Register = ()=>{
 
         try {
 
-            const response = await fetch('https://127.0.0.1:8000/register_1/', {
+            const response = await fetch(`${CONFIG.backend_url}/register_1/`, {
                 method: 'POST',
                 credentials: "include",
                 headers: {
@@ -255,7 +256,7 @@ const Register = ()=>{
 
             { done && (<Alert 
                 
-                message ="Password is sent on your email"
+                message ="Check your email (spam) for your password"
                 onCancel={()=>{setDone(false); navigate('/login')}} 
                 
                 />)           

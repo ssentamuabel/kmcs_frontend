@@ -2,6 +2,7 @@ import React, {useEffect, useState, useContext} from 'react'
 import { LuPenSquare } from 'react-icons/lu'
 import { RightsContext } from '../contexts/RightsProvider'
 import FaceForm from '../components/ProfileForms/FaceFormComponent'
+import { CONFIG } from '../config'
 
 const FaceComponent = ({id})=>{
     const [face, setFace] = useState({})
@@ -17,7 +18,7 @@ const FaceComponent = ({id})=>{
         const getData = async() =>{
             try{
                 
-                const response = await fetch(`https://127.0.0.1:8000/member/${id}`, {
+                const response = await fetch(`${CONFIG.backend_url}/member/${id}`, {
                     method : 'GET',
                     credentials: 'include', 
                     headers: {
@@ -63,7 +64,7 @@ const FaceComponent = ({id})=>{
             
             try{
                 
-                const response = await fetch(`https://127.0.0.1:8000/member/${id}`, {
+                const response = await fetch(`${CONFIG.backend_url}/member/${id}`, {
                     method : 'POST',
                     credentials: 'include', 
                     headers: {

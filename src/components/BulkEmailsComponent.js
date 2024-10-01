@@ -1,12 +1,21 @@
 import React, {useEffect, useState} from 'react'
+
 import Button from './Button'
 import Input from '../components/InputComponet'
+import { CONFIG } from '../config'
+
+
+
+
+
+
 const BulkEmailComponent = ({onSend, onCancel, recipients }) =>{
     const [message, setMessage] = useState('')
     const [subject, setSubject] = useState('')
     const [error, setError] = useState('')
-    const [emails, setEmails] = useState([])
+    const [emails, setEmails] = useState('')
     const [isLoading, setIsLoading] = useState(false)
+
 
 
     useEffect(()=>{
@@ -15,7 +24,7 @@ const BulkEmailComponent = ({onSend, onCancel, recipients }) =>{
         }
         const rec = recipients.map((item)=>item.user.email);
 
-        setEmails(rec)
+        setEmails(rec.toString())
     }, [recipients])
 
 
@@ -27,36 +36,39 @@ const BulkEmailComponent = ({onSend, onCancel, recipients }) =>{
 
         if (subject.length < 10 || message.length < 10 ){
             setError("Subject and Message Fields should have some text")
-        }
+        }else{
+            try{
 
-        try{
-
-            const response = await fetch('https://127.0.0.1:8000/messages/email', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body : JSON.stringify({emails:emails, subject:subject, message:message}),
-                credentials: "include",
-            })
-
-            if (response.ok){
-                onSend("Message sent successfully")
-            }else{
-                onSend("Something went wrong")
+                const response = await fetch(`${CONFIG.backend_url}/messages/email/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body : JSON.stringify({
+                        recievers:emails, 
+                        subject:subject, 
+                        message:message,
+                        type: 0
+                    }),
+                    credentials: "include",
+                })
+    
+                if (response.ok){
+                    onSend("Message sent successfully")
+                }else{
+                    onSend("Something went wrong")
+                }
+    
+            }catch(error){
+                onSend("Connection Problem")
+            }finally{
+                setIsLoading(false)
+              
             }
-
-        }catch(error){
-            onSend("Connection Problem")
-        }finally{
-            setIsLoading(false)
-          
+    
+    
         }
 
-
-        
-
-        
 
     }
 

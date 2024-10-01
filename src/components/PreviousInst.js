@@ -2,6 +2,7 @@ import {useEffect, useState, useContext} from 'react'
 import { RightsContext } from '../contexts/RightsProvider'
 import PreviousInstForm from '../components/ProfileForms/InstitutionFormComponent'
 import { LuPenSquare } from 'react-icons/lu'
+import { CONFIG } from '../config'
 
 
 const PreviousInst = ({id}) => {
@@ -18,7 +19,7 @@ const PreviousInst = ({id}) => {
         const getData = async()=>{
             try{
 
-                const response = await fetch(`https://127.0.0.1:8000/member_inst/${id}`, {
+                const response = await fetch(`${CONFIG.backend_url}/member_inst/${id}`, {
                     method: 'GET',
                     credentials: 'include', 
                     headers : {
@@ -55,7 +56,7 @@ const PreviousInst = ({id}) => {
         const updateData = async () => {
             try {
                 for (const item of data) {
-                    const response = await fetch(`https://127.0.0.1:8000/member_inst/${id}`, {
+                    const response = await fetch(`${CONFIG.backend_url}/member_inst/${id}`, {
                         method: 'POST',
                         credentials: 'include',
                         headers: {
