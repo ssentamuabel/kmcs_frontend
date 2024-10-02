@@ -56,7 +56,7 @@ const Dashboard = ()=>{
         <div className='page-container'>
             <div id="dashboard-wrapper">
                 <div id ="events-section">
-                    <Carousel />
+                    {/* <Carousel /> */}
                 </div>
                 <div id="bottom-section">
                     <div id="stat">

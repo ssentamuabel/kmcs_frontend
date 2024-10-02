@@ -54,7 +54,7 @@ const PermissionTable = ({ role , onPermissionUpdate }) => {
         if (response.ok){
             const jsondata = await response.json()
             setChanges(false)
-            console.log(jsondata)
+            // console.log(jsondata)
             onPermissionUpdate()
         }else{
             console.log("Something went wrong")

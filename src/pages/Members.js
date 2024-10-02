@@ -59,7 +59,7 @@ const Members = ()=>{
                     const jsondata = await response.json()
 
                     setTableData(jsondata)
-                    console.log(jsondata)
+                    // console.log(jsondata)
                 }else{
                     setError(`Something went wrong`)
                     setErrorAlert(true)

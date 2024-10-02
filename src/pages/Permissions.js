@@ -32,14 +32,14 @@ const Permissions = ()=>{
         const getUsersAndPermissions = async () => {
             try {
                 const [usersResponse, permissionsResponse] = await Promise.all([
-                    fetch(`${CONFIG}/user/`, {
+                    fetch(`${CONFIG.backend_url}/user/`, {
                         method: 'GET',
                         credentials: "include",
                         headers: {
                             'Content-Type': 'application/json',
                         },
                     }),
-                    fetch(`${CONFIG}/permission/`, {
+                    fetch(`${CONFIG.backend_url}/permission/`, {
                         method: 'GET',
                         credentials: 'include',                        
                         headers: {
