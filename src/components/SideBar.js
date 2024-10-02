@@ -80,31 +80,31 @@ const SideBar = ({onLogout})=>{
     
     
     const menuItem = [
-        {
-            path : "/",
-            name : "Dashboard",
-            icon :<FaTh/>
-        },
+        // {
+        //     path : "/",
+        //     name : "Dashboard",
+        //     icon :<FaTh/>
+        // },
         {
             path : "/members",
             name  : "Members",
             icon : <FaUsers />
         },
-        {
-            path : "/programs",
-            name : "Programs",
-            icon : <FaRegListAlt />
+        // {
+        //     path : "/programs",
+        //     name : "Programs",
+        //     icon : <FaRegListAlt />
            
-        },
+        // },
       
-        rights.perm.messages > 0 && (
-            {
-                path : "/messages",
-                name : "Messages",
-                icon : <FaMessage />
+        // rights.perm.messages > 0 && (
+        //     {
+        //         path : "/messages",
+        //         name : "Messages",
+        //         icon : <FaMessage />
                 
-            }
-        ),
+        //     }
+        // ),
         {
             path : "/profile",
             name : "Profile",

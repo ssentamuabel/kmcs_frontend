@@ -92,7 +92,7 @@ function App() {
 			<Route path="messages" element={<Messages />} />
 			<Route path="permissions" element={<Permissions />} />
 			<Route path="profile" element={<Profile user={rights.member_id} />} />
-			<Route path="*" element={<Navigate to="/" />} />
+			<Route path="*" element={<Navigate to="/members" />} />
 		  </Route>
 		)}
 	  </Routes>
