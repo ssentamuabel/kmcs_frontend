@@ -139,10 +139,11 @@ const BioComponent = ({id, handleHobbyHealth}) =>{
             <div className="details">
                 
                 <h4>{`${gender},  ${marital}` }</h4>
-                <h4>{ bio.dob != null ? `Born at: ${bio.dob}`: 'Date of Birth'}</h4>
-                <h4>{bio.home_address ? bio.home_address : "Home Address not given"}</h4>
-                <h4>{bio.tribe ? bio.tribe : "Tribe not given"}</h4>
-                <h4>{bio.languages? bio.languages.split('#').join(' | '): "No Languages Found"}</h4>
+                <h4>{bio.tribe ? `Am a: ${ bio.tribe}` : "My Tribe"}</h4>
+                <h4>{bio.home_address ? `From: ${bio.home_address}`: "Home Address not given"}</h4>
+                <h4>{ bio.dob != null ? `Born on: ${bio.dob}`: 'Date of Birth'}</h4>           
+                
+                <h4>{bio.languages? `I know:${bio.languages.split('#').join(' | ')}` : "Languages you know"}</h4>
                 
             </div>
         </div>

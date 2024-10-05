@@ -216,7 +216,7 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
                         }
                         
                      </div>
-                     <table>
+                     <table id="filter-table">
                         <tbody>
                             <tr>
                                <td>

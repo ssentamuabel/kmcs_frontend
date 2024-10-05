@@ -170,6 +170,7 @@ TableComponent styles
    
     width:70%;
     font-size: 14px;
+    
 }
 
 /*
@@ -529,6 +530,11 @@ Dashboard styles
         width: 35vw;          
        
     }
+
+    #face-form, #relation-form, 
+    #bio-form, #inst-form{
+        width:350px;
+    }
    
    
 }
@@ -549,7 +555,8 @@ Dashboard styles
 
     #face-form, #relation-form, 
     #bio-form, #inst-form{
-        width:400px;
+        max-width:350px;
+        margin:0.2em;
     }
    
 
@@ -570,6 +577,40 @@ Dashboard styles
     #face-form .form-inputs .form-item{
         width:45%;
     }
+
+
+     /* filter table */
+
+     .filter-section #filter-table{
+        display:none;
+    }
+
+
+    .filter-section .table-search #input-container{
+        width:85%;
+    }
+
+    #relation-form > div > h4,
+    #inst-form > div > h4,
+    #face-form > div > h4,
+    #bio-form > div > h4{
+        padding:0.4em 0 ;
+        /* margin-bottom: 0.6em; */
+        font-size:large;
+    }
+
+     
+    .model-footer .button{
+        padding: 0.3em 0.5em;
+        min-width: 70px;
+    }
+
+
+    
+
+    
+
+    
    
 
     

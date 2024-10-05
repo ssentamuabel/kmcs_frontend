@@ -82,10 +82,11 @@ const InstitutionFormComponent = ({ onCancel, onConfirm, inData }) => {
                                     />
                                     <Select
                                         options={awards}
-                                        value={inst.award}
+                                        value={inst.award ? inst.award : "Award " }
+                                        defaultValue
                                         name="award"
                                         onChange={(e) => handleFieldChange(e, index, 'award')}
-                                        label="Choose the Award"
+                                        
                                     />
                                     <Input
                                         value={inst.since}
@@ -107,7 +108,7 @@ const InstitutionFormComponent = ({ onCancel, onConfirm, inData }) => {
                             ))
                         }
                         <div className="form-item">
-                            <span onClick={handleAddField}><FaPlus /></span>
+                            <span onClick={handleAddField}><FaPlus /></span> Add more
                         </div>
                     </div>
                 </div>

@@ -166,3 +166,28 @@
    
  }
 
+
+
+ /* mobile size styles  */
+@media (max-width: 480px) {
+
+    .table-container td,
+    .table-container th{
+        font-size: 11px;
+        
+    }
+
+    .filter-section #select-container select, 
+    .filter-section .table-search input{   
+        font-size: 12px;
+        margin-bottom: 0;    
+    
+    }
+
+    .filter-section .add-button{
+        display: none;
+    }
+
+
+}
+

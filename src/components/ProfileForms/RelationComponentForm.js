@@ -79,11 +79,12 @@ const RelationComponentForm = ({onCancel, onConfirm, inData, nature, state}) => 
                                     />
                                     <Select 
                                         options={humanRelations}
-                                        value={guardian.relation}
+                                        value={guardian.relation? guardian.relation: "Relation" }
                                         name="relation"
                                         defaultValue
                                         onChange={(e)=>handleFieldChange(e, index, 'relation')}
-                                        label="Choose the relationship"
+                                        label="Relationship"
+                                        
                                     />
                                     <Input 
                                         value={guardian.contact}
@@ -95,7 +96,7 @@ const RelationComponentForm = ({onCancel, onConfirm, inData, nature, state}) => 
                             ))
                         }
                         <div className="form-item">
-                            <span onClick={handleAddField}><FaPlus /></span>                         
+                            <span onClick={handleAddField}><FaPlus /></span>  Add more                       
                         </div>
                     </div>
                 </div>

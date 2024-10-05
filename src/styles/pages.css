@@ -33,11 +33,11 @@
     
 }
 
-#register-page .left  #left-wrapper{
+/* #register-page .left  #left-wrapper{
     overflow-y: scroll;
-}
+} */
 
-#register-page .left  #left-wrapper,
+
 #login-page .right #right-wrapper{
     display:flex;
     flex-direction: column;
@@ -45,13 +45,30 @@
     background: #fff;   
     align-items: left;
     border-radius: 5px;
-    margin: 15%  auto;
+    margin: 25%  auto;
     padding: 0 3em;
     width:320px;
-    height:70%;
+    height:50%;
     
     
 }
+
+
+#register-page .left  #left-wrapper{
+    display:flex;
+    flex-direction: column;
+    justify-content:space-evenly;
+    background: #fff;   
+    align-items: left;
+    border-radius: 5px;
+    margin: 10%  auto;
+    padding: 0 3em;
+    width:340px;
+    height:80%;
+    
+    
+}
+
 
 
 
@@ -214,6 +231,8 @@
         width: 85%;         
     }
     
+
+   
    
 }
 
@@ -229,6 +248,28 @@
        
     }
 
+    .profile-item .details h4{
+        font-size: 0.9em;
+     
+    }
+
+    .form-inputs .form-item #input-container .wrapper{
+        padding: 0.18em;
+    }
+
+    .form-inputs .form-item  #select-container .wrapper  #password-icon,
+    .form-inputs .form-item  #select-container .wrapper  #input-icon,
+    .form-inputs .form-item  #input-container .wrapper  #password-icon,
+    .form-inputs .form-item  #input-container .wrapper  #input-icon{
+        font-size: 0.7em;
+    }
+    .form-inputs .form-item #select-container .wrapper select,
+    .form-inputs .form-item #input-container .wrapper input{
+        font-size: 0.8em;
+    }
+
+   
+
 
 
     /* Login Page  and Register Page */
@@ -240,9 +281,11 @@
         
     }
 
+   
+
     #register-page,
     #login-page{
-        background: #074734;
+        background: #fff;
     }
 
 
@@ -259,8 +302,45 @@
         justify-content: center;
         align-items: center;
         margin: 10% auto;
+        background-color: #fff;
         
     }
+
+
+
+    #register-page .left  #left-wrapper,
+    #login-page .right #right-wrapper{
+        width:80%;
+        max-width:300px;
+        min-height: 80vh;
+        padding: 0 1.5em;
+    
+        
+        
+    }
+   
+
+    /* Permissions and Roles Page */
+
+
+
+    #setting-container #data-section{
+        display:flex;  
+        flex-direction: column;
+        width:100%;
+        overflow-y: scroll;
+       
+      
+        
+    }
+    #setting-container #data-section #users{
+        width: 100%;
+    }
+
+    #setting-container #data-section #permissions{
+        width: 100%;
+     }
+     
     
     
     
