@@ -22,6 +22,6 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ssentamuabel/kmcs_frontend:latest
+          tags: abelyusufa/kmcs_frontend:latest
           build-args: |
             NODE_ENV=production
