@@ -20,6 +20,7 @@ const FaceFormComponent = ({ onCancel, onConfirm, inData }) => {
 
   const {rights} = useContext(RightsContext)
   const [error, setError] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
   const [formData, setFormData] = useState({
     sur_name: "",
     first_name: "",
@@ -114,6 +115,7 @@ const FaceFormComponent = ({ onCancel, onConfirm, inData }) => {
   };
 
   const handleChanges = () => {
+	setIsLoading(true)
     const { contact, contacts, skills, skillsList} = formData;
 
 	 // Add new contact if there is a value
@@ -295,8 +297,11 @@ const FaceFormComponent = ({ onCancel, onConfirm, inData }) => {
           </div>
         </div>
         <div className="model-footer">
-			<Button text="Cancel" id="info" onClick={onCancel} />
-          <Button text="Submit" onClick={handleChanges} />
+			    <Button text="Cancel" id="info" onClick={onCancel} />
+          <Button   
+            text={isLoading ? 'Wait...' : 'Submit'}
+			disabled={isLoading}
+            onClick={handleChanges} />
          
         </div>
       </div>
