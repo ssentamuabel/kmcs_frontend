@@ -36,7 +36,12 @@ const Login = ({onLogin})=>{
     }
 
     const handleSubmit = async(e)=>{
-       
+
+        const csrfToken = document.cookie
+            .split('; ')
+            .find(row => row.startsWith('csrftoken'))
+            ?.split('=')[1];
+            
 
        if (!validateForm()) return
 
@@ -55,6 +60,7 @@ const Login = ({onLogin})=>{
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken,  // Add the CSRF token to headers
                 },          
                 body : JSON.stringify({contact:cleaned_contact, password:formdata.password}),
                 credentials: "include",
@@ -76,6 +82,7 @@ const Login = ({onLogin})=>{
                 
                 setError(jsondata.detail)
                 setErrorAlert(true)
+                console.log(jsondata)
             }
         
             
