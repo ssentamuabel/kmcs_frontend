@@ -242,5 +242,12 @@ main{
         font-size: 2em;
         color:#115BFB;
     }
+
+    .sidebar .logo img{
+        width:150px;
+        height:100px;
+       
+    
+    }
    
 }

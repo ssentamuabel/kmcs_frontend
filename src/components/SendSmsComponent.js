@@ -87,7 +87,10 @@ const SendSmsComponent  = ({onSend, onCancel, recipients }) =>{
                 </div>
                 <div id="msg-buttons">
                     <Button text="Cancel" onClick={onCancel} id="info"/>
-                    <Button text="Send" onClick={sendMessage}/>
+                    <Button 
+                        text={isLoading ? 'Sending...' : 'Submit'}
+                        disabled={isLoading}
+                        onClick={sendMessage}/>
                    
                 </div>
 
