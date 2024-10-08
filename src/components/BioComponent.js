@@ -139,7 +139,7 @@ const BioComponent = ({id, handleHobbyHealth}) =>{
             <div className="details">
                 
                 <h4>{`${gender},  ${marital}` }</h4>
-                <h4>{bio.tribe ? `Am a: ${ bio.tribe}` : "My Tribe"}</h4>
+                <h4>{bio.tribe ? `Iam a: ${ bio.tribe}` : "My Tribe"}</h4>
                 <h4>{bio.home_address ? `From: ${bio.home_address}`: "Home Address not given"}</h4>
                 <h4>{ bio.dob != null ? `Born on: ${bio.dob}`: 'Date of Birth'}</h4>           
                 
