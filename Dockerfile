@@ -1,5 +1,5 @@
-# Use a full Node.js image for building
-FROM node:14 AS build
+# Specify the base image
+FROM node:alpine AS build
 
 # Set the working directory
 WORKDIR /app
@@ -10,7 +10,7 @@ COPY package*.json ./
 # Install the dependencies
 RUN npm install
 
-# Copy the rest of the application files
+# Copy the app files
 COPY . .
 
 # Build the app for production
@@ -27,4 +27,3 @@ EXPOSE 80
 
 # Start Nginx server
 CMD ["nginx", "-g", "daemon off;"]
-

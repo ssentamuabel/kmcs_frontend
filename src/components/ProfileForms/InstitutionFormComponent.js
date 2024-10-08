@@ -9,6 +9,7 @@ import { FaPlus } from 'react-icons/fa';
 
 const InstitutionFormComponent = ({ onCancel, onConfirm, inData }) => {
     const [formData, setFormData] = useState([]);
+    const [isLoading, setIsLoading] = useState(false)
 
     // Populate the form data
     useEffect(() => {
@@ -33,6 +34,7 @@ const InstitutionFormComponent = ({ onCancel, onConfirm, inData }) => {
         setFormData([...formData, { id: formData.length + '#', name: '', award: '', since: '', to: '', isNew: true }]);
     }
     const handleSubmit = () => {
+        setIsLoading(true)
         const cleanedData = formData.map((inst) => {
             const { isNew, since, to, ...rest } = inst;
     
@@ -58,7 +60,7 @@ const InstitutionFormComponent = ({ onCancel, onConfirm, inData }) => {
             }
         });
     
-        console.log(cleanedData);
+        // console.log(cleanedData);
     
         onConfirm(cleanedData);
     }
