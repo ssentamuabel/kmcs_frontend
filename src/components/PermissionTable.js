@@ -7,6 +7,7 @@ import { CONFIG } from '../config';
 const PermissionTable = ({ role , onPermissionUpdate }) => {
     const [permissions, setPermissions] = useState({});
     const [changes, setChanges] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
         if (role) {
@@ -38,7 +39,7 @@ const PermissionTable = ({ role , onPermissionUpdate }) => {
 
 
     const handleConfirm = async() => {
-
+       setIsLoading(true)
        try{
         const response = await fetch(`${CONFIG.backend_url}/permission/${permissions.id}`, {
             method: 'POST',
@@ -62,6 +63,8 @@ const PermissionTable = ({ role , onPermissionUpdate }) => {
 
        }catch(error){
             console.log(error)
+       }finally{
+        setIsLoading(false)
        }
     }
 
@@ -117,7 +120,12 @@ const PermissionTable = ({ role , onPermissionUpdate }) => {
                     </tbody>
                 </table>
                 <div>
-                    {role && changes &&  <Button id="info" text="Confirm changes" onClick={handleConfirm} />}
+                    {role && changes &&  <Button 
+                                            id="info" 
+                                            text={isLoading ? 'Loading...' : 'Confirm changes'}
+                                            disabled={isLoading}                                          
+                                            onClick={handleConfirm} 
+                                        />}
                     
                 </div>
             </div>

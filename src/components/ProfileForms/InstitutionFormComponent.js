@@ -114,7 +114,11 @@ const InstitutionFormComponent = ({ onCancel, onConfirm, inData }) => {
                 </div>
                 <div className="model-footer">
                     <Button text="Cancel"  id="info" onClick={onCancel} />
-                    <Button text="Submit" onClick={handleSubmit} />
+                    <Button 
+                        text={isLoading ? 'Wait...' : 'Submit'}
+                        disabled={isLoading}
+                        onClick={handleSubmit} 
+                    />
                   
                 </div>
             </div>

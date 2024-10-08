@@ -10,6 +10,7 @@ import {FaPlus} from 'react-icons/fa';
 
 const RelationComponentForm = ({onCancel, onConfirm, inData, nature, state}) => {
     const [formData, setFormData] = useState([]);
+    const [isLoading, setIsLoading] = useState(false)
 
 
     // POPULATE THE FORM DATA 
@@ -40,6 +41,7 @@ const RelationComponentForm = ({onCancel, onConfirm, inData, nature, state}) => 
     }
 
     const handleSubmit = () => {
+        setIsLoading(true)
         const cleanedData = formData.map((relation) => {
             const { isNew, ...rest } = relation;
     
@@ -102,7 +104,11 @@ const RelationComponentForm = ({onCancel, onConfirm, inData, nature, state}) => 
                 </div>
                 <div className="model-footer">
                     <Button text="Cancel" id="info" onClick={onCancel} />
-                    <Button text="Submit" onClick={handleSubmit} />
+                    <Button 
+                        
+                        text={isLoading ? 'Wait...' : 'Submit'}
+                        disabled={isLoading}
+                        onClick={handleSubmit} />
                     
                 </div>
             </div>

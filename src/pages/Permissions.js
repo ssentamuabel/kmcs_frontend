@@ -25,6 +25,7 @@ const Permissions = ()=>{
     const [activeRole, setActiveRole] = useState(null)
     const [roleField, setRoleField] = useState(false)
     const [loading, setLoading] = useState(true)
+    
     const [newRole, setNewRole] = useState('')
     const {rights} = useContext(RightsContext)
 
@@ -109,7 +110,7 @@ const Permissions = ()=>{
     }
 
     const saveRole = async() =>{
-        
+        setLoading(true)
         if (newRole){
 
             const role = rights.perm.type ? {name: newRole + '_', type:1} : {name: newRole, type: 0};
@@ -138,6 +139,8 @@ const Permissions = ()=>{
             }catch(error){
                 setError(error.message)
                 setErrorAlert(true)
+            }finally{
+                setLoading(false)
             }
 
         }
@@ -180,7 +183,12 @@ const Permissions = ()=>{
                             onChange ={(e) => setNewRole(e.target.value)}                         
                         
                         />
-                        <Button text="Save" id="info" onClick={saveRole} />
+                        <Button 
+                            text={loading ? 'Loading...' : 'Submit'} 
+                            id="info" 
+                            disabled={loading}
+                            onClick={saveRole} 
+                        />
                     </div>}
                     
 

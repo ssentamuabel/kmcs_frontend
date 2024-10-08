@@ -7,6 +7,7 @@ import { CONFIG } from '../config'
 const SendSmsComponent  = ({onSend, onCancel, recipients }) =>{
     const [message, setMessage] = useState('')
     const [numbers, setNumbers] = useState("")
+    const [isLoading, setIsLoading] = useState(false)
     const maxlength = 150;
 
 
@@ -34,6 +35,7 @@ const SendSmsComponent  = ({onSend, onCancel, recipients }) =>{
     }
     const sendMessage = async() =>{
         // console.log(numbers)
+        setIsLoading(true)
         if (message.length < 15){
             onSend("Failed: Message can't be less than 15 characters")
         }else{
@@ -59,6 +61,8 @@ const SendSmsComponent  = ({onSend, onCancel, recipients }) =>{
 
             }catch(error){
                 onSend("Connection Error")
+            }finally{
+                setIsLoading(false)
             }
             
            

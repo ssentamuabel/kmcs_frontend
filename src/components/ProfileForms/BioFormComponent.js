@@ -12,7 +12,7 @@ import { FaUserGear, FaLocationDot } from "react-icons/fa6";
 
 
 const BioFormComponent = ({onCancel, onConfirm, inData})=>{
-
+    const [isLoading, setIsLoading] = useState(false)
     const [formData, setFormData] = useState({
         gender: "",
         dob: "",
@@ -81,6 +81,7 @@ const BioFormComponent = ({onCancel, onConfirm, inData})=>{
 
     const handleChanges = ()=>{
 
+        setIsLoading(true)
         const newLanguages = formData.language ? [...formData.languageList, {id: formData.languageList.length, value:formData.language}] : formData.languageList
         const newHobbies = formData.hobby ? [...formData.hobbies, {id: formData.hobbies.length, value:formData.hobby}] : formData.hobbies
         const newHealthIssueList = formData.healthIssue ? [...formData.healthIssueList, {id: formData.healthIssueList.length, value:formData.healthIssue}] : formData.healthIssueList
@@ -251,7 +252,11 @@ const BioFormComponent = ({onCancel, onConfirm, inData})=>{
                 </div>
                 <div className="model-footer">
                     <Button text="Cancel" id="info"  onClick={onCancel} />
-                    <Button text="Submit" onClick={handleChanges} />
+                    <Button 
+                        text={isLoading ? 'Wait...' : 'Submit'}
+                        disabled={isLoading}
+                        onClick={handleChanges} 
+                     />
                     
                 </div>
             </div>
