@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react'
+import React, {useContext, useEffect, useState, useRef} from 'react'
 import '../styles/components.css'
 import Alert from './Alert'
 import { RightsContext } from '../contexts/RightsProvider'
@@ -6,8 +6,13 @@ import AutoComplete from './AutoCompleteInputComponent'
 import Input from './InputComponet'
 import SendSms from './SendSmsComponent'
 import BulkEmails from './BulkEmailsComponent'
+import PrintableTable from './PrintableTable'
 import Button from './Button'
 import { courses } from '../courses'
+
+
+
+import { useReactToPrint } from 'react-to-print'
 
 const TableComponent = ({columns,  table_data, memberClick})=>{
 
@@ -21,6 +26,8 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
     const [load, setLoad] = useState(false)
     const [entry, setEntry] = useState('')
     const [alumniFilter, setAlumniFilter] = useState([])
+
+    const printRef = useRef();
  
 
     
@@ -47,13 +54,9 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
         }
     }, [table_data, rights.perm.type, load]);
     
+  
 
-    // const hall_options = [
-    //     {value: '1', name: 'Kulubya'},
-    //     {value: '2', name: 'Pearl'},
-    //     {value: '3', name: 'Nanziri'},
-    //     {value: '4', name: 'North Hall'}
-    // ]
+
 
 
     const handleFilter = () =>{
@@ -160,7 +163,9 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
         setInfo(true)
     }
 
-   
+    const handlePrint = useReactToPrint({
+        content: () => printRef.current,
+      });
     
 
     return (      
@@ -205,10 +210,15 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
                                         text = "Send Emails"  
                                         onClick={()=>setEmailDialogue(true)}                             
                                     />
-                                    <Button 
+                                    {/* <Button 
                                         id="info"
                                         text = "Send Sms"
                                         onClick={openMessage}
+                                    /> */}
+                                    <Button 
+                                        id="info"
+                                        text = "Print"
+                                        onClick={handlePrint}
                                     />
                                 </>
                                 
@@ -321,6 +331,11 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
                             </tr>
                         </tfoot> */}
                     </table>
+                    <div style={{display: "none"}}>
+                        <PrintableTable ref={printRef} />
+                    </div>
+                    
+                    
                 </div>
             </div>      
 
