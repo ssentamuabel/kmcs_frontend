@@ -25,7 +25,6 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
 
 
     useEffect(() => {
-
         // console.log(table_data)
         if (!rights.perm.type) {
           // Create a new array with the updated data
@@ -34,20 +33,29 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
               (course) =>
                 course.day === item.reg_no.split('_')[2] ||
                 course.eve === item.reg_no.split('_')[2]
-            );
-      
+            );      
             // Return the new item with the course name added
             return { ...item, course: course ? course.name : '' };
           });      
           // Update the state with the new data
-          setStudentsData(updatedStudentsData);
+          setStudentsData(updatedStudentsData);          
         }else {
-            setAlumniFilter(table_data);
-        }
-        setIsLoading(false)
-        
+            setAlumniFilter(table_data);            
+        }           
     }, [table_data, rights.perm.type, load]);
     
+
+
+    // New useEffect to monitor alumniFilter or studentsData changes
+    useEffect(() => {
+        if (rights.perm.type && alumniFilter.length > 0) {
+        setIsLoading(false); // Set isLoading to false after alumniFilter is populated
+        } else if (!rights.perm.type && studentsData.length > 0) {
+        setIsLoading(false); // Set isLoading to false after studentsData is populated
+        }
+    }, [alumniFilter, studentsData, rights.perm.type]);
+
+
 
     const handleFilter = () =>{
         // console.log(courseCode)
@@ -251,7 +259,7 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
                         <tbody>
                             {rights.perm.type ? (
                                 
-                                alumniFilter && alumniFilter.length > 1 && isLoading ? (
+                                alumniFilter && alumniFilter.length > 1 && !isLoading ? (
                                     alumniFilter.map((member, key) => (
                                         !(member.id === rights.member_id) && (
                                             <tr key={member.id}>
@@ -277,13 +285,13 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
                                             <b>Wait as data is loading............</b>
                                            
                                             ): (
-                                            <b>You are the only one in your course of study registered, recommend your coursemates to register</b>
+                                                <b>You are the only one in your course of study registered, recommend your coursemates to register</b>
                                              )}                                           
                                         </td>
                                     </tr>
                                 )
                             ) : (
-                                studentsData && studentsData.length > 1 && isLoading ? (
+                                studentsData && studentsData.length > 1 && !isLoading ? (
                                     studentsData.map((member, key) => (
                                         !(member.id === rights.member_id) && (
                                             <tr key={member.id}>
