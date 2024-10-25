@@ -60,12 +60,17 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
         // console.log(courseCode)
         // console.log(entry)
 
+        const course = courses.find(
+            (course) =>
+              course.day === courseCode ||course.eve === courseCode
+        );
+
         if (rights.perm.type){
             const filteredData = table_data.filter((item) =>{
                 if (courseCode && entry){
-                    return item.reg_no.split('_')[2] === courseCode &&  item.reg_no.split('_')[0] === entry;
+                    return (item.reg_no.split('_')[2] === course.day ||item.reg_no.split('_')[2] === course.eve) &&  item.reg_no.split('_')[0] === entry;
                 }else if (courseCode){
-                    return item.reg_no.split('_')[2] === courseCode;
+                    return (item.reg_no.split('_')[2] === course.day ||item.reg_no.split('_')[2] === course.eve);
                 }else if (entry){
                     return  item.reg_no.split('_')[0] === entry;
                 }
@@ -77,9 +82,9 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
         }else {
             const filteredData = studentsData.filter((item) =>{
                 if (courseCode && entry){
-                    return item.reg_no.split('_')[2] === courseCode &&  item.reg_no.split('_')[0] === entry;
+                    return (item.reg_no.split('_')[2] === course.day ||item.reg_no.split('_')[2] === course.eve) &&  item.reg_no.split('_')[0] === entry;
                 }else if (courseCode){
-                    return item.reg_no.split('_')[2] === courseCode;
+                    return (item.reg_no.split('_')[2] === course.day ||item.reg_no.split('_')[2] === course.eve);
                 }else if (entry){
                     return  item.reg_no.split('_')[0] === entry;
                 }
