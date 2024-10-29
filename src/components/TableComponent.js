@@ -27,7 +27,7 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
     const [entry, setEntry] = useState('')
     const [alumniFilter, setAlumniFilter] = useState([])
 
-    const printRef = useRef();
+    
  
 
     
@@ -163,10 +163,36 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
         setInfo(true)
     }
 
-    const handlePrint = useReactToPrint({
-        content: () => printRef.current,
-      });
+
+    const handlePrint = () => {
+        const printContents = document.getElementById('printablediv').innerHTML;
+        const newWindow = window.open('', '_blank'); // Open a new blank window or tab
     
+        if (newWindow) {
+            // Write the HTML content to the new window
+            newWindow.document.open();
+            newWindow.document.write(`
+                <html>
+                    <head>
+                        <title>Print</title>
+                        <style>
+                            /* Add your printable styling here if necessary */
+                            body { font-family: Arial, sans-serif; padding: 20px; }
+                            table { width: 100%; border-collapse: collapse; }
+                            th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+                        </style>
+                    </head>
+                    <body onload="window.print(); window.close();">
+                        ${printContents}
+                    </body>
+                </html>
+            `);
+            newWindow.document.close(); // Close the document to trigger the loading
+        }
+    };
+    
+
+  
 
     return (      
         <div className="page-container">
@@ -331,8 +357,8 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
                             </tr>
                         </tfoot> */}
                     </table>
-                    <div style={{display: "none"}}>
-                        <PrintableTable ref={printRef} />
+                    <div id="printablediv"  >
+                        <PrintableTable  />
                     </div>
                     
                     

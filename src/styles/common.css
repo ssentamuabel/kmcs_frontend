@@ -168,6 +168,21 @@
 
 
 
+
+ /* In your CSS file or <style> tag */
+#printablediv {
+    display: none; /* Hide by default */
+  }
+  
+  @media print {
+    #printablediv {
+      display: block; /* Show only in print view */
+    }
+  }
+  
+
+
+
  /* mobile size styles  */
 @media (max-width: 480px) {
 
