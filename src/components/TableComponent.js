@@ -24,13 +24,10 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
     const [info, setInfo]= useState(false)
     const [smsRes, setSmsRes] = useState('')
     const [load, setLoad] = useState(false)
+    const [isLoading, setIsLoading]= useState(true)
     const [entry, setEntry] = useState('')
     const [alumniFilter, setAlumniFilter] = useState([])
 
-    
- 
-
-    
 
     useEffect(() => {
         // console.log(table_data)
@@ -41,21 +38,29 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
               (course) =>
                 course.day === item.reg_no.split('_')[2] ||
                 course.eve === item.reg_no.split('_')[2]
-            );
-      
+            );      
             // Return the new item with the course name added
             return { ...item, course: course ? course.name : '' };
-          });
-      
+          });      
           // Update the state with the new data
-          setStudentsData(updatedStudentsData);
+          setStudentsData(updatedStudentsData);          
         }else {
-            setAlumniFilter(table_data)
-        }
+            setAlumniFilter(table_data);            
+        }           
     }, [table_data, rights.perm.type, load]);
     
   
 
+
+
+    // New useEffect to monitor alumniFilter or studentsData changes
+    useEffect(() => {
+        if (rights.perm.type && alumniFilter.length > 0) {
+        setIsLoading(false); // Set isLoading to false after alumniFilter is populated
+        } else if (!rights.perm.type && studentsData.length > 0) {
+        setIsLoading(false); // Set isLoading to false after studentsData is populated
+        }
+    }, [alumniFilter, studentsData, rights.perm.type]);
 
 
 
@@ -63,12 +68,17 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
         // console.log(courseCode)
         // console.log(entry)
 
+        const course = courses.find(
+            (course) =>
+              course.day === courseCode ||course.eve === courseCode
+        );
+
         if (rights.perm.type){
             const filteredData = table_data.filter((item) =>{
                 if (courseCode && entry){
-                    return item.reg_no.split('_')[2] === courseCode &&  item.reg_no.split('_')[0] === entry;
+                    return (item.reg_no.split('_')[2] === course.day ||item.reg_no.split('_')[2] === course.eve) &&  item.reg_no.split('_')[0] === entry;
                 }else if (courseCode){
-                    return item.reg_no.split('_')[2] === courseCode;
+                    return (item.reg_no.split('_')[2] === course.day ||item.reg_no.split('_')[2] === course.eve);
                 }else if (entry){
                     return  item.reg_no.split('_')[0] === entry;
                 }
@@ -80,9 +90,9 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
         }else {
             const filteredData = studentsData.filter((item) =>{
                 if (courseCode && entry){
-                    return item.reg_no.split('_')[2] === courseCode &&  item.reg_no.split('_')[0] === entry;
+                    return (item.reg_no.split('_')[2] === course.day ||item.reg_no.split('_')[2] === course.eve) &&  item.reg_no.split('_')[0] === entry;
                 }else if (courseCode){
-                    return item.reg_no.split('_')[2] === courseCode;
+                    return (item.reg_no.split('_')[2] === course.day ||item.reg_no.split('_')[2] === course.eve);
                 }else if (entry){
                     return  item.reg_no.split('_')[0] === entry;
                 }
@@ -93,10 +103,7 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
             setStudentsData(filteredData);
         }
         
-       
     }
-
-
     const handleSearch = (e) =>{
        const value = e.target.value;
 
@@ -140,8 +147,6 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
         });
     }
 
-
-
     const openMessage = () =>{
         
         setSmsDialogue(true)
@@ -156,7 +161,6 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
         setInfo(true)
         
     }
-
     const onEmailSend = (message) =>{
         setSmsRes(message)
         setEmailDialogue(false)
@@ -263,16 +267,7 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
                                         placeholder ="Entry ie 11, 12, 13...n"
                                      />
                                </td>                                                                          
-                                
-                                {/* {!rights.perm.type ? (
-                                  <td>
-                                      Hall: 
-                                      <Select
-                                          options={hall_options}
-                                          label="Filter Hall"                                   
-                                      />
-                                  </td>
-                                ):(<td></td>)} */}
+                               
                               
                                 <td>
                                     Course:
@@ -300,8 +295,6 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
                          
                      </div>
                  </div>
-            
-               
                 <div className="table-container">
                     <table>
                         <thead>
@@ -314,43 +307,71 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
                         </thead>
                         <tbody>
                             {rights.perm.type ? (
-                                alumniFilter ? (
-                                    alumniFilter.map((member, key) =>(
+                                
+                                alumniFilter && alumniFilter.length > 1 && !isLoading ? (
+                                    alumniFilter.map((member, key) => (
                                         !(member.id === rights.member_id) && (
                                             <tr key={member.id}>
-                                                <td>{key +1}</td>
-                                                <td onClick={()=>memberClick(member.id)} id="member-click">{member.sur_name + ' ' + member.first_name}</td>
-                                                <td>{member.gender ? 'F': 'M'}</td>
-                                                <td>{member.residence_address ? member.residence_address  : "Unknown"}</td>
-                                                <td>{member.occupation ? member.occupation : member.proffession ? member.proffession : "Unknown"}</td>
-                                                <td>{member.proffession ? member.proffession : member.occupation ? member.occupation : "Unknown"}</td>                                                                       
+                                                <td>{key + 1}</td>
+                                                <td onClick={() => memberClick(member.id)} id="member-click">
+                                                    {member.sur_name + ' ' + member.first_name}
+                                                </td>
+                                                <td>{member.gender ? 'F' : 'M'}</td>
+                                                <td>{member.residence_address ? member.residence_address : "Unknown"}</td>
+                                                <td>
+                                                    {member.occupation ? member.occupation : member.proffession ? member.proffession : "Unknown"}
+                                                </td>
+                                                <td>
+                                                    {member.proffession ? member.proffession : member.occupation ? member.occupation : "Unknown"}
+                                                </td>
                                                 <td>{member.user.email}</td>
                                             </tr>
                                         )
-                                        
                                     ))
-                                ) : (<tr > <td colSpan={7}></td> </tr>)
-                            ): (
-                                studentsData ? (
-                                    studentsData.map((member, key) =>(
+                                ) : (
+                                    <tr>
+                                        <td colSpan={7}>{ isLoading ? (
+                                            <b>Wait as data is loading............</b>
+                                           
+                                            ): (
+                                                <b>You are the only one in your course of study registered, recommend your coursemates to register</b>
+                                             )}                                           
+                                        </td>
+                                    </tr>
+                                )
+                            ) : (
+                                studentsData && studentsData.length > 1 && !isLoading ? (
+                                    studentsData.map((member, key) => (
                                         !(member.id === rights.member_id) && (
                                             <tr key={member.id}>
-                                                <td>{key +1}</td>
-                                                <td onClick={()=>memberClick(member.id)} id="member-click">{member.sur_name + ' ' + member.first_name}</td>
-                                                <td>{member.gender ? 'F': 'M'}</td>
+                                                <td>{key + 1}</td>
+                                                <td onClick={() => memberClick(member.id)} id="member-click">
+                                                    {member.sur_name + ' ' + member.first_name}
+                                                </td>
+                                                <td>{member.gender ? 'F' : 'M'}</td>
                                                 <td>{member.course ? member.course : "Unknown"}</td>
-                                                <td>{member.residence_address ? member.residence_address : member.hall_of_attachment ? member.hall_of_attachment : "Unknown"}</td>
-                                                <td>{member.hall_of_attachment ? member.hall_of_attachment : "Unknown"}</td>                                                                         
+                                                <td>
+                                                    {member.residence_address ? member.residence_address : member.hall_of_attachment ? member.hall_of_attachment : "Unknown"}
+                                                </td>
+                                                <td>{member.hall_of_attachment ? member.hall_of_attachment : "Unknown"}</td>
                                                 <td>{member.user.email}</td>
                                             </tr>
                                         )
-                                        
-                                    )) 
-                                    
-                                ):(<tr > <td colSpan={7}>No data Found</td> </tr>)
+                                    ))
+                                ) : (
+                                    <tr>
+                                        <td colSpan={7}>{ isLoading ? (
+                                            <b>Wait as data is loading............</b>
+                                           
+                                            ): (
+                                            <b>You are the only one in your course of study registered, recommend your coursemates to register</b>
+                                             )}                                           
+                                        </td>
+                                    </tr>
+                                )
                             )}
-
                         </tbody>
+
                         {/* <tfoot>
                             <tr>
                                 <td colspan="7">Total: 600</td>
