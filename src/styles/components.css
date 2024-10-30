@@ -14,7 +14,7 @@
     top:0;
     left:0;
     bottom: 0;
-    background: #07473453;
+    background: #07473479;
     height: 100vh;
     width:100%;
     justify-content: center;
@@ -30,7 +30,9 @@
     background: #07473453;
     height: 100vh;
     width:100%;
+    display: flex;
     justify-content: center;
+    align-items: center;
     z-index:3;
 }
 
@@ -212,6 +214,48 @@ SMS dialogue
 #sms-dialogue #msg-buttons button{
     margin-right: 3em;
 }
+
+
+/*
+Print selection component
+*/
+
+
+.field-selection-dialogue{
+    position:absolute;
+    background-color: #fff;
+    padding:1em;
+    width: 450px;
+    border-radius: 5px;
+
+}
+
+.field-selection-dialogue h4{
+    font-size: larger;
+    margin-bottom: 1em;
+
+}
+
+.field-selection-dialogue .fields{
+    padding: 1em 0;    
+    display: flex;    
+    flex-wrap: wrap;
+    gap: 1em;
+}
+.field-selection-dialogue .fields .field-item{
+    display:flex;
+    padding:0.3em 0;
+    /* background: #074734; */
+    min-width:120px;
+}
+.field-selection-dialogue .fields .field-item label{
+    margin-left: 8px;
+}
+
+.field-selection-dialogue .fields .field-item input{
+    width:auto;
+}
+
 
  /*
  

@@ -1,5 +1,6 @@
 import React, {useContext, useEffect, useState, useRef} from 'react'
 import '../styles/components.css'
+import '../styles/common.css'
 import Alert from './Alert'
 import { RightsContext } from '../contexts/RightsProvider'
 import AutoComplete from './AutoCompleteInputComponent'
@@ -7,12 +8,13 @@ import Input from './InputComponet'
 import SendSms from './SendSmsComponent'
 import BulkEmails from './BulkEmailsComponent'
 import PrintableTable from './PrintableTable'
+import PrintSelectionDialogue from './PrintSelectionComponent'
 import Button from './Button'
 import { courses } from '../courses'
 
 
 
-import { useReactToPrint } from 'react-to-print'
+
 
 const TableComponent = ({columns,  table_data, memberClick})=>{
 
@@ -22,6 +24,7 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
     const [emailDialogue, setEmailDialogue] = useState(false)
     const [courseCode, setCourseCode] = useState('')
     const [info, setInfo]= useState(false)
+    const [printSelection, setPrintSelection]= useState(false);
     const [smsRes, setSmsRes] = useState('')
     const [load, setLoad] = useState(false)
     const [isLoading, setIsLoading]= useState(true)
@@ -178,13 +181,7 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
             newWindow.document.write(`
                 <html>
                     <head>
-                        <title>Print</title>
-                        <style>
-                            /* Add your printable styling here if necessary */
-                            body { font-family: Arial, sans-serif; padding: 20px; }
-                            table { width: 100%; border-collapse: collapse; }
-                            th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-                        </style>
+                        <title>KMCS</title>                        
                     </head>
                     <body onload="window.print(); window.close();">
                         ${printContents}
@@ -228,6 +225,13 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
                     />
                 )
             }
+             {
+                printSelection && (
+                    <PrintSelectionDialogue                         
+                        onCancel = {()=>{setPrintSelection(false)}}
+                    />
+                )
+            }
             <div className="tabular-wrapper">
                   
                      <div className="filter-section">
@@ -248,7 +252,7 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
                                     <Button 
                                         id="info"
                                         text = "Print"
-                                        onClick={handlePrint}
+                                        onClick={()=>setPrintSelection(true)}
                                     />
                                 </>
                                 
@@ -379,7 +383,7 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
                         </tfoot> */}
                     </table>
                     <div id="printablediv"  >
-                        <PrintableTable  />
+                        <PrintableTable columns={columns} table_data={table_data}  />
                     </div>
                     
                     

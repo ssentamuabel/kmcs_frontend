@@ -1,11 +1,12 @@
 import React , {useRef}from 'react'
-import { useReactToPrint } from 'react-to-print';
+
 import '../styles/common.css'
 
-const Messages = () =>{
+const Messages = ({columns, table_data}) =>{
+
     return (
-        <div className="page-container">
-            <h3>Messages Page</h3>
+        <div className="page-container">           
+          <h1>This is the message section</h1>
         </div>
     )
 }
