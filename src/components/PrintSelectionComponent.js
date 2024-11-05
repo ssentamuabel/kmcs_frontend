@@ -1,135 +1,91 @@
-import React, {useState} from 'react'
+import React, { useState, useContext } from 'react';
+import { RightsContext } from '../contexts/RightsProvider';
 import '../styles/components.css';
 import '../styles/common.css';
-import Button from './Button'
+import Button from './Button';
 
-const PrintSelectionComponent = ({onCancel})=>{
-    const [fields, setFields] = useState({
+const PrintSelectionComponent = ({ onCancel, onConfirm }) => {
+    const { rights } = useContext(RightsContext);
+
+    const initialFields = {
+        no: true,
         name: true,
-        gender:false,
+        gender: false,
         contact: false,
-        email:false,
-        occupation:false,
-        profession:false,
-        reg_no: false,
-        hall:false,
-        residence:false
-    })
+        course: false,
+        reg_no: false,     
+        occupation: false,
+        profession: false,
+        email: false,
+        hall: false,
+        residence: false
+    };
 
+    const [fields, setFields] = useState(initialFields);
 
-    const handleChange = (e)=>{
+    const handleChange = (e) => {
         setFields({
             ...fields,
             [e.target.name]: e.target.checked
-        })
-    }
+        });
+    };
+
+    const allFields = {
+        name: "Names",
+        gender: "Gender",
+        contact: "Phone Number",
+        course: "Course",
+        reg_no: "Registration Number",    
+        occupation: "Occupation",
+        profession: "Profession",
+        email: "Email",
+        hall: "Hall of Attachment",
+        residence: "Residence"
+    };
+
+    // Filter fields based on rights.perm.type
+    const filteredFields = Object.keys(allFields).filter(field => {
+        if (rights.perm.type) {
+            return field !== 'course' && field !== 'reg_no' && field !== 'hall';
+        } else {
+            return field !== 'occupation' && field !== 'profession';
+        }
+    });
+
+    const confirmPrint = () => {
+        
+        onConfirm(fields);
+    };
+
     return (
         <div className="dialogue-container">
-            
             <div className="field-selection-dialogue">
-                <h4 >Select the fields  to print</h4>
+                <h4>Select the fields to print</h4>
                 <div className="fields">
-                    <div className="field-item">
-                        <input
-                            type="checkbox" 
-                            id="name" 
-                            name="name" 
-                            checked={fields.name}
-                          
-                        />
-                        <label>Names</label>
-                    </div>
-                    <div className="field-item">
-                        <input
-                            type="checkbox" 
-                            id="gender" 
-                            name="gender" 
-                            checked={fields.gender}
-                            onChange={handleChange}
-                        />
-                        <label>Gender</label>
-                    </div>
-                    <div className="field-item">
-                        <input
-                            type="checkbox" 
-                            id="contact" 
-                            name="contact" 
-                            checked={fields.contact}
-                            onChange={handleChange}
-                        />
-                        <label>Phone Number</label>
-                    </div>
-                    <div className="field-item">
-                        <input
-                            type="checkbox" 
-                            id="email" 
-                            name="email" 
-                            checked={fields.email}
-                            onChange={handleChange}
-                        />
-                        <label>Email</label>
-                    </div>
-                    <div className="field-item">
-                        <input
-                            type="checkbox" 
-                            id="occupation" 
-                            name="occupation" 
-                            checked={fields.occupation}
-                            onChange={handleChange}
-                        />
-                        <label>Occupation</label>
-                    </div>
-                    <div className="field-item">
-                        <input
-                            type="checkbox" 
-                            id="profession" 
-                            name="profession" 
-                            checked={fields.profession}
-                            onChange={handleChange}
-                        />
-                        <label>Profession</label>
-                    </div>
-                    <div className="field-item">
-                        <input
-                            type="checkbox" 
-                            id="residence" 
-                            name="residence" 
-                            checked={fields.residence}
-                            onChange={handleChange}
-                        />
-                        <label>Residence</label>
-                    </div>
-                    <div className="field-item">
-                        <input
-                            type="checkbox" 
-                            id="hall" 
-                            name="hall" 
-                            checked={fields.hall}
-                            onChange={handleChange}
-                        />
-                        <label>Hall of Attachment</label>
-                    </div>
-                    <div className="field-item">
-                        <input
-                            type="checkbox" 
-                            id="reg_no" 
-                            name="reg_no" 
-                            checked={fields.reg_no}
-                            onChange={handleChange}
-                        />
-                        <label>Registration Number</label>
-                    </div>
+                    {filteredFields.map((field, index) => (
+                        <div key={index} className="field-item">
+                            <input
+                                type="checkbox"
+                                id={field}
+                                name={field}
+                                checked={fields[field]}
+                                onChange={handleChange}
+                            />
+                            <label>{allFields[field]}</label>
+                        </div>
+                    ))}
                 </div>
                 <div className="model-footer">
                     <Button text="Cancel" id="info" onClick={onCancel} />
-                    <Button   
+                    <Button
                         text="Confirm"
-                        onClick={onCancel} />
-            
+                        onClick={confirmPrint}
+                        
+                    />
                 </div>
-            </div>            
+            </div>
         </div>
-    )
-}
+    );
+};
 
-export default PrintSelectionComponent
+export default PrintSelectionComponent;
