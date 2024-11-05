@@ -97,14 +97,14 @@ const SideBar = ({onLogout})=>{
            
         // },
       
-        rights.perm.messages > 0 && (
-            {
-                path : "/messages",
-                name : "Messages",
-                icon : <FaMessage />
+        // rights.perm.messages > 0 && (
+        //     {
+        //         path : "/messages",
+        //         name : "Messages",
+        //         icon : <FaMessage />
                 
-            }
-        ),
+        //     }
+        // ),
         {
             path : "/profile",
             name : "Profile",
