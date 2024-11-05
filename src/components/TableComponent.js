@@ -1,13 +1,20 @@
 import React, {useContext, useEffect, useState} from 'react'
 import '../styles/components.css'
+import '../styles/common.css'
 import Alert from './Alert'
 import { RightsContext } from '../contexts/RightsProvider'
 import AutoComplete from './AutoCompleteInputComponent'
 import Input from './InputComponet'
 import SendSms from './SendSmsComponent'
 import BulkEmails from './BulkEmailsComponent'
+import PrintableTable from './PrintableTable'
+import PrintSelectionDialogue from './PrintSelectionComponent'
 import Button from './Button'
 import { courses } from '../courses'
+
+
+
+
 
 const TableComponent = ({columns,  table_data, memberClick})=>{
 
@@ -17,11 +24,15 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
     const [emailDialogue, setEmailDialogue] = useState(false)
     const [courseCode, setCourseCode] = useState('')
     const [info, setInfo]= useState(false)
+    const [printSelection, setPrintSelection]= useState(false);
     const [smsRes, setSmsRes] = useState('')
     const [load, setLoad] = useState(false)
     const [isLoading, setIsLoading]= useState(true)
     const [entry, setEntry] = useState('')
     const [alumniFilter, setAlumniFilter] = useState([])
+    const [printFields, setPrintFields]= useState({})
+    const [printColumns, setPrintColumns] = useState({})
+    const [print, setPrint] = useState(false)
 
 
     useEffect(() => {
@@ -44,6 +55,8 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
         }           
     }, [table_data, rights.perm.type, load]);
     
+  
+
 
 
     // New useEffect to monitor alumniFilter or studentsData changes
@@ -58,9 +71,7 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
 
 
     const handleFilter = () =>{
-        // console.log(courseCode)
-        // console.log(entry)
-
+ 
         const course = courses.find(
             (course) =>
               course.day === courseCode ||course.eve === courseCode
@@ -105,8 +116,7 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
             setAlumniFilter(filterByKeyword(alumniFilter, value))
         }else{
             
-            setStudentsData(filterByKeyword(studentsData, value))
-            
+            setStudentsData(filterByKeyword(studentsData, value))            
         }
     }
 
@@ -140,6 +150,80 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
         });
     }
 
+   
+
+
+    // Function to get the selected fields and submit them for printing
+    const onFieldSelection = (fields)=>{
+        setPrintFields(fields);
+        const columns = [];
+        const labels = {
+            no: "No",
+            name: "Name",
+            gender: "Gender",
+            contact: "Phone Number",
+            course: "Course",
+            reg_no: "Reg_no",    
+            occupation: "Occupation",
+            profession: "Profession",
+            email: "Email",
+            hall: "Hall of Attachment",
+            residence: "Residence"
+        }
+        Object.entries(fields).forEach(([key, value], index)=>{
+            if (value){
+                columns.push({ id: index + 1, name: labels[key] });
+            }
+        })
+        setPrintColumns(columns);
+        setPrintSelection(false);
+        setPrint(true);  // This triggers the effect to call handlePrint        
+    }
+
+
+    // useEffect to handle printing when print state is true
+    useEffect(() => {
+        if (print) {
+            handlePrint();
+            setPrint(false); // Reset the print state after printing
+        }
+    }, [print]);
+
+
+
+    // Updated handlePrint function
+    const handlePrint = () => {
+        const printableElement = document.getElementById('printablediv');
+        
+        if (!printableElement) {
+            console.warn("Printable element not found in the DOM");
+            return;
+        }
+        
+        const printContents = printableElement.innerHTML;
+        const newWindow = window.open('', '_blank');
+
+        if (newWindow) {
+            newWindow.document.open();
+            newWindow.document.write(`
+                <html>
+                    <head>
+                        <title>KMCS</title>
+                    </head>
+                    <body onload="window.print(); window.close();">
+                        ${printContents}
+                    </body>
+                </html>
+            `);
+            newWindow.document.close();
+        }
+    };
+
+    
+
+
+    
+
     const openMessage = () =>{
         
         setSmsDialogue(true)
@@ -159,6 +243,8 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
         setEmailDialogue(false)
         setInfo(true)
     }
+ 
+
     return (      
         <div className="page-container">
             {
@@ -189,6 +275,14 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
                     />
                 )
             }
+             {
+                printSelection && (
+                    <PrintSelectionDialogue                         
+                        onCancel = {()=>{setPrintSelection(false)}}
+                        onConfirm={onFieldSelection}
+                    />
+                )
+            }
             <div className="tabular-wrapper">
                   
                      <div className="filter-section">
@@ -196,6 +290,11 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
                         {
                             rights.perm.messages >= 4 && (
                                 <>
+                                    <Button 
+                                        id="info"
+                                        text = "Print"
+                                        onClick={()=>setPrintSelection(true)}
+                                    />
                                     <Button 
                                         id="info"
                                         text = "Send Emails"  
@@ -206,6 +305,7 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
                                         text = "Send Sms"
                                         onClick={openMessage}
                                     />
+                                    
                                 </>
                                 
                             )
@@ -223,8 +323,6 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
                                         placeholder ="Entry ie 11, 12, 13...n"
                                      />
                                </td>                                                                          
-                               
-                              
                                 <td>
                                     Course:
                                     <AutoComplete                                    
@@ -317,7 +415,7 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
                                 ) : (
                                     <tr>
                                         <td colSpan={7}>{ isLoading ? (
-                                            <b>Wait, Data is Loading............</b>
+                                            <b>Wait as data is loading............</b>
                                            
                                             ): (
                                             <b>You are the only one in your course of study registered, recommend your coursemates to register</b>
@@ -334,7 +432,13 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
                             </tr>
                         </tfoot> */}
                     </table>
+                   
+                    
                 </div>
+                {print && <div id="printablediv"  >                        
+                    <PrintableTable fields={printFields} table_data={rights.perm.type? alumniFilter : studentsData} columns={printColumns}  />
+                </div>  }
+                
             </div>      
 
         </div>                    

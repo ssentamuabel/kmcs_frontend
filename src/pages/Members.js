@@ -36,7 +36,7 @@ const Members = ()=>{
         {id:3, name:"Gender"},
         {id:6, name: "Residence"},
         {id:4, name:"Occupation" },
-        {id:5,  name:"Proffession "},        
+        {id:5,  name:"Profession "},        
         {id:7, name: "Email"}
     ]
 

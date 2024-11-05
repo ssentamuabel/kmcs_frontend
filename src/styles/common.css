@@ -167,6 +167,51 @@
  }
 
 
+ .print-footer{
+    padding: 1em 0;
+    display:flex;
+    justify-content: space-between;
+ }
+
+
+
+ /* In your CSS file or <style> tag */
+#printablediv {
+    display: none; /* Hide by default */
+  }
+  
+@media print {
+    #printablediv {
+      display: block; /* Show only in print view */
+    }
+    table {
+        border:1;
+        width: 100%;
+        border-collapse: collapse;
+    }
+    .table-container th,  .table-container td{
+        padding:0.3em 0.2em;        
+        text-align: left;
+    }
+    .print-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 1em 0;
+        width: 100%;
+    }
+    .print-footer div {
+        width: 45%; /* Each div takes up roughly half the space */
+    }
+    .print-footer p {
+        margin: 0;
+      
+    }
+    
+  }
+  
+
+
 
  /* mobile size styles  */
 @media (max-width: 480px) {
