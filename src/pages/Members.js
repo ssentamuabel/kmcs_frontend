@@ -10,12 +10,15 @@ import { CONFIG } from '../config'
 
 
 
+
 const Members = ()=>{
     const [errorAlert, setErrorAlert] = useState(false)
     const [error, setError] = useState('')
     const [tableData, setTableData] = useState([])
     const [profile, setProfile] = useState(false)
     const [userid, setUserid] = useState('')
+    const [currentPage, setCurrentPage] = useState(1);
+    const [hasMore, setHasMore] = useState(true);
 
     const {rights} = useContext(RightsContext)
 
@@ -40,41 +43,48 @@ const Members = ()=>{
         {id:7, name: "Email"}
     ]
 
-    useEffect(()=>{
-
-
-        const getData = async() =>{
-
-            try {
-                const response = await fetch(`${CONFIG.backend_url}/member/level_1/`, {
-                    method: 'GET',
-                    credentials: 'include',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                })
-                
-
-                if (response.ok){
-                    const jsondata = await response.json()
-
-                    setTableData(jsondata)
-                    // console.log(jsondata)
-                }else{
-                    setError(`Something went wrong`)
-                    setErrorAlert(true)
-                }
-
-            } catch (error) {
-                setError('Connection Problem')
-                setErrorAlert(true)
+    useEffect(() => {
+        let isFetching = false;
+      
+        const fetchData = async () => {
+          if (isFetching || !hasMore) return; // Skip if already fetching or no more data
+          isFetching = true;
+      
+          try {
+            const response = await fetch(`${CONFIG.backend_url}/member/level_1/?page=${currentPage}`, {
+              method: 'GET',
+              credentials: 'include',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            });
+      
+            if (response.ok) {
+              const jsondata = await response.json();
+              
+              // Append new data to existing data for infinite scroll
+              setTableData((prevData) => [...prevData, ...jsondata.results]);
+              setHasMore(!!jsondata.next);  // Check if there's more data to load
+              setCurrentPage((prevPage) => prevPage + 1);  // Move to next page
+            } else {
+              setError(`Something went wrong`);
+              setErrorAlert(true);
             }
-        }
-
-        getData()        
-            
-
-    }, [])
+          } catch (error) {
+            setError('Connection Problem');
+            setErrorAlert(true);
+          } finally {
+            isFetching = false;
+          }
+        };
+      
+        const intervalId = setInterval(() => {
+          fetchData();
+        }, 3000);
+      
+        return () => clearInterval(intervalId); // Clear the interval on unmount
+      }, [currentPage, hasMore]);
+      
 
     const seeProfile = (id)=>{
         

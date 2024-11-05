@@ -69,9 +69,12 @@
     color:#fff;
 }
 
+
+
 .table-container th,  .table-container td{
     padding:0.5em 0.3em;
     text-align: left;
+    border: 1px solid #ddd;
 }
 
 .table-container td{
@@ -231,6 +234,10 @@
 
     .filter-section .add-button{
         display: none;
+    }
+    .table-container{
+        max-height: 85%;
+        
     }
 
 
