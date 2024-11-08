@@ -12,10 +12,6 @@ import PrintSelectionDialogue from './PrintSelectionComponent'
 import Button from './Button'
 import { courses } from '../courses'
 
-
-
-
-
 const TableComponent = ({columns,  table_data, memberClick})=>{
 
     const {rights} = useContext(RightsContext)
@@ -55,9 +51,6 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
         }           
     }, [table_data, rights.perm.type, load]);
     
-  
-
-
 
     // New useEffect to monitor alumniFilter or studentsData changes
     useEffect(() => {
@@ -150,8 +143,6 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
         });
     }
 
-   
-
 
     // Function to get the selected fields and submit them for printing
     const onFieldSelection = (fields)=>{
@@ -218,11 +209,6 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
             newWindow.document.close();
         }
     };
-
-    
-
-
-    
 
     const openMessage = () =>{
         
@@ -362,64 +348,56 @@ const TableComponent = ({columns,  table_data, memberClick})=>{
                         <tbody>
                             {rights.perm.type ? (
                                 
-                                alumniFilter && alumniFilter.length > 1 && !isLoading ? (
+                                alumniFilter && alumniFilter.length > 0 && !isLoading ? (
                                     alumniFilter.map((member, key) => (
-                                        !(member.id === rights.member_id) && (
-                                            <tr key={member.id}>
-                                                <td>{key + 1}</td>
-                                                <td onClick={() => memberClick(member.id)} id="member-click">
-                                                    {member.sur_name + ' ' + member.first_name}
-                                                </td>
-                                                <td>{member.gender ? 'F' : 'M'}</td>
-                                                <td>{member.residence_address ? member.residence_address : "Unknown"}</td>
-                                                <td>
-                                                    {member.occupation ? member.occupation : member.proffession ? member.proffession : "Unknown"}
-                                                </td>
-                                                <td>
-                                                    {member.proffession ? member.proffession : member.occupation ? member.occupation : "Unknown"}
-                                                </td>
-                                                <td>{member.user.email}</td>
-                                            </tr>
-                                        )
+                                        <tr key={member.id}>
+                                            <td>{key + 1}</td>
+                                            <td onClick={() => memberClick(member.id)} id="member-click">
+                                                {member.sur_name + ' ' + member.first_name}
+                                            </td>
+                                            <td>{member.gender ? 'F' : 'M'}</td>
+                                            <td>{member.residence_address ? member.residence_address : "Unknown"}</td>
+                                            <td>
+                                                {member.occupation ? member.occupation : member.proffession ? member.proffession : "Unknown"}
+                                            </td>
+                                            <td>
+                                                {member.proffession ? member.proffession : member.occupation ? member.occupation : "Unknown"}
+                                            </td>
+                                            <td>{member.user.email}</td>
+                                        </tr>
                                     ))
                                 ) : (
                                     <tr>
-                                        <td colSpan={7}>{ isLoading ? (
+                                        <td colSpan={7}>{ isLoading && (
                                             <b>Wait as data is loading............</b>
                                            
-                                            ): (
-                                                <b>You are the only one in your course of study registered, recommend your coursemates to register</b>
-                                             )}                                           
+                                            )}                                           
                                         </td>
                                     </tr>
                                 )
                             ) : (
-                                studentsData && studentsData.length > 1 && !isLoading ? (
+                                studentsData && studentsData.length > 0 && !isLoading ? (
                                     studentsData.map((member, key) => (
-                                        !(member.id === rights.member_id) && (
-                                            <tr key={member.id}>
-                                                <td>{key + 1}</td>
-                                                <td onClick={() => memberClick(member.id)} id="member-click">
-                                                    {member.sur_name + ' ' + member.first_name}
-                                                </td>
-                                                <td>{member.gender ? 'F' : 'M'}</td>
-                                                <td>{member.course ? member.course : "Unknown"}</td>
-                                                <td>
-                                                    {member.residence_address ? member.residence_address : member.hall_of_attachment ? member.hall_of_attachment : "Unknown"}
-                                                </td>
-                                                <td>{member.hall_of_attachment ? member.hall_of_attachment : "Unknown"}</td>
-                                                <td>{member.user.email}</td>
-                                            </tr>
-                                        )
+                                        <tr key={member.id}>
+                                            <td>{key + 1}</td>
+                                            <td onClick={() => memberClick(member.id)} id="member-click">
+                                                {member.sur_name + ' ' + member.first_name}
+                                            </td>
+                                            <td>{member.gender ? 'F' : 'M'}</td>
+                                            <td>{member.course ? member.course : "Unknown"}</td>
+                                            <td>
+                                                {member.residence_address ? member.residence_address : member.hall_of_attachment ? member.hall_of_attachment : "Unknown"}
+                                            </td>
+                                            <td>{member.hall_of_attachment ? member.hall_of_attachment : "Unknown"}</td>
+                                            <td>{member.user.email}</td>
+                                        </tr>
                                     ))
                                 ) : (
                                     <tr>
-                                        <td colSpan={7}>{ isLoading ? (
+                                        <td colSpan={7}>{ isLoading && (
                                             <b>Wait as data is loading............</b>
                                            
-                                            ): (
-                                            <b>You are the only one in your course of study registered, recommend your coursemates to register</b>
-                                             )}                                           
+                                            )}                                           
                                         </td>
                                     </tr>
                                 )
