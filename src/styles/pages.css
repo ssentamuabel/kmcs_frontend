@@ -201,7 +201,12 @@
 #setting-container #data-section #users .tabular-wrapper .filter-section{
     display:flex;
     justify-content: space-between;
- }
+}
+
+#setting-container #data-section #users .tabular-wrapper .table-container th,
+#setting-container #data-section #users .tabular-wrapper .table-container td{
+    padding:0.2em;
+}
 #setting-container #data-section #permissions{
    width: 40%;
 }

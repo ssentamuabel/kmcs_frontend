@@ -145,8 +145,8 @@ TableComponent styles
 
 #permission-table .table-container th, 
 #permission-table .table-container td{
-    text-align:left;
-    padding:0.5em;
+    text-align:left;      
+    border:none;
 }
 
 
