@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import Button from '../components/Button'
 import Select from '../components/SelectComponent'
+import RemoveItem from '../RemoveItemInArray'
 import '../styles/components.css'
 import '../styles/common.css'
 import Input from '../components/InputComponet'
@@ -8,7 +9,10 @@ import { CONFIG } from '../config'
 
 const UserRoleComponent = ({data, permissionOptions}) =>{
 
-    const [users, setUsers] = useState([])
+    const [users, setUsers] = useState([]);
+
+    const [selectedMembers, setSelectedMembers] = useState([]);
+    const [checkedItems, setCheckedItems] = useState([]);
 
     useEffect(() =>{
         setUsers(data)
@@ -17,7 +21,6 @@ const UserRoleComponent = ({data, permissionOptions}) =>{
 
 
     // console.log(data)
-
     const handleRoleChange = async(e, id) =>{
         const value = e.target.value
         console.log(`permision_id : ${value}`);
@@ -27,8 +30,6 @@ const UserRoleComponent = ({data, permissionOptions}) =>{
 
         const newUser = data.filter((member)=>(member.id === id))
 
-        
-        console.log({...newUser[0], role_id: value})
        
         try{
 
@@ -57,7 +58,21 @@ const UserRoleComponent = ({data, permissionOptions}) =>{
 
         setUsers(filterByKeyword(data, value))
 
-     }
+    }
+
+
+    const handleClick = (e) =>{
+       
+        const value = e.target.value;
+
+        if (checkedItems.includes(value)){            
+            const items = checkedItems.filter(item=>item !== value)
+            setCheckedItems(items);
+        }else{
+            setCheckedItems([...checkedItems, value]);
+        }
+       
+    }
 
 
     const  filterByKeyword =(data, keyword)  =>{
@@ -85,7 +100,15 @@ const UserRoleComponent = ({data, permissionOptions}) =>{
                 
                 <div className="filter-section">
                     <div className="add-button">
-                        <Button id="info" text = "Add User" />
+                        <Button 
+                            id="info" 
+                            text = "Add User" 
+                        />
+                        <Button 
+                            id="info" 
+                            text = "Update Users" 
+                            style={{marginLeft:'1em'}}
+                        />
                     </div>
                     
                     <div className="table-search">
@@ -105,6 +128,7 @@ const UserRoleComponent = ({data, permissionOptions}) =>{
                                 <th>Contact</th>
                                 <th>Role</th>
                                 <th>Email</th>
+                                <th>Select</th>
                             </tr>
                            
                         </thead>
@@ -126,6 +150,14 @@ const UserRoleComponent = ({data, permissionOptions}) =>{
                                         </td>
                                         {/* <td>{item.permission_name ? item.permission_name: ""}</td> */}
                                         <td>{item.email ? item.email : ""}</td>
+                                        <td>
+                                            <input
+                                                type="checkbox"
+                                                value={item.id}
+                                                checked={checkedItems.includes(item.id.toString())}
+                                                onChange={handleClick}
+                                             />
+                                        </td>
                                     </tr>
                                 ))
                             ):(

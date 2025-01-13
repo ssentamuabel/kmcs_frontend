@@ -203,9 +203,15 @@
     justify-content: space-between;
 }
 
-#setting-container #data-section #users .tabular-wrapper .table-container th,
+#setting-container #data-section #users .tabular-wrapper .filter-section button{
+    margin-left:0;
+}
+
+#setting-container #data-section #users .tabular-wrapper .table-container th{
+    padding: 0.5em 0.3em;
+}
 #setting-container #data-section #users .tabular-wrapper .table-container td{
-    padding:0.2em;
+    padding:0.2em;     
 }
 #setting-container #data-section #permissions{
    width: 40%;
