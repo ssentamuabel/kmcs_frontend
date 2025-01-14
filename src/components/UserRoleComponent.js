@@ -10,6 +10,7 @@ import { CONFIG } from '../config'
 const UserRoleComponent = ({data, permissionOptions}) =>{
 
     const [users, setUsers] = useState([]);
+    const [checkColumn, setCheckColumn] = useState(false);
 
     const [selectedMembers, setSelectedMembers] = useState([]);
     const [checkedItems, setCheckedItems] = useState([]);
@@ -22,15 +23,9 @@ const UserRoleComponent = ({data, permissionOptions}) =>{
 
     // console.log(data)
     const handleRoleChange = async(e, id) =>{
-        const value = e.target.value
-        console.log(`permision_id : ${value}`);
-        console.log(`user_id : ${id}`);
-        console.log(permissionOptions)
-        
-
+        const value = e.target.value    
         const newUser = data.filter((member)=>(member.id === id))
 
-       
         try{
 
             const response = await fetch(`${CONFIG.backend_url}/user/${id}`, {
@@ -58,6 +53,11 @@ const UserRoleComponent = ({data, permissionOptions}) =>{
 
         setUsers(filterByKeyword(data, value))
 
+    }
+
+
+    const submitUserChanges = () =>{
+        console.log(checkedItems);
     }
 
 
@@ -104,11 +104,24 @@ const UserRoleComponent = ({data, permissionOptions}) =>{
                             id="info" 
                             text = "Add User" 
                         />
-                        <Button 
-                            id="info" 
-                            text = "Update Users" 
-                            style={{marginLeft:'1em'}}
-                        />
+                        {
+                            checkColumn ? (
+                                <Button 
+                                   
+                                    text = "Confirm User" 
+                                    style={{marginLeft:'1em'}}
+                                    onClick={submitUserChanges}
+                                />
+                            ) : (
+                                <Button 
+                                    id="info" 
+                                    text = "Update Users" 
+                                    style={{marginLeft:'1em'}}
+                                    onClick={()=>setCheckColumn(true)}
+                                />
+                            )
+                        }
+                        
                     </div>
                     
                     <div className="table-search">
@@ -128,7 +141,8 @@ const UserRoleComponent = ({data, permissionOptions}) =>{
                                 <th>Contact</th>
                                 <th>Role</th>
                                 <th>Email</th>
-                                <th>Select</th>
+                                {checkColumn && (<th>Select</th>)}
+                                
                             </tr>
                            
                         </thead>
@@ -150,14 +164,17 @@ const UserRoleComponent = ({data, permissionOptions}) =>{
                                         </td>
                                         {/* <td>{item.permission_name ? item.permission_name: ""}</td> */}
                                         <td>{item.email ? item.email : ""}</td>
-                                        <td>
-                                            <input
-                                                type="checkbox"
-                                                value={item.id}
-                                                checked={checkedItems.includes(item.id.toString())}
-                                                onChange={handleClick}
-                                             />
-                                        </td>
+                                        {checkColumn && (
+                                            <td>
+                                                <input
+                                                    type="checkbox"
+                                                    value={item.id}
+                                                    checked={checkedItems.includes(item.id.toString())}
+                                                    onChange={handleClick}
+                                                />
+                                            </td>
+                                        )}
+                                        
                                     </tr>
                                 ))
                             ):(
