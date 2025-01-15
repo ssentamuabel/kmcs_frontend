@@ -21,7 +21,7 @@ const Permissions = ()=>{
     const [filteredData, setFilteredData] = useState([])   
     const [permissionsData, setPermissionsData] = useState([]);
     const [permissionOptions, setPermissionOptions] = useState([])
-    const [loadPermissions, setLoadPermissions] = useState(false)   
+    const [loadData, setLoadData] = useState(false)   
     const [activeRole, setActiveRole] = useState(null)
     const [roleField, setRoleField] = useState(false)
     const [loading, setLoading] = useState(true)
@@ -85,7 +85,7 @@ const Permissions = ()=>{
         };
 
         getUsersAndPermissions();
-    }, [loadPermissions]);
+    }, [loadData]);
 
     const handleRoleChange = (e) =>{
         
@@ -128,9 +128,9 @@ const Permissions = ()=>{
 
                 if (response.ok){
                     const res = await response.json()
-                    console.log(res)
+                    
                     setRoleField(false)
-                    setLoadPermissions(!loadPermissions)
+                    setLoadData(!loadData)
                 }else{
                     setError("Something went wrong")
                     setErrorAlert(true)
@@ -152,7 +152,6 @@ const Permissions = ()=>{
         return <div>Loading...</div>;
     }
 
-   
     return (
         <div className='page-container' >
             { 
@@ -190,8 +189,6 @@ const Permissions = ()=>{
                             onClick={saveRole} 
                         />
                     </div>}
-                    
-
                 </div>
 
                 <div id="data-section" >
@@ -199,13 +196,14 @@ const Permissions = ()=>{
                         <UserRole
                             data={filteredData}
                             permissionOptions = {permissionOptions}
+                            loadUsers = {()=>setLoadData(!loadData)}
 
                         />
                     </div> 
                     <div id="permissions">                
                         <Table 
                             role={activeRole}
-                            onPermissionUpdate={()=>setLoadPermissions(!loadPermissions)}
+                            onPermissionUpdate={()=>setLoadData(!loadData)}
                         />
                     </div>
 

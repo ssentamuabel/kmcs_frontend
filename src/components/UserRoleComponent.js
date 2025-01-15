@@ -1,25 +1,30 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useContext} from 'react'
 import Button from '../components/Button'
+import Alert from '../components/Alert'
+import { RightsContext } from '../contexts/RightsProvider'
 import Select from '../components/SelectComponent'
-import RemoveItem from '../RemoveItemInArray'
 import '../styles/components.css'
 import '../styles/common.css'
 import Input from '../components/InputComponet'
 import { CONFIG } from '../config'
+import { FaLessThanEqual } from 'react-icons/fa6'
 
-const UserRoleComponent = ({data, permissionOptions}) =>{
+const UserRoleComponent = ({data, permissionOptions, loadUsers}) =>{
 
     const [users, setUsers] = useState([]);
     const [checkColumn, setCheckColumn] = useState(false);
-
-    const [selectedMembers, setSelectedMembers] = useState([]);
     const [checkedItems, setCheckedItems] = useState([]);
+    const [errorAlert, setErrorAlert] = useState(false)
+    const [error, setError] = useState('')
+    const [info, setInfo] = useState(false);
+    const [infoMessage, setInfoMessage] = useState('')
+    
+
+    const {rights} = useContext(RightsContext)
 
     useEffect(() =>{
         setUsers(data)
     }, [data])
-
-
 
     // console.log(data)
     const handleRoleChange = async(e, id) =>{
@@ -38,13 +43,16 @@ const UserRoleComponent = ({data, permissionOptions}) =>{
                 
             })
             if (response.ok){
-                const res = await response.json()
-                console.log(res)
+                setInfoMessage("Role Changed");
+                setInfo(true)
             }else{
-                console.log("Something happened")
+                setError(`Something went wrong`);
+                setErrorAlert(true);
             }
+            
         }catch(error){
-            console.log("Something went wrong")
+            setError(`Something went wrong ${error.message}`);
+            setErrorAlert(true);
         }
     }
 
@@ -52,12 +60,40 @@ const UserRoleComponent = ({data, permissionOptions}) =>{
         const value = e.target.value;        
 
         setUsers(filterByKeyword(data, value))
-
     }
 
 
-    const submitUserChanges = () =>{
-        console.log(checkedItems);
+    const submitUserChanges = async() =>{
+       
+        const users = checkedItems.map(item=>Number(item))
+        // console.log(users)
+
+        try{
+            const response = await fetch(`${CONFIG.backend_url}/update_user_type/`, {
+                method: 'POST',
+                credentials: 'include',
+                headers : {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({users: users, type : rights.perm.type})
+                
+            })
+            if (response.ok){
+                setInfoMessage("Users Updated");
+                loadUsers()
+                setInfo(true)
+                setCheckColumn(false)
+                
+            }else{
+                setError(`Something went wrong`);
+                setErrorAlert(true);
+            }
+        }catch(error){
+            setError(`Something went wrong ${error.message}`);
+            setErrorAlert(true);
+        }
+
+
     }
 
 
@@ -97,6 +133,20 @@ const UserRoleComponent = ({data, permissionOptions}) =>{
   
     return (
         <div className="tabular-wrapper">
+            { 
+                errorAlert && (<Alert 
+                type='Error'
+                message ={error}
+                 onCancel={()=>{setErrorAlert(false)}}                     
+                />)
+             }
+             { info && (<Alert 
+                
+                message ={infoMessage}
+                onCancel={()=>{setInfo(false); }} 
+                
+                />)           
+            }
                 
                 <div className="filter-section">
                     <div className="add-button">
