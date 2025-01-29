@@ -6,8 +6,7 @@
     width:100%;
     overflow-y: scroll;
     height:95%;
-    
-    
+
 }
 
 
@@ -70,8 +69,6 @@
 }
 
 
-
-
 #register-page .right,
 #login-page .left{
     display:flex;
@@ -84,8 +81,6 @@
 #right-wrapper h4{
     font-size: 1.5em;
 }
-
-
 
 #register-page .right #right-wrapper h3,
 #login-page .left #left-wrapper h3{
@@ -106,8 +101,19 @@
 }
 
 
+/* Program Page styles */
+#program-page{
+    background: #fff;
+    width:100%;
+    height:100%;
+}
 
-
+#program-page .toggle-switch{
+    display: flex;
+}
+#program-page .toggle-switch >div{
+    justify-content: end;
+}
 
 
 

@@ -90,12 +90,12 @@ const SideBar = ({onLogout})=>{
             name  : "Members",
             icon : <FaUsers />
         },
-        // {
-        //     path : "/programs",
-        //     name : "Programs",
-        //     icon : <FaRegListAlt />
+        {
+            path : "/programs",
+            name : "Programs",
+            icon : <FaRegListAlt />
            
-        // },
+        },
       
         // rights.perm.messages > 0 && (
         //     {

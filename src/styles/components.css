@@ -565,7 +565,64 @@ Dashboard styles
   
 
 
-   
+
+
+
+
+/* Toggle Switch styles  */
+.toggle-switch .switch {
+    position: relative;
+    display: inline-block;
+    width: 70px; /* Switch width */
+    height: 30px;
+}
+
+.toggle-switch .switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-switch .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #15814cfb;
+    border-radius: 34px;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.toggle-switch .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 2px; /* Ensure it starts at the extreme left */
+    bottom: 2px;
+    background-color: #f0f0f0;
+    border-radius: 50%;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.toggle-switch input:checked + .slider {
+    background-color: #2196F3;
+}
+
+.toggle-switch input:checked + .slider:before {
+    -webkit-transform: translateX(40px); /* Moves to extreme right */
+    -ms-transform: translateX(40px);
+    transform: translateX(40px);
+}
+
+/* Focus effect */
+.toggle-switch input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
 
 /* Tablet size styles  */
 @media (max-width: 768px) {
