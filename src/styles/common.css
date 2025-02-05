@@ -15,6 +15,14 @@
   
 }
 
+
+.title2{
+    font-size: 1.4em;
+    letter-spacing: 0.8px;
+    font-weight: 900;
+    color:#115BFB;
+}
+
 .danger{
     color: red;
 }
@@ -48,63 +56,61 @@
 /* Table styles  */
 
 
-.table-container{
-    max-height: 75%;
-    overflow-y:scroll;
+.table-container {
+    max-height: 75%;  /* Defines the max height of the scrollable container */
+    overflow-y: auto; /* Enables vertical scrolling */
+    position: relative; /* Ensures sticky positioning works */
 }
-.table-container table{
-    width:100%;
+
+.table-container table {
+    width: 100%;
     border-collapse: collapse;
 }
-.table-container tbody{
-    background-color: #fff;
-    max-height: 200px;
-    overflow-y: auto;
-  
 
-}
-
-.table-container thead{
+.table-container thead {
     background: #074734d9;
-    color:#fff;
+    color: #fff;
+    position: sticky;
+    top: 0;  /* Sticks to the top of the container */
+    z-index: 10; /* Ensures it stays above the tbody */
 }
 
-
-
-.table-container th,  .table-container td{
-    padding:0.5em 0.3em;
+.table-container th,  
+.table-container td {
+    padding: 0.5em 0.3em;
     text-align: left;
     border: 1px solid #ddd;
 }
 
-.table-container td{
-    font-size: 15px;
-    color:#000;
+.table-container tbody {
+    background-color: #fff;
 }
-.table-container tr:nth-child(even){
+
+.table-container tr:nth-child(even) {
     background: #f0f0f0;
-
 }
 
-
-.table-container tfoot{
+.table-container tfoot {
     background: #074734d9;
-    font-weight:bold;
-    color:#fff;
+    font-weight: bold;
+    color: #fff;
+    position: sticky;
+    bottom: 0; /* Sticks footer at the bottom */
+    z-index: 10;
 }
 
-.table-container tfoot td{
-    color:#fff;
+.table-container tfoot td {
+    color: #fff;
 }
 
-
-.tabular-wrapper{
+.tabular-wrapper {
     margin-top: 0.5rem;
     background: #fff;
-    padding:1em;
+    padding: 1em;
     border-radius: 5px;
-    width:100%;
+    width: 100%;
 }
+
 
 
 
@@ -146,8 +152,8 @@
     width: 100%;
 }
 
-.filter-section #select-container,
-.filter-section #input-container{
+#program-page #select-container,
+#program-page #input-container{
     padding: 0.1em;
     margin-bottom: 0;
    
@@ -175,6 +181,151 @@
     display:flex;
     justify-content: space-between;
  }
+
+
+
+/* Report table filter */
+
+.report-table-filter{
+    background: #f0f0f0;
+    padding:1em;
+}
+
+.report-table-filter .filter-items{
+    display:flex;
+    align-items: center;
+    gap:0.5em 2em;
+    flex-wrap: wrap;
+}
+.report-table-filter .filter-items .filter-item #select-container select,
+.report-table-filter .filter-items .filter-item #input-container input{
+    font-size: 0.9em;
+}
+
+.report-table-filter   #select-container,
+.report-table-filter  #input-container{
+    margin-bottom: 0;
+    width:130px;
+}
+
+.report-table-filter .filter-items .filter-item #select-container .wrapper,
+.report-table-filter .filter-items .filter-item #input-container .wrapper{
+    padding:0.2em;
+}
+
+.report-table-filter .filter-items .filter-item{
+    display:flex;
+    align-items: center;
+    gap:0.2em;
+}
+
+.report-table-filter .search-box{
+    display:flex;
+    justify-content: end;
+}
+
+.report-table-filter .search-box  #input-container {
+    margin-top: 0.5em;
+    width:19em;
+    border-radius: 15px;
+}
+
+.report-table-filter .search-box  #input-container .wrapper{
+    border-radius: 15px;
+}
+
+.report-table{
+    width:100%;
+}
+
+.report-table .table-container {
+    max-height: 62vh;
+    overflow-y: scroll;
+}
+
+.program-costs{
+    margin-left: 0.7em;
+    width:75%;
+}
+
+.program-costs .table-container {
+    max-height: 70vh;
+    
+}
+
+
+
+
+
+
+
+/* Planning section */
+
+#planning-section .top{
+    display:flex;
+    gap: 1em;
+}
+
+
+#planning-section   #select-container{
+    width:160px;
+}
+
+#planning-section #select-container select{
+    font-size: 0.9em;
+}
+
+
+#planning-section .program-details{
+    width:100%;
+    display:flex;
+    margin-top:0.5em;
+}
+
+#planning-section .program-details .details{
+    width:35%;
+}
+
+
+#planning-section .program-details .details .details-info{
+    background: #f0f0f0;
+    display:flex;
+    gap:1em;
+    flex-wrap: wrap;
+    font-size: 1em;
+    padding:0.5em;
+}
+
+
+.details .details-info >div{
+    min-width:160px;
+    padding:0.3em;
+}
+
+.details .details-info >div span{
+    color:#115BFB;
+    font-weight: bold;
+}
+
+
+#planning-section #activity-button{
+    display: flex;   
+    margin-top: 0.5em;
+}
+
+
+
+#program-details .program-costs{
+    width:75%;
+}
+
+
+
+
+
+
+
+
 
 
 

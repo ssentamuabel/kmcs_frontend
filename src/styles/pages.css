@@ -106,14 +106,15 @@
     background: #fff;
     width:100%;
     height:100%;
+    
 }
 
 #program-page .toggle-switch{
     display: flex;
+    justify-content:space-between;
+    align-items: center;
 }
-#program-page .toggle-switch >div{
-    justify-content: end;
-}
+
 
 
 

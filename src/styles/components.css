@@ -70,6 +70,7 @@ InputComponet styles
 */
 #input-container, #select-container{
     margin-bottom: 1em;
+    background: #fff;
     /* min-width: 120px; */
 }
 
