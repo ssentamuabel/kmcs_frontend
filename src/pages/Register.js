@@ -95,8 +95,7 @@ const Register = ()=>{
 
     const handleSubmit = async(e)=>{
         e.preventDefault();
-        console.log(validateForm())
-        console.log(validationErrors)
+        
 
         if (!validateForm()) return;
         setIsLoading(true)        
@@ -123,7 +122,7 @@ const Register = ()=>{
         }
 
         // console.log(JSON.stringify(data))
-        console.log(data)
+        // console.log(data)
         // setIsLoading(false)
 
         try {

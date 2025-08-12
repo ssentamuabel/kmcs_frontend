@@ -10,7 +10,7 @@
    display:flex;
    /* background: aqua; */
    height:87vh;
-   padding: 1em 1.2em;
+   padding: 0.5em;
  
   
 }
@@ -65,6 +65,10 @@
 .table-container table {
     width: 100%;
     border-collapse: collapse;
+}
+
+.planning-section .table-container table{
+    table-layout: fixed;
 }
 
 .table-container thead {
@@ -283,7 +287,7 @@
 }
 
 #planning-section .program-details .details{
-    width:35%;
+    width:25%;
 }
 
 
@@ -296,6 +300,11 @@
     padding:0.5em;
 }
 
+#planning-section .cell-input{
+    width:100%;
+    font:inherit;
+    background: transparent;
+}
 
 .details .details-info >div{
     min-width:160px;

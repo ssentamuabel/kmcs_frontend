@@ -6,6 +6,7 @@
     outline:none;
     box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
 }
 
 
@@ -135,16 +136,33 @@ main{
     margin: 0.5em auto;
 }
 
-.link{
-   
-    display: flex;
-    gap:8px;
-    padding: 10px 15px;
-    margin-bottom: 0.3em;
-    color:#fff;
-    border-radius: 5px;
-    width:100%;
+.link {
+  display: flex;
+  gap: 8px;
+  padding: 10px 15px;
+  margin-bottom: 0.3em;
+  color: #fff;
+  border-radius: 5px;
+  width: 100%;
+  cursor: pointer;
 }
+
+.submenu {
+  margin-left: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sub-link {
+  padding: 6px 20px;
+  color: #ddd;
+  text-decoration: none;
+}
+
+.sub-link:hover {
+  background-color: #444;
+}
+
 /* .nav{
     margin-top: 1em;
 } */

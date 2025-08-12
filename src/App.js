@@ -1,5 +1,6 @@
 import { useState,useContext, useEffect } from 'react'
 import './styles/App.css';
+import './styles/finance.css';
 import {Link, useNavigate} from 'react-router-dom'
 import { RightsProvider, RightsContext } from './contexts/RightsProvider';
 import  Register from './pages/Register'
@@ -10,7 +11,10 @@ import Members from './pages/Members';
 import Messages from './pages/Messages';
 import Profile from './pages/Profile';
 import Permissions from './pages/Permissions';
+import Finance from './pages/Finance';
+import Transaction from './pages/Transactions'
 import  Login from './pages/Login'
+import Accounts from './pages/Accounts'
 
 import {Routes, Route, Navigate} from 'react-router-dom'
 import {jwtDecode} from 'jwt-decode';
@@ -89,6 +93,9 @@ function App() {
 			<Route index element={<Dashboard />} />
 			<Route path="members" element={<Members />} />
 			<Route path="programs" element={<Programs />} />
+			<Route path="finance" element={<Finance />} />
+			<Route path="finance/trans/:id?" element={<Transaction/>} />
+			<Route path="finance/accounts" element={<Accounts/>} />
 			<Route path="messages" element={<Messages />} />
 			<Route path="permissions" element={<Permissions />} />
 			<Route path="profile" element={<Profile user={rights.member_id} />} />

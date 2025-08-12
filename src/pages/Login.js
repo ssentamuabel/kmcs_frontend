@@ -1,5 +1,5 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import Input from '../components/InputComponet'
 import Button from '../components/Button'
@@ -15,45 +15,45 @@ import {
 
 
 
-const Login = ({onLogin})=>{
+const Login = ({ onLogin }) => {
     const [errorAlert, setErrorAlert] = useState(false)
     const [error, setError] = useState('')
     const [formdata, setFormdata] = useState({
         contact: "",
-        password : ""
+        password: ""
     });
     const [isLoading, setIsLoading] = useState(false)
     const [validationErrors, setValidationErrors] = useState({})
-    
 
 
-    const handleChange = (e)=>{
+
+    const handleChange = (e) => {
         setFormdata({
             ...formdata,
-            [e.target.name]:e.target.value
+            [e.target.name]: e.target.value
         })
-        setValidationErrors({...validationErrors, [e.target.name]:''})
+        setValidationErrors({ ...validationErrors, [e.target.name]: '' })
     }
 
-    const handleSubmit = async(e)=>{
+    const handleSubmit = async (e) => {
 
         const csrfToken = document.cookie
             .split('; ')
             .find(row => row.startsWith('csrftoken'))
             ?.split('=')[1];
-            
 
-       if (!validateForm()) return
+
+        if (!validateForm()) return
 
         setIsLoading(true)
 
         const cleaned_contact = formdata.contact.startsWith('0')
-                        ? '256' + formdata.contact.slice(1)
-                        : formdata.contact.startsWith('+')
-                        ? formdata.contact.slice(1)
-                        : formdata.contact;
-        
-        
+            ? '256' + formdata.contact.slice(1)
+            : formdata.contact.startsWith('+')
+                ? formdata.contact.slice(1)
+                : formdata.contact;
+
+
         try {
 
             const response = await fetch(`${CONFIG.backend_url}/login/`, {
@@ -61,56 +61,57 @@ const Login = ({onLogin})=>{
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': csrfToken,  // Add the CSRF token to headers
-                },          
-                body : JSON.stringify({contact:cleaned_contact, password:formdata.password}),
+                },
+                body: JSON.stringify({ contact: cleaned_contact, password: formdata.password }),
                 credentials: "include",
+                mode: 'cors',
             })
 
             const jsondata = await response.json()
-           
-            
-            if (response.ok){
-                
+
+
+            if (response.ok) {
+
                 onLogin(jsondata)
                 setFormdata({
                     ...formdata,
                     contact: "",
                     password: ""
                 })
-                
-            }else{
-                
+
+            } else {
+
                 setError(jsondata.detail)
                 setErrorAlert(true)
                 console.log(jsondata)
             }
-        
-            
-        }catch (error) {
+
+
+        } catch (error) {
             setError("Connection Problem")
             console.log(error)
             setErrorAlert(true)
-        }finally {
+        } finally {
             setIsLoading(false); // Ensure loading state is reset
         }
-        
+
     }
 
 
 
 
-    const validateForm = () =>{
+    const validateForm = () => {
         const errors = {}
-       
+
         const mobile_regex = /^(?:\+256|256|0)(7[0-9]|75|76|77|78|79)\d{7}$/;
 
-        if (!formdata.password){
+        if (!formdata.password) {
             errors.password = "Password is required"
         }
 
-        if (!formdata.contact){
+        if (!formdata.contact) {
             errors.contact = "Contact  is required"
-        }else if (!mobile_regex.test(formdata.contact)){
+        } else if (!mobile_regex.test(formdata.contact)) {
             errors.contact = "Invalid number, Uganda numbers only"
         }
 
@@ -119,38 +120,38 @@ const Login = ({onLogin})=>{
     }
 
     return (
-        <div  id="login-page">
-            { 
-                errorAlert && (<Alert 
-                type='Error'
-                message ={error}
-                 onCancel={()=>{setErrorAlert(false)}}                     
+        <div id="login-page">
+            {
+                errorAlert && (<Alert
+                    type='Error'
+                    message={error}
+                    onCancel={() => { setErrorAlert(false) }}
                 />)
-             }
-             <div className="right">
+            }
+            <div className="right">
                 <div id="right-wrapper">
                     <h4>Login</h4>
                     <div>
-                        <Input 
-                            icon = {<FaPhoneAlt />}
-                            placeholder = "Contact"
+                        <Input
+                            icon={<FaPhoneAlt />}
+                            placeholder="Contact"
                             value={formdata.contact}
                             onChange={handleChange}
                             name="contact"
                             error={validationErrors.contact}
-                                    
+
                         />
-                        <Input 
-                            icon = {<FaUserLock />}
-                            placeholder = "**********"                  
+                        <Input
+                            icon={<FaUserLock />}
+                            placeholder="**********"
                             password
                             name="password"
                             onChange={handleChange}
                             value={formdata.password}
                             error={validationErrors.password}
-                         /> 
+                        />
 
-                        <Button 
+                        <Button
                             id="info"
                             text={isLoading ? 'Loading...' : 'Submit'}
                             disabled={isLoading}
@@ -158,25 +159,25 @@ const Login = ({onLogin})=>{
 
                         />
                     </div>
-                        
-                   <p>To create an  Account: <Link to='/register'>Register</Link> </p> 
+
+                    <p>To create an  Account: <Link to='/register'>Register</Link> </p>
 
                 </div>
-               
-            </div>
-            <div className="left">
-               <div id="left-wrapper">
-                   
-                <center> <img src={kmcs} alt="KMCS" /></center>
-                
-                <h3>Kyambogo University Muslim Centralised System</h3>
-                <p>You are most welcome, lets explore the diversity of the Muslim Fraternity in Kyambogo</p>
-                
-               </div>            
 
             </div>
-            
-        </div>        
+            <div className="left">
+                <div id="left-wrapper">
+
+                    <center> <img src={kmcs} alt="KMCS" /></center>
+
+                    <h3>Kyambogo University Muslim Centralised System</h3>
+                    <p>You are most welcome, lets explore the diversity of the Muslim Fraternity in Kyambogo</p>
+
+                </div>
+
+            </div>
+
+        </div>
     )
 }
 

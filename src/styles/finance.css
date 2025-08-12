@@ -1,0 +1,81 @@
+.journal-entry-form{
+    border:5px solid #F4F9FD;
+    padding:5px;
+    width:100%;
+
+}
+
+.journal-entry-form .title{
+    font-size: 1em;
+    font-weight:800;
+    margin-bottom:1em;
+    
+}
+
+.journal-entry-form .form-item{
+    display:flex;
+    margin-bottom:1em;
+}
+
+.journal-entry-form h4{
+    width:10em;
+    white-space: normal;      
+    overflow-wrap: break-word; 
+    word-break: break-word;
+}
+
+textarea{
+    width:100%;
+    border:1px solid #000;
+    border-radius:2px;
+}
+
+.journal-line{
+    width:100%;    
+    margin: 10px 0;
+}
+
+.jouranal-header{
+    padding:10px;
+    background: #F4F9FD;
+}
+
+.journal-line-form{
+    width:100%;
+    max-height:65vh;
+    overflow-y: scroll;
+}
+
+.journal-line-item{
+    margin-top:5px;
+    width:100%;
+    display:flex;
+    align-items: center;
+    gap:1em;
+}
+
+
+.journal-line-item .form-item{
+    width:100%;
+}
+
+.delete-entry-line{
+    color:#990000;
+    cursor:pointer;
+}
+
+.add-entry-line{
+    color:#0544b2ac;
+    display:flex;
+    justify-content: end;
+    cursor: pointer;
+}
+
+
+
+
+ /* accounts container styles  */
+
+.accounts-container{
+    padding: 5px;
+}

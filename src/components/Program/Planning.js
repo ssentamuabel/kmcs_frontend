@@ -2,7 +2,8 @@ import React from 'react'
 import '../../styles/components.css'
 import Select from '../SelectComponent'
 import Button from '../Button'
-import Input from '../InputComponet'
+
+import BudgetTable from './BudgetTable'
 
 const Planning = () =>{
 
@@ -12,6 +13,26 @@ const Planning = () =>{
         {value: '3', name :'Kachaayi'},
         {value: '4', name :'Quran Competition'},
         {value: '5', name :'Sports Gala'}
+    ]
+
+    const data = [
+        {"no":1, "item": "Sugar", "desc": "Kg", "qty": 6, "unit_cost": 300, "total_cost": 1800}, 
+        {"no":2, "item": "Soap", "desc": "Box", "qty": 6, "unit_cost": 3000, "total_cost": 18000}, 
+        {"no":3, "item": "Cooking Oil", "desc": "ltr", "qty": 8, "unit_cost": 1300, "total_cost": 19900}, 
+        {"no":4, "item": "Sugar", "desc": "Kg", "qty": 6, "unit_cost": 300, "total_cost": 1800}, 
+        {"no":5, "item": "Sugar", "desc": "Kg", "qty": 6, "unit_cost": 300, "total_cost": 1800}, 
+        {"no":6, "item": "Sugar", "desc": "Kg", "qty": 6, "unit_cost": 300, "total_cost": 1800}, 
+        {"no":7, "item": "Sugar", "desc": "Kg", "qty": 6, "unit_cost": 300, "total_cost": 1800}, 
+        {"no":8, "item": "Sugar", "desc": "Kg", "qty": 6, "unit_cost": 300, "total_cost": 1800}, 
+    ]
+
+    const columns = [
+        { name: "no", label: "#" },
+        { name: "item", label: "Item" },
+        { name: "desc", label: "Unit measure" },
+        { name: "qty", label: "Quantity" },
+        { name: "unit_cost", label: "Unit Cost" },
+        { name: "total_cost", label: "Total Cost" },
     ]
 
     return(
@@ -51,127 +72,10 @@ const Planning = () =>{
                     </div>
                 </div>
                 <div className="program-costs">
-                   <div className="table-container">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <td>No</td>
-                                    <td>Item</td>
-                                    <td>Qty</td>
-                                    <td>Unit cost</td>
-                                    <td>Total cost</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>
-                                        <Input />
-                                    </td>
-                                    <td>
-                                        <Input />
-                                    </td>
-                                    <td>
-                                        <Input />
-                                    </td>
-                                    <td>
-                                        <Input />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Sugar</td>
-                                    <td>2 kg</td>
-                                    <td>4500</td>
-                                    <td>9000</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Sugar</td>
-                                    <td>2 kg</td>
-                                    <td>4500</td>
-                                    <td>9000</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Sugar</td>
-                                    <td>2 kg</td>
-                                    <td>4500</td>
-                                    <td>9000</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Sugar</td>
-                                    <td>2 kg</td>
-                                    <td>4500</td>
-                                    <td>9000</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Sugar</td>
-                                    <td>2 kg</td>
-                                    <td>4500</td>
-                                    <td>9000</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Sugar</td>
-                                    <td>2 kg</td>
-                                    <td>4500</td>
-                                    <td>9000</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Sugar</td>
-                                    <td>2 kg</td>
-                                    <td>4500</td>
-                                    <td>9000</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Sugar</td>
-                                    <td>2 kg</td>
-                                    <td>4500</td>
-                                    <td>9000</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Sugar</td>
-                                    <td>2 kg</td>
-                                    <td>4500</td>
-                                    <td>9000</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Sugar</td>
-                                    <td>2 kg</td>
-                                    <td>4500</td>
-                                    <td>9000</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Sugar</td>
-                                    <td>2 kg</td>
-                                    <td>4500</td>
-                                    <td>9000</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Sugar</td>
-                                    <td>2 kg</td>
-                                    <td>4500</td>
-                                    <td>9000</td>
-                                </tr>
-
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td colspan="4">Total</td>
-                                    <td>900000</td>
-                                </tr>
-                            </tfoot>
-                        </table>
-                   </div>
+                    <BudgetTable 
+                        columns={columns}
+                        data={data}
+                    />
                 </div>
             </div>           
             

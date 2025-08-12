@@ -235,6 +235,17 @@
     
 }
 
+
+.finance-container{
+    background:#fff;
+    width:100%;
+    padding:0.4em;
+}
+
+
+
+
+
 /* Tablet size styles  */
 @media (max-width: 768px) {
     #profile-container{
