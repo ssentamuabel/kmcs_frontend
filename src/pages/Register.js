@@ -1,28 +1,36 @@
 import React from 'react'
 import {Link, useNavigate} from 'react-router-dom'
 import { useState } from 'react'
-import '../styles/auth.css'
-import kmcs from '../kmcs.png'
+import '../styles/common.css'
+import Input from '../components/InputComponet'
+import Button from '../components/Button'
+import Select from '../components/SelectComponent'
+import Alert from '../components/Alert'
 import { CONFIG } from '../config'
+import AutoComplete from '../components/AutoCompleteInputComponent'
+import kmcs from '../kmcs.png'
+
 import {
     FaUser,
     FaPhoneAlt,
     FaBook,
     FaGraduationCap,
+    FaMicroscope,
     FaHome,
     FaUserTag,
     FaEnvelope,
-    FaExclamationTriangle,
-    FaCheckCircle
+
 } from 'react-icons/fa'
+
 
 const Register = ()=>{
     const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState(false)
-    const [alertMessage, setAlertMessage] = useState('')
-    const [errorAlert, setErrorAlert] = useState(false)
-    const [successAlert, setSuccessAlert] = useState(false)
+    const [error, setError] = useState('')  
     const [isStudent, setIsStudent] = useState(true)
+    const [done, setDone] = useState(false)
+    const [errorAlert, setErrorAlert] = useState(false)
+    
    
     const [validationErrors, setValidationErrors] = useState({})
     const [formdata, setFormdata] = useState({
@@ -87,6 +95,8 @@ const Register = ()=>{
 
     const handleSubmit = async(e)=>{
         e.preventDefault();
+        console.log(validateForm())
+        console.log(validationErrors)
 
         if (!validateForm()) return;
         setIsLoading(true)        
@@ -100,6 +110,8 @@ const Register = ()=>{
                         ? formdata.contact.slice(1)
                         : formdata.contact;
 
+        // const role_id  = member_type? 2:1 ;
+
         let data = {
             sur_name: formdata.sur_name[0].toUpperCase() + formdata.sur_name.slice(1).toLowerCase(),
             first_name: formdata.first_name[0].toUpperCase() + formdata.first_name.slice(1).toLowerCase(),           
@@ -107,10 +119,15 @@ const Register = ()=>{
             hall_of_attachment : formdata.hall,
             gender: formdata.gender === "Female" ? true : false,
             member_type : formdata.member_type === "Alumnus" ? true: false,
-            user : { email: formdata.email, contact: contact }
+            user : { email: formdata.email, contact: contact}
         }
 
+        // console.log(JSON.stringify(data))
+        console.log(data)
+        // setIsLoading(false)
+
         try {
+
             const response = await fetch(`${CONFIG.backend_url}/register_1/`, {
                 method: 'POST',
                 credentials: "include",
@@ -118,7 +135,10 @@ const Register = ()=>{
                     'Content-Type': 'application/json',
                 },          
                 body : JSON.stringify(data)
+                
             })
+
+            // const jsondata = await response.json()
 
             if (response.ok){
                 setFormdata({
@@ -134,29 +154,22 @@ const Register = ()=>{
                     entry: "",
                     hall: ""
                 })
-                setSuccessAlert(true)
-                setAlertMessage("Registration successful! Check your email for your password.")
-                setTimeout(() => {
-                    setSuccessAlert(false)
-                    navigate('/login')
-                }, 3000)
+                setDone(true)
+               
             }else{
+                console.log(response)
+                setError(`Check your number   or email, Its seems to be used already`)
                 setErrorAlert(true)
-                setAlertMessage(`Registration failed. Check your number or email, it seems to be used already.`)
-                setTimeout(() => {
-                    setErrorAlert(false)
-                }, 5000)
             }
            
+            
         }catch (error) {
+            setError("Something went wrong")
             setErrorAlert(true)
-            setAlertMessage("Something went wrong. Please try again.")
-            setTimeout(() => {
-                setErrorAlert(false)
-            }, 5000)
         }finally {
-            setIsLoading(false);
+            setIsLoading(false); // Ensure loading state is reset
         }
+        
     }
 
 
@@ -167,24 +180,27 @@ const Register = ()=>{
         const email_regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         const mobile_regex = /^(?:\+256|256|0)(7[0-9]|75|76|77|78|79)\d{7}$/;
 
+
+
+
         if (!formdata.sur_name){
             errors.sur_name = "Sur name is required"
         }else if (!name_regex.test(formdata.sur_name)){
-            errors.sur_name = "One name with letters is required";
+            errors.sur_name = "One name  with letters is required";
         }
         if (!formdata.first_name){
             errors.first_name = "First name is required"
         }else if (!name_regex.test(formdata.first_name)){
-            errors.first_name = "One name with letters is required";
+            errors.first_name = "One name  with letters is required";
         }
         if (!formdata.contact){
-            errors.contact = "Contact is required"
+            errors.contact = "Contact  is required"
         }else if (!mobile_regex.test(formdata.contact)){
             errors.contact = "Invalid number, Uganda numbers only"
         }
 
         if (!formdata.email ){
-            errors.email = "Email Address is required"
+            errors.email = "Email Address  is required"
         }else if (!email_regex.test(formdata.email)){
             errors.email = "Email is not valid"
         }
@@ -194,6 +210,7 @@ const Register = ()=>{
         }
 
         if (formdata.member_type === 'Alumnus'){
+
             if (!formdata.course_code.trim()){
                 errors.coursecode = "Type search your course or choose one related "            
             }
@@ -214,6 +231,8 @@ const Register = ()=>{
         }else{
             errors.member_type = "Select either Student or Alumnus"
         }
+        
+
 
         setValidationErrors(errors)
         return Object.keys(errors).length === 0;
@@ -224,299 +243,158 @@ const Register = ()=>{
         setValidationErrors(rest);
     };
     
-    const closeAlert = () => {
-        setErrorAlert(false)
-        setSuccessAlert(false)
-    };
    
     return (
-        <div className="auth-container">
-            {/* Alert Messages */}
-            {errorAlert && (
-                <div className="auth-alert">
-                    <div className="auth-alert-content">
-                        <FaExclamationTriangle style={{color: '#e74c3c', fontSize: '1.2rem', marginRight: '10px'}} />
-                        <div className="auth-alert-message">{alertMessage}</div>
-                        <button className="auth-alert-close" onClick={closeAlert}>&times;</button>
-                    </div>
-                </div>
-            )}
-            
-            {successAlert && (
-                <div className="auth-alert success">
-                    <div className="auth-alert-content">
-                        <FaCheckCircle style={{color: '#27ae60', fontSize: '1.2rem', marginRight: '10px'}} />
-                        <div className="auth-alert-message">{alertMessage}</div>
-                        <button className="auth-alert-close" onClick={closeAlert}>&times;</button>
-                    </div>
-                </div>
-            )}
-            
-            <div className="auth-left">
-                <div className="auth-left-content">
-                    <img src={kmcs} alt="KMCS" className="auth-logo" />
-                    <h1>Kyambogo University Muslim Centralised System</h1>
-                    <p>Join our community today! Create an account to explore the diversity of the Muslim Fraternity in Kyambogo.</p>
-                </div>
+        <div id='register-page'>
+            { 
+                errorAlert && (<Alert 
+                type='Error'
+                message ={error}
+                 onCancel={()=>{setErrorAlert(false)}}                     
+                />)
+            }
+
+            { done && (<Alert 
+                
+                message ="Check your email (spam) for your password"
+                onCancel={()=>{setDone(false); navigate('/login')}} 
+                
+                />)           
+            }
+             
+             <div className="right">
+               <div id="right-wrapper">
+                   
+                <center> <img src={kmcs} alt="KMCS" /></center>
+                
+                <h3>Kyambogo University Muslim Centralised System</h3>
+                <p>You are most welcome, lets explore the diversity of the Muslim Fraternity in Kyambogo</p>
+                
+               </div>            
+
             </div>
-            
-            <div className="auth-right">
-                <div className="auth-form-container">
-                    <h2>Create an Account</h2>
-                    <form onSubmit={handleSubmit}>
-                        <div className="auth-form-group">
-                            <label className="auth-form-label">Surname</label>
-                            <div className="auth-input-wrapper">
-                                <div className="input-icon">
-                                    <FaUser />
-                                </div>
-                                <input
-                                    type="text"
-                                    className={`auth-input ${validationErrors.sur_name ? 'error' : ''}`}
-                                    placeholder="Enter your surname"
-                                    value={formdata.sur_name}
-                                    onChange={handleChange}
-                                    name="sur_name"
-                                />
-                            </div>
-                            {validationErrors.sur_name && (
-                                <div className="auth-error-message">
-                                    <FaExclamationTriangle /> {validationErrors.sur_name}
-                                </div>
-                            )}
-                        </div>
-                        
-                        <div className="auth-form-group">
-                            <label className="auth-form-label">First Name</label>
-                            <div className="auth-input-wrapper">
-                                <div className="input-icon">
-                                    <FaUser />
-                                </div>
-                                <input
-                                    type="text"
-                                    className={`auth-input ${validationErrors.first_name ? 'error' : ''}`}
-                                    placeholder="Enter your first name"
-                                    value={formdata.first_name}
-                                    onChange={handleChange}
-                                    name="first_name"
-                                />
-                            </div>
-                            {validationErrors.first_name && (
-                                <div className="auth-error-message">
-                                    <FaExclamationTriangle /> {validationErrors.first_name}
-                                </div>
-                            )}
-                        </div>
-                        
-                        <div className="auth-form-group">
-                            <label className="auth-form-label">Contact Number</label>
-                            <div className="auth-input-wrapper">
-                                <div className="input-icon">
-                                    <FaPhoneAlt />
-                                </div>
-                                <input
-                                    type="text"
-                                    className={`auth-input ${validationErrors.contact ? 'error' : ''}`}
-                                    placeholder="Enter your contact number"
-                                    value={formdata.contact}
-                                    onChange={handleChange}
-                                    name="contact"
-                                />
-                            </div>
-                            {validationErrors.contact && (
-                                <div className="auth-error-message">
-                                    <FaExclamationTriangle /> {validationErrors.contact}
-                                </div>
-                            )}
-                        </div>
-                        
-                        <div className="auth-form-group">
-                            <label className="auth-form-label">Gender</label>
-                            <div className="auth-input-wrapper">
-                                <div className="input-icon">
-                                    <FaHome />
-                                </div>
-                                <select
-                                    className={`auth-input ${validationErrors.gender ? 'error' : ''}`}
-                                    value={formdata.gender}
-                                    onChange={handleChange}
-                                    name="gender"
-                                >
-                                    <option value="">Select Gender</option>
-                                    {gender_options.map((option, index) => (
-                                        <option key={index} value={option.value}>{option.name}</option>
-                                    ))}
-                                </select>
-                            </div>
-                            {validationErrors.gender && (
-                                <div className="auth-error-message">
-                                    <FaExclamationTriangle /> {validationErrors.gender}
-                                </div>
-                            )}
-                        </div>
-                        
-                        <div className="auth-form-group">
-                            <label className="auth-form-label">Member Type</label>
-                            <div className="auth-input-wrapper">
-                                <div className="input-icon">
-                                    <FaUserTag />
-                                </div>
-                                <select
-                                    className={`auth-input ${validationErrors.member_type ? 'error' : ''}`}
-                                    value={formdata.member_type}
-                                    onChange={handleMemberChange}
-                                    name="member_type"
-                                >
-                                    <option value="">Select Member Type</option>
-                                    {memberType_options.map((option, index) => (
-                                        <option key={index} value={option.value}>{option.name}</option>
-                                    ))}
-                                </select>
-                            </div>
-                            {validationErrors.member_type && (
-                                <div className="auth-error-message">
-                                    <FaExclamationTriangle /> {validationErrors.member_type}
-                                </div>
-                            )}
-                        </div>
-                        
-                        {formdata.member_type === 'Student' && (
-                            <>
-                                <div className="auth-form-group">
-                                    <label className="auth-form-label">Registration Number</label>
-                                    <div className="auth-input-wrapper">
-                                        <div className="input-icon">
-                                            <FaUserTag />
-                                        </div>
-                                        <input
-                                            type="text"
-                                            className={`auth-input ${validationErrors.reg_no ? 'error' : ''}`}
-                                            placeholder="Enter your registration number"
-                                            value={formdata.reg_no}
-                                            onChange={handleChange}
-                                            name="reg_no"
-                                        />
-                                    </div>
-                                    {validationErrors.reg_no && (
-                                        <div className="auth-error-message">
-                                            <FaExclamationTriangle /> {validationErrors.reg_no}
-                                        </div>
-                                    )}
-                                </div>
+            <div className="left">
+               
+                <div id="left-wrapper">
+                    <h4>Register</h4>
+                    <div>
+                        <Input 
+                            icon = {<FaUser />}
+                            placeholder = "Surname"
+                            value={formdata.sur_name}
+                            onChange={handleChange}
+                            name="sur_name"
+                            error={validationErrors.sur_name}
+                            
+                        />
+                
+                        <Input 
+                            icon = {<FaUser />}
+                            placeholder='First Name'
+                            value={formdata.first_name}
+                            onChange={handleChange}
+                            name="first_name"
+                            error={validationErrors.first_name}
                                 
-                                <div className="auth-form-group">
-                                    <label className="auth-form-label">Hall of Attachment</label>
-                                    <div className="auth-input-wrapper">
-                                        <div className="input-icon">
-                                            <FaHome />
-                                        </div>
-                                        <select
-                                            className={`auth-input ${validationErrors.hall ? 'error' : ''}`}
-                                            value={formdata.hall}
-                                            onChange={handleChange}
-                                            name="hall"
-                                        >
-                                            <option value="">Select Hall</option>
-                                            {hall_options.map((option, index) => (
-                                                <option key={index} value={option.value}>{option.name}</option>
-                                            ))}
-                                        </select>
-                                    </div>
-                                    {validationErrors.hall && (
-                                        <div className="auth-error-message">
-                                            <FaExclamationTriangle /> {validationErrors.hall}
-                                        </div>
-                                    )}
-                                </div>
-                            </>
-                        )}
+                        />
+                        <Input 
+                            icon = {<FaPhoneAlt />}
+                            placeholder='Contact number'
+                            value={formdata.contact}
+                            onChange={handleChange}
+                            name="contact"
+                            error={validationErrors.contact}
+                            
+                        />               
                         
-                        {formdata.member_type === 'Alumnus' && (
+
+                        <Select 
+                            options = {gender_options}
+                            name="gender"
+                            label="gender"
+                            value={formdata.gender}
+                            icon = {<FaMicroscope />}
+                            onChange={handleChange}
+                            error={validationErrors.gender}
+                        />
+                        <Select 
+                            options = {memberType_options}
+                            name="member_type"
+                            label="type"
+                            value={formdata.member_type}
+                            icon = {<FaHome />}
+                            onChange={handleMemberChange}
+                            error={validationErrors.member_type}
+                        />
+                        {isStudent ? (
                             <>
-                                <div className="auth-form-group">
-                                    <label className="auth-form-label">Course Code</label>
-                                    <div className="auth-input-wrapper">
-                                        <div className="input-icon">
-                                            <FaBook />
-                                        </div>
-                                        <input
-                                            type="text"
-                                            className={`auth-input ${validationErrors.coursecode ? 'error' : ''}`}
-                                            placeholder="Enter your course code"
-                                            value={formdata.course_code}
-                                            onChange={(e) => getCourseCode(e.target.value)}
-                                            name="course_code"
-                                        />
-                                    </div>
-                                    {validationErrors.coursecode && (
-                                        <div className="auth-error-message">
-                                            <FaExclamationTriangle /> {validationErrors.coursecode}
-                                        </div>
-                                    )}
-                                </div>
-                                
-                                <div className="auth-form-group">
-                                    <label className="auth-form-label">Entry Year</label>
-                                    <div className="auth-input-wrapper">
-                                        <div className="input-icon">
-                                            <FaGraduationCap />
-                                        </div>
-                                        <input
-                                            type="number"
-                                            className={`auth-input ${validationErrors.entry ? 'error' : ''}`}
-                                            placeholder="Enter your entry year (e.g., 19, 12)"
-                                            value={formdata.entry}
-                                            onChange={handleChange}
-                                            name="entry"
-                                        />
-                                    </div>
-                                    {validationErrors.entry && (
-                                        <div className="auth-error-message">
-                                            <FaExclamationTriangle /> {validationErrors.entry}
-                                        </div>
-                                    )}
-                                </div>
-                            </>
-                        )}
-                        
-                        <div className="auth-form-group">
-                            <label className="auth-form-label">Email Address</label>
-                            <div className="auth-input-wrapper">
-                                <div className="input-icon">
-                                    <FaEnvelope />
-                                </div>
-                                <input
-                                    type="email"
-                                    className={`auth-input ${validationErrors.email ? 'error' : ''}`}
-                                    placeholder="Enter your email address"
-                                    value={formdata.email}
+                                <Input 
+                                    icon = {<FaUserTag  />}
+                                    placeholder='Registration Number'
+                                    value={formdata.reg_no}
                                     onChange={handleChange}
-                                    name="email"
+                                    name="reg_no"
+                                    error={validationErrors.reg_no}
+                
                                 />
-                            </div>
-                            {validationErrors.email && (
-                                <div className="auth-error-message">
-                                    <FaExclamationTriangle /> {validationErrors.email}
-                                </div>
-                            )}
-                        </div>
-                        
-                        <button 
-                            type="submit"
-                            className="auth-submit-btn"
-                            disabled={isLoading}
-                        >
-                            {isLoading ? 'Registering...' : 'Register'}
-                        </button>
-                    </form>
+                                <Select 
+                                    options = {hall_options}
+                                    name="hall"
+                                    label="Hall of Attachment"
+                                    value={formdata.hall}
+                                    icon = {<FaHome />}
+                                    onChange={handleChange}
+                                    error={validationErrors.hall}
+                                />
+                            </>
+                            
+                        ): (
+                            <>
+                                <AutoComplete 
+                                    icon={<FaBook />}
+                                    setValue={getCourseCode}
+                                    error={validationErrors.coursecode}
+                                />
+                                <Input 
+                                    icon = {<FaGraduationCap  />}
+                                    placeholder='Turn of entry ie 09, 11, 12 ....'
+                                    type='number'
+                                    value={formdata.entry}
+                                    onChange={handleChange}
+                                    name="entry"
+                                    error={validationErrors.entry}
                     
-                    <div className="auth-footer">
-                        <p>Already have an account? <Link to='/login'>Login here</Link></p>
-                    </div>
+                                />
+                            </>
+                        
+                        )}
+                        <Input 
+                            icon = {<FaEnvelope />}
+                            placeholder='Email Address'
+                            value={formdata.email}
+                            onChange={handleChange}
+                            name="email"
+                            type="email"
+                            error={validationErrors.email}
+                                
+                        />
+                        <Button 
+                            id="info"
+                            text={isLoading ? 'Loading...' : 'Submit'}
+                            disabled={isLoading}
+                            onClick={handleSubmit}
+                        />
+
                 </div>
-            </div>
-        </div>
+                <p>Have an  Account: <Link to='/login'>Login</Link> </p> 
+               
+
+                </div>
+            </div>        
+           
+        </div>   
     )
+       
 }
 
 export default Register
