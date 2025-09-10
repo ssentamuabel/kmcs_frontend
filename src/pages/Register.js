@@ -19,6 +19,7 @@ import {
     FaHome,
     FaUserTag,
     FaEnvelope,
+    FaUserPlus
 
 } from 'react-icons/fa'
 
@@ -47,15 +48,18 @@ const Register = ()=>{
     });
 
     const gender_options = [
+        // {value: '', name: 'Select Gender'},
         {value: 'Male', name :'Male'},
         {value: 'Female', name :'Female'}
     ]
 
     const memberType_options = [
+        // {value: '', name: 'Select Member Type'},
         {value: 'Student', name :'Student'},
         {value: 'Alumnus', name :'Alumnus'}
     ]
     const hall_options = [
+        // {value: '', name: 'Select Hall'},
         {value: 'Kulubya', name :'Kulubya'},
         {value: 'Pearl', name :'Pearl'},
         {value: 'Mandella', name :'Mandella'},
@@ -183,6 +187,7 @@ const Register = ()=>{
 
 
 
+
         if (!formdata.sur_name){
             errors.sur_name = "Sur name is required"
         }else if (!name_regex.test(formdata.sur_name)){
@@ -268,7 +273,7 @@ const Register = ()=>{
                 <center> <img src={kmcs} alt="KMCS" /></center>
                 
                 <h3>Kyambogo University Muslim Centralised System</h3>
-                <p>You are most welcome, lets explore the diversity of the Muslim Fraternity in Kyambogo</p>
+                <p>Join our community and explore the diversity of the Muslim Fraternity</p>
                 
                </div>            
 
@@ -276,117 +281,153 @@ const Register = ()=>{
             <div className="left">
                
                 <div id="left-wrapper">
-                    <h4>Register</h4>
-                    <div>
-                        <Input 
-                            icon = {<FaUser />}
-                            placeholder = "Surname"
-                            value={formdata.sur_name}
-                            onChange={handleChange}
-                            name="sur_name"
-                            error={validationErrors.sur_name}
-                            
-                        />
-                
-                        <Input 
-                            icon = {<FaUser />}
-                            placeholder='First Name'
-                            value={formdata.first_name}
-                            onChange={handleChange}
-                            name="first_name"
-                            error={validationErrors.first_name}
-                                
-                        />
-                        <Input 
-                            icon = {<FaPhoneAlt />}
-                            placeholder='Contact number'
-                            value={formdata.contact}
-                            onChange={handleChange}
-                            name="contact"
-                            error={validationErrors.contact}
-                            
-                        />               
-                        
-
-                        <Select 
-                            options = {gender_options}
-                            name="gender"
-                            label="gender"
-                            value={formdata.gender}
-                            icon = {<FaMicroscope />}
-                            onChange={handleChange}
-                            error={validationErrors.gender}
-                        />
-                        <Select 
-                            options = {memberType_options}
-                            name="member_type"
-                            label="type"
-                            value={formdata.member_type}
-                            icon = {<FaHome />}
-                            onChange={handleMemberChange}
-                            error={validationErrors.member_type}
-                        />
-                        {isStudent ? (
-                            <>
+                    <h4>Create Account</h4>
+                    <p>Fill in your details to register</p>
+                    <div className="register-form">
+                        <div className="form-row">
+                            <div className="form-field">
                                 <Input 
-                                    icon = {<FaUserTag  />}
-                                    placeholder='Registration Number'
-                                    value={formdata.reg_no}
+                                    icon = {<FaUser />}
+                                    placeholder = "Surname"
+                                    value={formdata.sur_name}
                                     onChange={handleChange}
-                                    name="reg_no"
-                                    error={validationErrors.reg_no}
-                
+                                    name="sur_name"
+                                    error={validationErrors.sur_name}
                                 />
+                            </div>
+                            <div className="form-field">
+                                <Input 
+                                    icon = {<FaUser />}
+                                    placeholder='First Name'
+                                    value={formdata.first_name}
+                                    onChange={handleChange}
+                                    name="first_name"
+                                    error={validationErrors.first_name}
+                                />
+                            </div>
+                        </div>
+                        
+                        <div className="form-row">
+                            <div className="form-field">
+                                <Input 
+                                    icon = {<FaPhoneAlt />}
+                                    placeholder='Contact number'
+                                    value={formdata.contact}
+                                    onChange={handleChange}
+                                    name="contact"
+                                    error={validationErrors.contact}
+                                />
+                            </div>
+                            <div className="form-field">
                                 <Select 
-                                    options = {hall_options}
-                                    name="hall"
-                                    label="Hall of Attachment"
-                                    value={formdata.hall}
-                                    icon = {<FaHome />}
+                                    options = {gender_options}
+                                    name="gender"
+                                    label="Gender"
+                                    value={formdata.gender}
+                                    icon = {<FaMicroscope />}
                                     onChange={handleChange}
-                                    error={validationErrors.hall}
+                                    error={validationErrors.gender}
                                 />
-                            </>
-                            
-                        ): (
-                            <>
-                                <AutoComplete 
-                                    icon={<FaBook />}
-                                    setValue={getCourseCode}
-                                    error={validationErrors.coursecode}
-                                />
-                                <Input 
-                                    icon = {<FaGraduationCap  />}
-                                    placeholder='Turn of entry ie 09, 11, 12 ....'
-                                    type='number'
-                                    value={formdata.entry}
-                                    onChange={handleChange}
-                                    name="entry"
-                                    error={validationErrors.entry}
-                    
-                                />
-                            </>
+                            </div>
+                        </div>
                         
+                        <div className="form-row">
+                            <div className="form-field">
+                                <Select 
+                                    options = {memberType_options}
+                                    name="member_type"
+                                    label="Member Type"
+                                    value={formdata.member_type}
+                                    icon = {<FaHome />}
+                                    onChange={handleMemberChange}
+                                    error={validationErrors.member_type}
+                                />
+                            </div>
+                            {isStudent ? (
+                                <div className="form-field">
+                                    <Input 
+                                        icon = {<FaUserTag  />}
+                                        placeholder='Registration Number'
+                                        value={formdata.reg_no}
+                                        onChange={handleChange}
+                                        name="reg_no"
+                                        error={validationErrors.reg_no}
+                                    />
+                                </div>
+                            ) : (
+                                <div className="form-field">
+                                    <AutoComplete 
+                                        icon={<FaBook />}
+                                        setValue={getCourseCode}
+                                        error={validationErrors.coursecode}
+                                    />
+                                </div>
+                            )}
+                        </div>
+                        
+                        {isStudent ? (
+                            <div className="form-row">
+                                <div className="form-field">
+                                    <Select 
+                                        options = {hall_options}
+                                        name="hall"
+                                        label="Hall of Attachment"
+                                        value={formdata.hall}
+                                        icon = {<FaHome />}
+                                        onChange={handleChange}
+                                        error={validationErrors.hall}
+                                    />
+                                </div>
+                                <div className="form-field">
+                                    {/* Empty field for spacing */}
+                                </div>
+                            </div>
+                        ) : (
+                            <div className="form-row">
+                                <div className="form-field">
+                                    <Input 
+                                        icon = {<FaGraduationCap  />}
+                                        placeholder='Turn of entry ie 09, 11, 12 ....'
+                                        type='number'
+                                        value={formdata.entry}
+                                        onChange={handleChange}
+                                        name="entry"
+                                        error={validationErrors.entry}
+                                    />
+                                </div>
+                                <div className="form-field">
+                                    {/* Empty field for spacing */}
+                                </div>
+                            </div>
                         )}
-                        <Input 
-                            icon = {<FaEnvelope />}
-                            placeholder='Email Address'
-                            value={formdata.email}
-                            onChange={handleChange}
-                            name="email"
-                            type="email"
-                            error={validationErrors.email}
-                                
-                        />
+                        
+                        <div className="form-row">
+                            <div className="form-field">
+                                <Input 
+                                    icon = {<FaEnvelope />}
+                                    placeholder='Email Address'
+                                    value={formdata.email}
+                                    onChange={handleChange}
+                                    name="email"
+                                    type="email"
+                                    error={validationErrors.email}
+                                />
+                            </div>
+                            <div className="form-field">
+                                {/* Empty field for spacing */}
+                            </div>
+                        </div>
+                        
                         <Button 
                             id="info"
-                            text={isLoading ? 'Loading...' : 'Submit'}
+                            text={isLoading ? 'Processing...' : 'Create Account'}
+                            icon={<FaUserPlus />}
                             disabled={isLoading}
                             onClick={handleSubmit}
                         />
 
                 </div>
-                <p>Have an  Account: <Link to='/login'>Login</Link> </p> 
+                <p>Already have an account? <Link to='/login'>Login</Link> </p> 
                
 
                 </div>

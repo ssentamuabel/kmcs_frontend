@@ -10,7 +10,8 @@ import { CONFIG } from '../config'
 import '../styles/common.css'
 import {
     FaPhoneAlt,
-    FaUserLock
+    FaUserLock,
+    FaSignInAlt
 } from 'react-icons/fa'
 
 
@@ -129,7 +130,8 @@ const Login = ({onLogin})=>{
              }
              <div className="right">
                 <div id="right-wrapper">
-                    <h4>Login</h4>
+                    <h4>Welcome Back</h4>
+                    <p>Login to access your account</p>
                     <div>
                         <Input 
                             icon = {<FaPhoneAlt />}
@@ -142,7 +144,7 @@ const Login = ({onLogin})=>{
                         />
                         <Input 
                             icon = {<FaUserLock />}
-                            placeholder = "**********"                  
+                            placeholder = "Password"                  
                             password
                             name="password"
                             onChange={handleChange}
@@ -152,14 +154,15 @@ const Login = ({onLogin})=>{
 
                         <Button 
                             id="info"
-                            text={isLoading ? 'Loading...' : 'Submit'}
+                            text={isLoading ? 'Signing in...' : 'Sign In'}
+                            icon={<FaSignInAlt />}
                             disabled={isLoading}
                             onClick={handleSubmit}
 
                         />
                     </div>
                         
-                   <p>To create an  Account: <Link to='/register'>Register</Link> </p> 
+                   <p>Don't have an account? <Link to='/register'>Register</Link> </p> 
 
                 </div>
                
