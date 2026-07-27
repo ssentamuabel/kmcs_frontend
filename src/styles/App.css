@@ -11,8 +11,8 @@
 
 /* 
 colors
-#074734
-#F4F9FD
+#065F46
+#FFFBE7
 #115BFB
 #000
 #fff
@@ -27,7 +27,7 @@ colors
 
 .top-container{
     display:flex;
-    background: #F4F9FD;
+    background: #FFFBE7;
     height:100vh;
     width:100vw;
     line-height: 1;
@@ -117,7 +117,7 @@ main{
 .sidebar{
     /* display: block; */
     height:100%;
-    background: #074734;
+    background: #065F46;
     color:#fff;
     width: 180px;
     padding: 0  0.8em;

@@ -9,7 +9,6 @@ const Alert = ({
         onConfirm = ()=>{}
     })=>{
 
-    
 
     return (
         <div id="alert-container">

@@ -1,0 +1,211 @@
+/* ============ Modern Permission Matrix ============ */
+.permission-matrix {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(6, 95, 70, 0.08);
+  overflow: hidden;
+}
+
+.permission-matrix-empty {
+  padding: 60px 20px;
+  text-align: center;
+  color: #9ca3af;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.permission-matrix-empty svg {
+  color: #A7F3D0;
+}
+
+.permission-matrix-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 22px;
+  background: #065F46;
+  color: #ffffff;
+}
+
+.permission-matrix-header h3 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.permission-table-scroll {
+  overflow-x: auto;
+}
+
+.permission-table-modern {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.permission-table-modern thead {
+  background: #FFFBE7;
+}
+
+.permission-table-modern th {
+  text-align: center;
+  padding: 12px 16px;
+  font-size: 12.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: #065F46;
+}
+
+.permission-table-modern th.module-col {
+  text-align: left;
+}
+
+.permission-table-modern td {
+  padding: 12px 16px;
+  border-top: 1px solid #f3f4f6;
+  text-align: center;
+}
+
+.permission-table-modern tr:hover td {
+  background: #FFFBE7;
+}
+
+.module-col {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left !important;
+  font-weight: 500;
+  color: #1f2937;
+  white-space: nowrap;
+}
+
+.module-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: #A7F3D0;
+  color: #065F46;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+/* Toggle switch (replaces plain checkboxes) */
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 22px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #d1d5db;
+  transition: 0.2s;
+  border-radius: 999px;
+}
+
+.toggle-slider::before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 3px;
+  bottom: 3px;
+  background-color: #ffffff;
+  transition: 0.2s;
+  border-radius: 50%;
+}
+
+.toggle-switch input:checked + .toggle-slider {
+  background-color: #065F46;
+}
+
+.toggle-switch input:checked + .toggle-slider::before {
+  transform: translateX(18px);
+}
+
+@media (max-width: 640px) {
+  .permission-table-modern {
+    font-size: 12.5px;
+  }
+  .module-col span:last-child {
+    white-space: normal;
+  }
+}
+
+/* ============ Permissions page shell (was completely unstyled) ============ */
+#setting-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 30px 20px 60px;
+  font-family: 'Poppins', sans-serif;
+}
+
+#top-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+#add-role {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#data-section {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+#users {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(6, 95, 70, 0.08);
+  padding: 16px;
+}
+
+@media (max-width: 900px) {
+  #data-section {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Access-level (type) selector in the matrix header */
+.permission-matrix-header-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.access-level-select {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  font-size: 13px;
+}
+
+.access-level-select option {
+  color: #1f2937;
+}

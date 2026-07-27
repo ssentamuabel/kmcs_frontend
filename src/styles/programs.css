@@ -1,0 +1,384 @@
+/* ============ Programs — modern list page ============ */
+.programs-container,
+.program-register-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 30px 20px 60px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.programs-header {
+  margin-bottom: 24px;
+}
+
+.programs-header .header-content,
+.program-register-container .view-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.programs-header .header-title,
+.program-register-container .header-title {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.programs-header .title-icon,
+.program-register-container .title-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: #065F46;
+  color: #FFFBE7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.programs-header h1,
+.program-register-container h1 {
+  margin: 0;
+  font-size: 24px;
+  color: #1f2937;
+}
+
+.header-subtitle,
+.program-register-container p {
+  margin: 4px 0 0;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.programs-error-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fdecea;
+  color: #b3261e;
+  border: 1px solid #f5c6c0;
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+/* Summary filter chips */
+.programs-summary-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.summary-chip {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #4b5563;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+}
+
+.summary-chip span {
+  background: #FFFBE7;
+  color: #065F46;
+  border-radius: 999px;
+  padding: 1px 8px;
+  font-size: 12px;
+}
+
+.summary-chip.active {
+  background: #065F46;
+  border-color: #065F46;
+  color: #ffffff;
+}
+
+.summary-chip.active span {
+  background: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+}
+
+/* Toolbar */
+.programs-toolbar {
+  margin-bottom: 20px;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 10px 16px;
+  max-width: 380px;
+  color: #9ca3af;
+}
+
+.search-box input {
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 14px;
+  color: #1f2937;
+}
+
+/* Program rows */
+.programs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.program-row {
+  background: #ffffff;
+  border: 1px solid #eef0f2;
+  border-radius: 14px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  box-shadow: 0 2px 8px rgba(6, 95, 70, 0.04);
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.program-row:hover {
+  box-shadow: 0 6px 18px rgba(6, 95, 70, 0.1);
+  transform: translateY(-1px);
+}
+
+.program-row-main {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex: 1;
+  min-width: 0;
+  cursor: pointer;
+}
+
+.period-badge {
+  flex-shrink: 0;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  background: #A7F3D0;
+  color: #065F46;
+}
+
+.program-row-info {
+  min-width: 0;
+  flex: 1;
+}
+
+.program-row-name {
+  font-weight: 600;
+  color: #1f2937;
+  font-size: 15px;
+}
+
+.program-row-description {
+  font-size: 13px;
+  color: #9ca3af;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 420px;
+}
+
+.program-row-location,
+.program-row-date {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #6b7280;
+  flex-shrink: 0;
+}
+
+.program-row-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.icon-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  color: #4b5563;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.icon-btn:hover {
+  background: #FFFBE7;
+  border-color: #065F46;
+  color: #065F46;
+}
+
+.icon-btn-danger:hover {
+  background: #fdecea;
+  border-color: #e57373;
+  color: #b3261e;
+}
+
+/* Empty state */
+.programs-empty {
+  background: #ffffff;
+  border: 1px dashed #d1d5db;
+  border-radius: 16px;
+  padding: 60px 20px;
+  text-align: center;
+  color: #6b7280;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.programs-empty svg {
+  color: #A7F3D0;
+}
+
+.programs-empty h3 {
+  margin: 0;
+  color: #1f2937;
+}
+
+/* Modal (delete confirmation) */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(17, 24, 39, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 26px;
+  max-width: 380px;
+  width: 90%;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+}
+
+.modal-card h3 {
+  margin: 0 0 10px;
+  color: #1f2937;
+}
+
+.modal-card p {
+  margin: 0 0 20px;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.btn-danger {
+  background: #b3261e;
+  color: #ffffff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-danger:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Program form (create/edit) */
+.program-form-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 4px 16px rgba(6, 95, 70, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.program-form-card .form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.program-form-card .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.program-form-card .form-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.program-form-card .form-input {
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+  font-family: inherit;
+  color: #1f2937;
+}
+
+.program-form-card .form-input:focus {
+  outline: none;
+  border-color: #065F46;
+  box-shadow: 0 0 0 3px rgba(6, 95, 70, 0.12);
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+@media (max-width: 640px) {
+  .program-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .program-row-main {
+    flex-wrap: wrap;
+  }
+  .program-form-card .form-row {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,13 +1,83 @@
 #profile-container{
-
     display: flex;
-    flex-wrap: wrap;    
-    gap: 1em;    
+    flex-wrap: wrap;
+    gap: 1.2em;
     width:100%;
-    overflow-y: scroll;
-    height:95%;
-    
-    
+    height: auto;
+    padding: 8px 4px 24px;
+}
+
+/* Profile Page */
+.profile-item .details h4{
+    font-size: 0.8em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: #6b7280;
+    padding: 0;
+    margin: 0 0 6px;
+}
+.profile-item .details p{
+    padding: 0;
+    color: #1f2937;
+    font-size: 0.95em;
+}
+
+.profile-item .details div{
+    margin-top: 1em;
+}
+
+.profile-item{
+    padding: 20px 22px;
+    background: #ffffff;
+    border: 1px solid #eef0f2;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(6, 95, 70, 0.06);
+    min-width: 320px;
+    flex: 1 1 45%;
+    position: relative;
+    transition: box-shadow 0.15s ease;
+}
+
+.profile-item:hover {
+    box-shadow: 0 8px 24px rgba(6, 95, 70, 0.1);
+}
+
+.profile-item .edit-icon{
+    position:absolute;
+    top: 14px;
+    right: 14px;
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    background: #FFFBE7;
+    color: #065F46;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.profile-item .edit-icon:hover {
+    background: #A7F3D0;
+}
+
+#prof-svg{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+}
+
+#prof-svg svg{
+    font-size: 3.5em;
+    width: 88px;
+    height: 88px;
+    padding: 18px;
+    border-radius: 50%;
+    background: #A7F3D0;
+    color: #065F46;
 }
 
 
@@ -29,7 +99,7 @@
 #register-page .left,
 #login-page .right{
     width:50%;
-    background: #074734;
+    background: #065F46;
     
 }
 
@@ -90,7 +160,7 @@
 #register-page .right #right-wrapper h3,
 #login-page .left #left-wrapper h3{
     font-size: 2em;
-    color:#074734;
+    color:#065F46;
 }
 
 #register-page .right #right-wrapper p,
@@ -112,44 +182,6 @@
 
 
 
-
-/* Profile Page */
-.profile-item .details h4{
-    font-size: 1em;
-    font-weight: bold;
-    padding:2px;
-
-}
-.profile-item .details p{
-    padding: 2.2px;
-}
-
-.profile-item .details div{
-    margin-top: 0.8em;
-}
-
-.profile-item{
-    padding: 0.5em;
-    border: 1px solid #f0f0f0;
-    min-width: 45%;
-    position: relative  
-}
-.profile-item .edit-icon{
-    position:absolute;
-    top:0;
-    right:0;
-    color:blue;
-}
-#prof-svg{
-    width: 90%;
-    display: flex;
-    justify-content: center;
-}
-
-#prof-svg svg{
-    font-size: 6em;
-    
-}
 
 
 
@@ -288,7 +320,7 @@
     #register-page .left,
     #login-page .right{
         width:100%;
-        background: #074734;
+        background: #065F46;
         
     }
 

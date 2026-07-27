@@ -11,6 +11,8 @@ import {
     FaUser,
     FaUserLock,
     FaRegListAlt,
+    FaWallet,
+    FaBoxes,
     FaLessThanEqual
 } from 'react-icons/fa'
 import { FaMessage } from "react-icons/fa6";
@@ -90,13 +92,29 @@ const SideBar = ({onLogout})=>{
             name  : "Members",
             icon : <FaUsers />
         },
-        // {
-        //     path : "/programs",
-        //     name : "Programs",
-        //     icon : <FaRegListAlt />
+        {
+            path : "/programs",
+            name : "Programs",
+            icon : <FaRegListAlt />
            
-        // },
+        },
       
+        {
+            path : "/finance",
+            name : "finance",
+            icon : <FaRegListAlt />
+           
+        },
+        {
+            path : "/budgets",
+            name : "Budgets",
+            icon : <FaWallet />
+        },
+        {
+            path : "/inventory",
+            name : "Inventory",
+            icon : <FaBoxes />
+        },
         // rights.perm.messages > 0 && (
         //     {
         //         path : "/messages",

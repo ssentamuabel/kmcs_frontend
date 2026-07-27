@@ -7,6 +7,7 @@ import Input from '../components/InputComponet'
 import Table from '../components/PermissionTable'
 import UserRole from '../components/UserRoleComponent'
 import '../styles/common.css'
+import '../styles/permissionTable.css'
 import { CONFIG } from '../config'
 
 
@@ -27,6 +28,10 @@ const Permissions = ()=>{
     const [loading, setLoading] = useState(true)
     
     const [newRole, setNewRole] = useState('')
+    // Which side this new role belongs to — previously silently inferred
+    // from the CREATOR's own side. The system is strictly two-sided (no
+    // "sees both" role), so this is just an explicit Student/Alumni choice.
+    const [newRoleType, setNewRoleType] = useState(0)
     const {rights} = useContext(RightsContext)
 
     useEffect(() => {
@@ -113,7 +118,7 @@ const Permissions = ()=>{
         setLoading(true)
         if (newRole){
 
-            const role = rights.perm.type ? {name: newRole + '_', type:1} : {name: newRole, type: 0};
+            const role = {name: newRole, type: parseInt(newRoleType, 10)};
 
             try{
 
@@ -182,6 +187,14 @@ const Permissions = ()=>{
                             onChange ={(e) => setNewRole(e.target.value)}                         
                         
                         />
+                        <select
+                            className="filter-select"
+                            value={newRoleType}
+                            onChange={(e) => setNewRoleType(e.target.value)}
+                        >
+                            <option value={0}>Student side</option>
+                            <option value={1}>Alumni side</option>
+                        </select>
                         <Button 
                             text={loading ? 'Loading...' : 'Submit'} 
                             id="info" 

@@ -1,0 +1,142 @@
+.filter-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.button-group {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.action-btn {
+  background-color: #065F46;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+  box-shadow: 0 3px 6px rgba(22, 160, 133, 0.2);
+}
+
+.action-btn:hover {
+  background-color: #12876f;
+  transform: translateY(-1px);
+}
+
+.filter-table {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  background-color: #065F46;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+.filter-btn:hover {
+  background-color: #12876f;
+}
+
+.filter-btn-reset {
+  background-color: transparent;
+  color: #065F46;
+  border: 1px solid #065F46;
+}
+
+.filter-btn-reset:hover {
+  background-color: #FFFBE7;
+}
+
+.filter-select {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  color: #1f2937;
+  background: #ffffff;
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: #065F46;
+}
+
+.table-container {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 15px;
+  box-shadow: 0 4px 12px rgba(22, 160, 133, 0.1);
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+thead {
+  background-color: #065F46;
+  color: white;
+}
+
+th {
+  text-align: left;
+  padding: 12px;
+}
+
+td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+tbody tr:hover {
+  background-color: rgba(22, 160, 133, 0.07);
+}
+
+#member-click {
+  color: #065F46;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+#member-click:hover {
+  text-decoration: underline;
+}
+
+/* Student/Alumni view toggle — only shown for "Both" access roles */
+.view-mode-toggle {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.view-mode-btn {
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  color: #4b5563;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.view-mode-btn.active {
+  background: #065F46;
+  border-color: #065F46;
+  color: #ffffff;
+}
