@@ -337,7 +337,7 @@ const TableComponent = ({ columns, student_columns, alumnus_columns, table_data,
                         <td>{member.residence_address || 'Unknown'}</td>
                         <td>{member.occupation || member.proffession || 'Unknown'}</td>
                         <td>{member.proffession || member.occupation || 'Unknown'}</td>
-                        <td>{member.user.email}</td>
+                        <td>{member.user?.email ?? ""}</td>
                       </tr>
                     ))
                   : (
@@ -354,7 +354,7 @@ const TableComponent = ({ columns, student_columns, alumnus_columns, table_data,
                       <td>{member.course || 'Unknown'}</td>
                       <td>{member.residence_address || member.hall_of_attachment || 'Unknown'}</td>
                       <td>{member.hall_of_attachment || 'Unknown'}</td>
-                      <td>{member.user.email}</td>
+                      <td>{member.user?.email ?? ""}</td>
                     </tr>
                   ))
                 : (
