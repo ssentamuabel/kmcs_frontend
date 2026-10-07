@@ -1,0 +1,258 @@
+/* ============================================================
+   Members table — fully self-contained styling.
+
+   Every class name here is unique to this component. The previous
+   version used .page-container / .table-container / .filter-section /
+   .tabular-wrapper / .filter-select, all of which are ALSO defined
+   (differently) in common.css, components.css, pages.css, and/or
+   accounts.css. With plain global CSS (no CSS Modules), whichever of
+   those same-named rules happens to load last in the final bundle wins
+   for any property both define — a genuinely unpredictable outcome
+   that depends on which other pages/components happen to get bundled
+   first, not on anything in this file. That's the most likely reason
+   the vertical-scroll fix from the previous pass didn't reliably show
+   up: this component's `.table-container` rule may well have been
+   getting overridden by common.css's own same-named rule (max-height:
+   75%, overflow-y: scroll — plus a `tbody { overflow-y: auto }` rule
+   that doesn't even work, since overflow has no effect on a <tbody> in
+   normal table layout). Giving Members its own names removes that
+   ambiguity entirely, regardless of load order.
+   ============================================================ */
+
+.members-table-page {
+  padding: 20px;
+  background: #f8fafc;
+  min-height: 100%;
+  font-family: 'Poppins', sans-serif;
+}
+
+.members-table-wrapper {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  padding: 20px;
+}
+
+.members-filter-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.button-group {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.action-btn {
+  background-color: #065F46;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+  box-shadow: 0 3px 6px rgba(22, 160, 133, 0.2);
+}
+
+.action-btn:hover {
+  background-color: #12876f;
+  transform: translateY(-1px);
+}
+
+.filter-table {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* Every filter control shares this width behaviour: grow to fill
+   available space, but never below a usable minimum — so on a normal
+   desktop width they sit in a tidy row, and on a narrow screen they
+   wrap one (or a few) per line at a legible size instead of either
+   overflowing the screen or squeezing into illegibly narrow boxes. */
+.filter-table > #input-container,
+.filter-table > #course-input,
+.filter-table > .members-filter-select {
+  flex: 1 1 160px;
+  min-width: 140px;
+}
+
+.filter-btn {
+  background-color: #065F46;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: all 0.25s;
+  flex: 0 0 auto;
+}
+
+.filter-btn:hover {
+  background-color: #12876f;
+}
+
+.filter-btn-reset {
+  background-color: transparent;
+  color: #065F46;
+  border: 1px solid #065F46;
+}
+
+.filter-btn-reset:hover {
+  background-color: #FFFBE7;
+}
+
+.members-filter-select {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  color: #1f2937;
+  background: #ffffff;
+}
+
+.members-filter-select:focus {
+  outline: none;
+  border-color: #065F46;
+}
+
+.members-empty-state {
+  padding: 10px 4px;
+  color: #6b7280;
+}
+
+.members-table-container {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 15px;
+  box-shadow: 0 4px 12px rgba(22, 160, 133, 0.1);
+  /* Members loads more rows in the background as you scroll/wait, so
+     without a height cap the table (and the page) just keeps growing
+     forever underneath you. Capping the box and scrolling *inside* it
+     keeps the filter/search controls above it in a fixed, predictable
+     place instead of drifting further down the page as more rows load.
+     overflow-x covers a narrow screen, where the columns don't fit the
+     viewport width either. */
+  overflow-x: auto;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.members-table-container table {
+  width: 100%;
+  min-width: 720px; /* keeps columns from squeezing illegibly on mobile — scroll the container horizontally instead */
+  border-collapse: collapse;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.members-table-container thead {
+  background-color: #065F46;
+  color: white;
+}
+
+.members-table-container thead th {
+  position: sticky;
+  top: 0;
+  background-color: #065F46;
+  color: white;
+  z-index: 1;
+}
+
+.members-table-container th {
+  text-align: left;
+  padding: 12px;
+}
+
+.members-table-container td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.members-table-container tbody tr:hover {
+  background-color: rgba(22, 160, 133, 0.07);
+}
+
+.member-click {
+  color: #065F46;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.member-click:hover {
+  text-decoration: underline;
+}
+
+/* Student/Alumni view toggle — only shown for "Both" access roles */
+.view-mode-toggle {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.view-mode-btn {
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  color: #4b5563;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.view-mode-btn.active {
+  background: #065F46;
+  border-color: #065F46;
+  color: #ffffff;
+}
+
+/* ============ Responsive ============ */
+@media (max-width: 768px) {
+  .members-table-page {
+    padding: 12px;
+  }
+
+  .members-table-wrapper {
+    padding: 14px;
+  }
+
+  .members-table-container {
+    max-height: 65vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .filter-table {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-table > #input-container,
+  .filter-table > #course-input,
+  .filter-table > .members-filter-select,
+  .filter-table > .filter-btn {
+    width: 100%;
+    flex: 1 1 auto;
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
+
+  .button-group .action-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .members-table-container {
+    max-height: 60vh;
+    border-radius: 10px;
+    padding: 10px;
+  }
+}

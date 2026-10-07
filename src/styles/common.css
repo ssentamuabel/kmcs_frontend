@@ -1,0 +1,533 @@
+
+.container{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20%  auto;
+}
+
+.page-container{
+   display:flex;
+   /* background: aqua; */
+   height:87vh;
+   padding: 1em 1.2em;
+ 
+  
+}
+
+.danger{
+    color: red;
+}
+.info{
+    color:blue
+}
+
+.go{
+    color:green;
+}
+
+.black{
+    color:#000;
+}
+
+.button{
+    padding: 0.5em 0.8em;
+    text-transform: capitalize;
+    min-width: 5em;
+    text-align: center;
+    cursor: pointer;
+    font-weight: bold;
+
+}
+.button:hover{
+    opacity: 0.7;
+    transition: ease 1s;
+}
+
+
+/* Table styles  */
+
+
+.table-container{
+    max-height: 75%;
+    overflow-y:scroll;
+}
+.table-container table{
+    width:100%;
+    border-collapse: collapse;
+}
+.table-container tbody{
+    background-color: #fff;
+    max-height: 200px;
+    overflow-y: auto;
+  
+
+}
+
+.table-container thead{
+    background: #065F46d9;
+    color:#fff;
+}
+
+
+
+.table-container th,  .table-container td{
+    padding:0.5em 0.3em;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+.table-container td{
+    font-size: 15px;
+    color:#000;
+}
+.table-container tr:nth-child(even){
+    background: #f0f0f0;
+
+}
+
+
+.table-container tfoot{
+    background: #065F46d9;
+    font-weight:bold;
+    color:#fff;
+}
+
+.table-container tfoot td{
+    color:#fff;
+}
+
+
+.tabular-wrapper{
+    margin-top: 0.5rem;
+    background: #fff;
+    padding:1em;
+    border-radius: 5px;
+    width:100%;
+}
+
+
+
+
+.tabular-wrapper .filter-section{
+    padding-bottom: 0.5em;
+    
+}
+.tabular-wrapper .filter-section button{
+    margin-left: 1em;
+}
+
+.filter-section{
+    width: 100%;
+}
+
+.filter-section .add-button, .filter-section .table-search{
+    text-align: end;
+}
+.filter-section tr{
+    display:flex;
+    gap:1.5em;
+    text-align: center;
+    justify-content: center;
+}
+.filter-section td{
+    display: flex;
+    gap: 0.6em;
+    align-items:center;
+    justify-content: center;
+}
+
+.filter-section .table-search{
+    display:flex;   
+    justify-content: end;
+}
+
+.filter-section .table-search input{
+    width: 100%;
+}
+
+.filter-section #select-container,
+.filter-section #input-container{
+    padding: 0.1em;
+    margin-bottom: 0;
+   
+    
+   
+}
+
+.filter-section  .table-search #input-container{
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    width:20%;
+}
+
+
+.filter-section #select-container select, 
+.filter-section .table-search input{   
+    font-size: 15px;
+    margin-bottom: 0;    
+   
+ }
+
+
+ .print-footer{
+    padding: 1em 0;
+    display:flex;
+    justify-content: space-between;
+ }
+
+
+
+ /* In your CSS file or <style> tag */
+#printablediv {
+    display: none; /* Hide by default */
+  }
+  
+@media print {
+    #printablediv {
+      display: block; /* Show only in print view */
+    }
+    table {
+        border:1;
+        width: 100%;
+        border-collapse: collapse;
+    }
+    .table-container th,  .table-container td{
+        padding:0.3em 0.2em;        
+        text-align: left;
+    }
+    .print-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 1em 0;
+        width: 100%;
+    }
+    .print-footer div {
+        width: 45%; /* Each div takes up roughly half the space */
+    }
+    .print-footer p {
+        margin: 0;
+      
+    }
+    
+  }
+  
+
+
+
+ /* mobile size styles  */
+@media (max-width: 480px) {
+
+    .table-container td,
+    .table-container th{
+        font-size: 11px;
+        
+    }
+
+    .filter-section #select-container select, 
+    .filter-section .table-search input{   
+        font-size: 12px;
+        margin-bottom: 0;    
+    
+    }
+
+    .filter-section .add-button{
+        display: none;
+    }
+    .table-container{
+        max-height: 85%;
+        
+    }
+
+
+}
+/* Sidebar container */
+.top-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+
+
+/* Logo section */
+.top-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.top-section .logo img {
+  width: 100%; /* Adjust size */
+  height: auto;
+  object-fit: contain;
+}
+
+/* Nav links */
+.nav {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  text-decoration: none;
+  color: #d1d5db; /* Light gray */
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.link:hover {
+  background-color: #374151; /* Slightly lighter */
+  color: white;
+}
+
+.link .icon {
+  font-size: 18px;
+}
+
+/* Active link styling */
+.link.active {
+  background-color: #4b5563;
+  color: white;
+}
+
+/* Main content */
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #f9fafb; /* Light gray background */
+  overflow-y: auto;
+}
+
+/* Logout button at bottom */
+.sidebar button {
+  width: 80%;
+  margin: 0 auto;
+  padding: 10px;
+  background-color: #dc2626;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.sidebar button:hover {
+  background-color: #b91c1c;
+}
+
+
+.members-container {
+  padding: 2rem;
+  background-color: #f8fafc;
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+}
+
+.members-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  background-color: #fff;
+  padding: 1rem 1.5rem;
+  border-radius: 14px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.members-header h2 {
+  font-size: 1.5rem;
+  color: #065F46;
+  margin: 0;
+  font-weight: 600;
+}
+
+.members-header .subtitle {
+  font-size: 0.95rem;
+  color: #666;
+  margin-top: 0.2rem;
+}
+
+.members-icon {
+  color: #065F46;
+  font-size: 2rem;
+}
+
+.members-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.table-card {
+  width: 100%;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.table-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+@media (max-width: 768px) {
+  .members-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .members-icon {
+    font-size: 1.8rem;
+  }
+}
+
+/* Sidebar general container */
+.sidebar {
+  width: 240px;
+  background: linear-gradient(180deg, #065F46 0%, #12876E 100%);
+  color: #ffffff;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  padding: 1rem 0;
+  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border-radius: 0 1rem 1rem 0;
+  overflow-y: auto;
+  z-index: 100;
+}
+
+/* Logo section */
+.sidebar .logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+
+
+/* Navigation section */
+.sidebar .nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0 1rem;
+}
+
+/* Nav link styling */
+.sidebar .link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-decoration: none;
+  color: #ecf0f1;
+  font-size: 0.95rem;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  transition: all 0.25s ease;
+}
+
+.sidebar .link:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateX(4px);
+}
+
+.sidebar .link.active {
+  background: #ffffff;
+  color: #065F46;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(22, 160, 133, 0.3);
+}
+
+/* Icon styling */
+.sidebar .icon {
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+}
+
+/* Link text */
+.sidebar .link-text {
+  white-space: nowrap;
+}
+
+/* Scrollbar styling */
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+}
+
+/* Adjust main content area to fit sidebar */
+main {
+  margin-left: 240px;
+  padding: 1rem 2rem;
+  transition: margin-left 0.3s ease;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .sidebar {
+    position: absolute;
+    width: 200px;
+    left: -100%;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .sidebar.active {
+    left: 0;
+  }
+
+  main {
+    margin-left: 0;
+  }
+}
+
+
+/* ============ Shared responsive table scroll wrapper ============
+   Drop this class on any table's wrapping <div> to get consistent
+   scroll behaviour app-wide: horizontal scroll instead of squeezed/
+   clipped columns on narrow screens, a height cap with its own
+   vertical scrollbar instead of the table growing the whole page
+   forever on a long list, and a header that stays visible while you
+   scroll through rows. Members (TableComponent.css) and Inventory
+   (inventory.css) already have their own copy of this pattern tailored
+   to their exact class names; use this one directly for any table that
+   doesn't have bespoke container styling yet. */
+.kmcs-table-scroll {
+  overflow-x: auto;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.kmcs-table-scroll table {
+  min-width: 640px;
+}
+
+.kmcs-table-scroll thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+@media (max-width: 480px) {
+  .kmcs-table-scroll {
+    max-height: 60vh;
+  }
+}

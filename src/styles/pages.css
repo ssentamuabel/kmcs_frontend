@@ -1,0 +1,394 @@
+#profile-container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2em;
+    width:100%;
+    height: auto;
+    padding: 8px 4px 24px;
+}
+
+/* Profile Page */
+.profile-item .details h4{
+    font-size: 0.8em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: #6b7280;
+    padding: 0;
+    margin: 0 0 6px;
+}
+.profile-item .details p{
+    padding: 0;
+    color: #1f2937;
+    font-size: 0.95em;
+}
+
+.profile-item .details div{
+    margin-top: 1em;
+}
+
+.profile-item{
+    padding: 20px 22px;
+    background: #ffffff;
+    border: 1px solid #eef0f2;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(6, 95, 70, 0.06);
+    min-width: 320px;
+    flex: 1 1 45%;
+    position: relative;
+    transition: box-shadow 0.15s ease;
+}
+
+.profile-item:hover {
+    box-shadow: 0 8px 24px rgba(6, 95, 70, 0.1);
+}
+
+.profile-item .edit-icon{
+    position:absolute;
+    top: 14px;
+    right: 14px;
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    background: #FFFBE7;
+    color: #065F46;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.profile-item .edit-icon:hover {
+    background: #A7F3D0;
+}
+
+#prof-svg{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+}
+
+#prof-svg svg{
+    font-size: 3.5em;
+    width: 88px;
+    height: 88px;
+    padding: 18px;
+    border-radius: 50%;
+    background: #A7F3D0;
+    color: #065F46;
+}
+
+
+
+
+/* Login Page  and Register Page */
+#register-page,
+#login-page{
+    display: flex;
+    justify-content: space-around;
+    height: 100vh;
+}
+
+#register-page .right,
+#login-page .left{
+    width:50%;
+    
+}
+#register-page .left,
+#login-page .right{
+    width:50%;
+    background: #065F46;
+    
+}
+
+/* #register-page .left  #left-wrapper{
+    overflow-y: scroll;
+} */
+
+
+#login-page .right #right-wrapper{
+    display:flex;
+    flex-direction: column;
+    justify-content:space-evenly;
+    background: #fff;   
+    align-items: left;
+    border-radius: 5px;
+    margin: 25%  auto;
+    padding: 0 3em;
+    width:320px;
+    height:50%;
+    
+    
+}
+
+
+#register-page .left  #left-wrapper{
+    display:flex;
+    flex-direction: column;
+    justify-content:space-evenly;
+    background: #fff;   
+    align-items: left;
+    border-radius: 5px;
+    margin: 10%  auto;
+    padding: 0 3em;
+    width:340px;
+    height:80%;
+    
+    
+}
+
+
+
+
+#register-page .right,
+#login-page .left{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20%  auto;
+    padding:0 3em;
+}
+#left-wrapper h4,
+#right-wrapper h4{
+    font-size: 1.5em;
+}
+
+
+
+#register-page .right #right-wrapper h3,
+#login-page .left #left-wrapper h3{
+    font-size: 2em;
+    color:#065F46;
+}
+
+#register-page .right #right-wrapper p,
+#login-page .left #left-wrapper p{
+    padding:1em 0;
+}
+
+#register-page .right #right-wrapper img,
+#login-page .left #left-wrapper img{
+    width:300px;
+    height:250px;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+/* setting page styles  */
+#setting-container{
+    display:flex;
+    flex-direction: column;   
+    width: 100%;
+}
+
+#setting-container #top-section{
+    display:flex;   
+    padding: 1em;
+    border-bottom: 1px solid #fff;
+    width:100%;
+    gap:5em;
+}
+
+#setting-container #top-section #add-role{
+    display: flex;
+    
+}
+
+#setting-container #top-section button{
+    height: 30px;
+}
+
+#setting-container #top-section > div{
+    width: 15em;
+     
+}
+
+#setting-container #top-section > div #select-container{
+    margin-bottom: 0;
+   
+}
+
+#setting-container #data-section{
+    display:flex;  
+    width:100%;
+   
+  
+    
+}
+#setting-container #data-section #users{
+    width: 60%;
+ }
+
+#setting-container #data-section #users .tabular-wrapper .filter-section{
+    display:flex;
+    justify-content: space-between;
+}
+
+#setting-container #data-section #users .tabular-wrapper .filter-section button{
+    margin-left:0;
+}
+
+#setting-container #data-section #users .tabular-wrapper .table-container th{
+    padding: 0.5em 0.3em;
+}
+#setting-container #data-section #users .tabular-wrapper .table-container td{
+    padding:0.2em;     
+}
+#setting-container #data-section #permissions{
+   width: 40%;
+}
+
+
+ #setting-container #data-section #users .tabular-wrapper{
+    margin-top:0;
+ }
+#setting-container #data-section #users .table-container,
+#setting-container  #data-section #permissions .table-container{
+    max-height: 65vh;
+    overflow-y:scroll;
+    
+}
+
+/* Tablet size styles  */
+@media (max-width: 768px) {
+    #profile-container{
+        justify-content: center;       
+        
+    }
+    .profile-item .details h4{
+        font-size: 1.1em;
+     
+    }
+    .profile-item{
+        width: 85%;         
+    }
+    
+
+   
+   
+}
+
+
+
+
+
+/* mobile size styles  */
+@media (max-width: 480px) {
+
+    #custom-alert{
+        width: 50vw;          
+       
+    }
+
+    .profile-item .details h4{
+        font-size: 0.9em;
+     
+    }
+
+    .form-inputs .form-item #input-container .wrapper{
+        padding: 0.18em;
+    }
+
+    .form-inputs .form-item  #select-container .wrapper  #password-icon,
+    .form-inputs .form-item  #select-container .wrapper  #input-icon,
+    .form-inputs .form-item  #input-container .wrapper  #password-icon,
+    .form-inputs .form-item  #input-container .wrapper  #input-icon{
+        font-size: 0.7em;
+    }
+    .form-inputs .form-item #select-container .wrapper select,
+    .form-inputs .form-item #input-container .wrapper input{
+        font-size: 0.8em;
+    }
+
+   
+
+
+
+    /* Login Page  and Register Page */
+  
+    #register-page .left,
+    #login-page .right{
+        width:100%;
+        background: #065F46;
+        
+    }
+
+   
+
+    #register-page,
+    #login-page{
+        background: #fff;
+    }
+
+
+    #register-page .right,
+    #login-page .left{
+        display:none;
+        padding: 1em;
+        
+    }
+
+    #register-page .left,
+    #login-page .right{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 10% auto;
+        background-color: #fff;
+        
+    }
+
+
+
+    #register-page .left  #left-wrapper,
+    #login-page .right #right-wrapper{
+        width:80%;
+        max-width:300px;
+        min-height: 80vh;
+        padding: 0 1.5em;
+    
+        
+        
+    }
+   
+
+    /* Permissions and Roles Page */
+
+
+
+    #setting-container #data-section{
+        display:flex;  
+        flex-direction: column;
+        width:100%;
+        overflow-y: scroll;
+       
+      
+        
+    }
+    #setting-container #data-section #users{
+        width: 100%;
+    }
+
+    #setting-container #data-section #permissions{
+        width: 100%;
+     }
+     
+    
+    
+    
+
+
+
+
+}
