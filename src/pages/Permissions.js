@@ -34,6 +34,8 @@ const Permissions = ()=>{
     const [newRoleType, setNewRoleType] = useState(0)
     const {rights} = useContext(RightsContext)
 
+    // console.log("Rights ", rights);
+
     useEffect(() => {
         const getUsersAndPermissions = async () => {
             try {

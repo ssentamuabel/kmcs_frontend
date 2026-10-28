@@ -139,6 +139,7 @@ const Register = ()=>{
             })
 
             // const jsondata = await response.json()
+            // console.log(response.body)
 
             if (response.ok){
                 setFormdata({
